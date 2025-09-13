@@ -10,10 +10,11 @@ const Footer = () => {
           
           {/* Brand & Contact */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <Shield className="h-8 w-8" />
-              <span className="text-xl font-bold">CyberSecure</span>
-            </div>
+
+              <div className="flex items-center space-x-2">
+                  <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-8 w-8" />
+                  <span className="text-xl font-bold">RAKSHNA</span>
+              </div>
             <p className="text-primary-foreground/80">
               Protecting digital assets through comprehensive cybersecurity solutions and rapid incident response.
             </p>
