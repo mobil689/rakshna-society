@@ -16,24 +16,24 @@ const Helpline = () => {
   const emergencyContacts = [
     {
       type: 'Critical Incidents',
-      phone: '+1-800-CYBER-911',
-      email: 'emergency@cybersecure.gov',
+      phone: '1930',
+      email: 'cybercrime.gov.in',
       availability: '24/7',
       responseTime: 'Immediate',
       description: 'For active cyberattacks and critical security incidents'
     },
     {
       type: 'General Support',
-      phone: '+1-800-CYBER-HELP',
-      email: 'support@cybersecure.gov', 
+      phone: 'our desk phone number',
+      email: 'rakshana.mait@gmail.com',
       availability: 'Mon-Fri 8AM-8PM EST',
       responseTime: '< 4 hours',
       description: 'For general security questions and guidance'
     },
     {
       type: 'Technical Assistance',
-      phone: '+1-800-CYBER-TECH',
-      email: 'technical@cybersecure.gov',
+      phone: 'will update soon',
+      email: 'will update soon',
       availability: 'Mon-Fri 9AM-6PM EST', 
       responseTime: '< 24 hours',
       description: 'For technical implementation and configuration help'
@@ -43,11 +43,11 @@ const Helpline = () => {
   const faqItems = [
     {
       question: 'What should I do if I think I\'ve been hacked?',
-      answer: 'Immediately disconnect affected devices from the internet, do not turn them off, document everything you observe, and call our emergency hotline at +1-800-CYBER-911. Preserve evidence and avoid making changes to the system.'
+      answer: 'Immediately disconnect affected devices from the internet, do not turn them off, document everything you observe, and call our emergency hotline at 1930. Preserve evidence and avoid making changes to the system.'
     },
     {
       question: 'How do I report a phishing email?',
-      answer: 'Forward the suspicious email to phishing@cybersecure.gov, include full headers if possible, and report it through our incident portal. Do not click any links or download attachments from the suspicious email.'
+      answer: 'Forward the suspicious email to cybercrime.gov.in, include full headers if possible, and report it through our incident portal. Do not click any links or download attachments from the suspicious email.'
     },
     {
       question: 'What information should I prepare before calling?',

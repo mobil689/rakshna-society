@@ -79,7 +79,7 @@ const Footer = () => {
               </Button>
                 {/* Instagram button with your new link */}
                 <Button variant="ghost" size="icon" className="text-primary-foreground/80 hover:text-primary-foreground" asChild>
-                    <a href="[https://www.instagram.com/rakshnamait]" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.instagram.com/rakshnamait" target="_blank" rel="noopener noreferrer">
                         <Instagram className="h-5 w-5" />
                     </a>
                 </Button>
@@ -93,7 +93,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-light mt-8 pt-8 text-center text-sm text-primary-foreground/60">
-          <p>&copy; 2024 CyberSecure. All rights reserved. | A government cybersecurity initiative.</p>
+          <p>&copy; 2025 Rakshna. All rights reserved. | CyberSecurity Society of Mates.</p>
         </div>
       </div>
     </footer>

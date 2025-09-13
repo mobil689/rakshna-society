@@ -65,7 +65,7 @@ const IncidentResponse = () => {
               <Shield className="h-16 w-16 mx-auto mb-4" />
               <h1 className="text-4xl font-bold mb-4">Cyber Incident Response</h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Follow our comprehensive incident response framework to effectively handle and recover from cybersecurity incidents
+                Follow our society's experienced professors and working cybersecurity professionals to effectively handle and recover from cybersecurity incidents
               </p>
             </div>
           </div>
@@ -111,15 +111,15 @@ const IncidentResponse = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                     <span className="font-medium">Emergency Hotline:</span>
-                    <span className="font-mono">+1-800-CYBER-911</span>
+                    <span className="font-mono">1930</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="font-medium">Email Support:</span>
-                    <span className="text-sm">incident@cybersecure.gov</span>
+                    <span className="text-sm">rakshana.mait@gmail.com</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="font-medium">Response Time:</span>
-                    <span className="text-sm">&lt; 15 minutes</span>
+                    <span className="text-sm">&lt; 20 minutes</span>
                   </div>
                 </div>
                 <Button variant="default" className="w-full" asChild>

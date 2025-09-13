@@ -12,9 +12,9 @@ import Footer from '@/components/Footer';
 
 const Portal = () => {
   const [reports, setReports] = useState([
-    { id: 'RPT-001', type: 'Phishing', status: 'In Review', date: '2024-01-10', description: 'Suspicious email received...' },
-    { id: 'RPT-002', type: 'Malware', status: 'Resolved', date: '2024-01-08', description: 'Detected malicious software...' },
-    { id: 'RPT-003', type: 'Data Breach', status: 'Pending', date: '2024-01-12', description: 'Potential unauthorized access...' },
+    { id: 'RPT-001', type: 'Phishing', status: 'In Review', date: '2025-09-10', description: 'Suspicious email received...' },
+    { id: 'RPT-002', type: 'Malware', status: 'Resolved', date: '2025-09-12', description: 'Detected malicious software...' },
+    { id: 'RPT-003', type: 'Data Breach', status: 'Pending', date: '2025-09-12', description: 'Potential unauthorized access...' },
   ]);
 
   const getStatusIcon = (status: string) => {
@@ -185,7 +185,7 @@ const Portal = () => {
                       </div>
                       <div>
                         <h4 className="font-medium text-sm">Emergency Contact</h4>
-                        <p className="text-xs text-muted-foreground">Call +1-800-CYBER-911 for immediate assistance</p>
+                        <p className="text-xs text-muted-foreground">Call 1930 for immediate assistance</p>
                       </div>
                     </div>
                   </div>

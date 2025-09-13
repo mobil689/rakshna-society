@@ -59,78 +59,104 @@ const Guidelines = () => {
         'Change passwords for potentially compromised accounts',
         'Monitor financial accounts for unauthorized transactions'
       ]
+    },
+    {
+        category: 'Avoiding Student Scams',
+        icon: AlertTriangle,
+        practices: [
+         'Be skeptical of emails about scholarships, job offers, or grade changes you didn\'t apply for.',
+         'Never pay a fee for a job application or scholarship. Legitimate organizations don\'t ask for this.',
+         'Verify urgent requests from "professors" or "deans" by contacting them through an official channel.',
+         'Watch out for phishing emails that look like they\'re from the college library, accounts office, or IT desk.'
+        ]
+    },
+    {
+          category: 'Smart Social Media Habits',
+          icon: Lock,
+          practices: [
+              'Review your privacy settings regularly on Instagram, Facebook, etc., to control who sees your information.',
+              'Avoid oversharing personal details like your class schedule, home address, or phone number.',
+              'Be careful what\'s in the background of your photos before you post.',
+              'Think twice before accepting friend requests from people you don\'t know.'
+          ]
     }
   ];
 
-  const downloadableResources = [
-    {
-      title: 'Cybersecurity Best Practices Guide',
-      description: 'Comprehensive guide covering essential security practices for individuals and organizations',
-      format: 'PDF',
-      size: '2.1 MB',
-      updated: '2024-01-15',
-      category: 'General'
-    },
-    {
-      title: 'Incident Response Playbook',
-      description: 'Step-by-step procedures for responding to various types of cyber incidents',
-      format: 'PDF',
-      size: '3.8 MB', 
-      updated: '2024-01-10',
-      category: 'Response'
-    },
-    {
-      title: 'Phishing Identification Checklist',
-      description: 'Quick reference guide for identifying and handling suspicious emails',
-      format: 'PDF',
-      size: '850 KB',
-      updated: '2024-01-12',
-      category: 'Email Security'
-    },
-    {
-      title: 'Password Security Template',
-      description: 'Password policy template for organizations and personal use',
-      format: 'DOCX',
-      size: '1.2 MB',
-      updated: '2024-01-08',
-      category: 'Access Control'
-    },
-    {
-      title: 'Network Security Audit Checklist',
-      description: 'Comprehensive checklist for evaluating network security posture',
-      format: 'PDF',
-      size: '2.7 MB',
-      updated: '2024-01-05',
-      category: 'Network Security'
-    }
-  ];
+    const downloadableResources = [
+        {
+            title: 'Cybersecurity Best Practices Guide',
+            description: 'Comprehensive guide covering essential security practices for individuals and organizations',
+            format: 'PDF',
+            size: '2.1 MB',
+            updated: '2025-09-12',
+            category: 'General',
+            previewUrl: 'https://www.cert-in.org.in/PDF/CSH_Booklet.pdf'
+        },
+        {
+            title: 'Incident Response Playbook',
+            description: 'Step-by-step procedures for responding to various types of cyber incidents',
+            format: 'PDF',
+            size: '3.8 MB',
+            updated: '2025-09-12',
+            category: 'Response',
+            previewUrl: 'https://www.cisa.gov/sites/default/files/2024-08/Federal_Government_Cybersecurity_Incident_and_Vulnerability_Response_Playbooks_508C.pdf'
+        },
+        // ... adding previewUrl for other resources too
+        {
+            title: 'Phishing Identification Checklist',
+            description: 'Quick reference guide for identifying and handling suspicious emails',
+            format: 'PDF',
+            size: '850 KB',
+            updated: '2025-09-12',
+            category: 'Email Security',
+            previewUrl: 'https://bangkok.ohchr.org/sites/default/files/documents/2024-06/11.-Phishing-attacks.pdf'
+        },
+        {
+            title: 'Password Security Template',
+            description: 'Password policy template for organizations and personal use',
+            format: 'DOCX',
+            size: '1.2 MB',
+            updated: '2025-09-10',
+            category: 'Access Control',
+            previewUrl: 'https://www.cisa.gov/sites/default/files/2024-09/Secure-Our-World-Passwords-Tip-Sheet.pdf'
+        },
+        {
+            title: 'Network Security Audit Checklist',
+            description: 'Comprehensive checklist for evaluating network security posture',
+            format: 'PDF',
+            size: '2.7 MB',
+            updated: '2025-09-09',
+            category: 'Network Security',
+            previewUrl: 'https://www.infosim.net/stablenet/wp-content/uploads/5/2023/07/Checkliste-Network-Audit.pdf'
+        }
+    ];
 
-  const externalResources = [
-    {
-      title: 'NIST Cybersecurity Framework',
-      organization: 'NIST',
-      description: 'Comprehensive framework for improving cybersecurity posture',
-      url: 'https://www.nist.gov/cyberframework'
-    },
-    {
-      title: 'CISA Security Advisories',
-      organization: 'CISA',
-      description: 'Latest cybersecurity alerts and advisories',
-      url: 'https://www.cisa.gov/news-events/cybersecurity-advisories'
-    },
-    {
-      title: 'SANS Security Awareness',
-      organization: 'SANS Institute',
-      description: 'Security awareness training resources and materials',
-      url: 'https://www.sans.org/security-awareness-training/'
-    },
-    {
-      title: 'OWASP Security Guidelines',
-      organization: 'OWASP',
-      description: 'Web application security best practices and guidelines',
-      url: 'https://owasp.org/www-project-top-ten/'
-    }
-  ];
+    const externalResources = [
+        {
+            title: 'CERT-In Security Guidelines',
+            organization: 'CERT-In (Govt. of India)',
+            description: 'Official advisories and guidelines from India\'s national cybersecurity agency.',
+            url: 'https://www.cert-in.org.in/'
+        },
+        {
+            title: 'National Cyber Crime Portal',
+            organization: 'Ministry of Home Affairs',
+            description: 'Report all types of cybercrime online and access resources for victims of cyber fraud.',
+            url: 'https://www.cybercrime.gov.in/'
+        },
+        {
+            title: 'Cyber Dost Awareness',
+            organization: 'Govt. of India Initiative',
+            description: 'Safety tips and awareness alerts on cybersecurity topics via their official X (Twitter) handle.',
+            url: 'https://x.com/Cyberdost'
+        },
+        {
+            title: 'I4C - Indian Cyber Crime Centre',
+            organization: 'Ministry of Home Affairs',
+            description: 'The central government body for dealing with cybersecurity issues in India.',
+            url: 'https://i4c.mha.gov.in/'
+        }
+    ];
 
   const filteredResources = downloadableResources.filter(resource =>
     resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -234,9 +260,12 @@ const Guidelines = () => {
                             <Download className="mr-2 h-4 w-4" />
                             Download
                           </Button>
-                          <Button size="sm" variant="outline">
-                            Preview
-                          </Button>
+
+                            <Button size="sm" variant="outline" asChild>
+                                <a href={resource.previewUrl} target="_blank" rel="noopener noreferrer">
+                                    Preview
+                                </a>
+                            </Button>
                         </div>
                       </div>
                     </CardContent>
