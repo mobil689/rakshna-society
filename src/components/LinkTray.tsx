@@ -36,12 +36,13 @@ const LinkTray = () => {
     },
   ];
 
-  const externalLinks = [
-    { name: 'CISA Cybersecurity Advisories', url: 'https://www.cisa.gov/news-events/cybersecurity-advisories' },
-    { name: 'NIST Cybersecurity Framework', url: 'https://www.nist.gov/cyberframework' },
-    { name: 'FBI Internet Crime Complaint Center', url: 'https://www.ic3.gov/' },
-    { name: 'SANS Security Resources', url: 'https://www.sans.org/security-resources/' },
-  ];
+
+    const externalLinks = [
+        { name: 'CERT-In Security Guidelines', url: 'https://www.cert-in.org.in/' },
+        { name: 'National Cyber Crime Portal', url: 'https://www.cybercrime.gov.in/' },
+        { name: 'Cyber Dost Awareness', url: 'https://x.com/Cyberdost' },
+        { name: 'I4C - Indian Cyber Crime Centre', url: 'https://i4c.gov.in/' },
+    ];
 
   return (
     <section className="py-16 bg-background">

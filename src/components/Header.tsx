@@ -43,14 +43,18 @@ const Header = () => {
           </nav>
 
           {/* Login/Register Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" asChild>
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button variant="default" asChild>
-              <Link to="/register">Register</Link>
-            </Button>
-          </div>
+
+            <div className="hidden md:flex items-center space-x-4">
+                <Button variant="ghost" asChild>
+                    <Link to="/login">Login</Link>
+                </Button>
+                <Button variant="default" asChild>
+                    <Link to="/register">Register</Link>
+                </Button>
+
+                {/* Add your college logo here */}
+                <img src="/mait-logo.png" alt="MAIT Logo" className="h-8" />
+            </div>
 
           {/* Mobile Menu Button */}
           <Button

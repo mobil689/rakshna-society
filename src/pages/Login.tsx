@@ -20,9 +20,10 @@ const Login = () => {
       <main className="py-8">
         <div className="container mx-auto px-4 max-w-md">
           <div className="text-center mb-8">
-            <div className="bg-primary/10 p-4 rounded-full w-fit mx-auto mb-4">
-              <Shield className="h-12 w-12 text-primary" />
-            </div>
+
+              <div className="w-fit mx-auto mb-4">
+                  <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-16 w-16" />
+              </div>
             <h1 className="text-3xl font-bold text-primary mb-2">Secure Access Portal</h1>
             <p className="text-muted-foreground">Access your cybersecurity account</p>
           </div>

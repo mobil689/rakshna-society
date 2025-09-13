@@ -12,54 +12,33 @@ const Events = () => {
   const upcomingEvents = [
     {
       id: 1,
-      title: 'Cybersecurity Awareness Workshop',
-      date: 'March 15, 2024',
-      time: '10:00 AM - 12:00 PM EST',
-      location: 'Virtual Event',
-      type: 'Workshop',
-      spots: 45,
+      title: 'The Working of the society',
+      date: 'September 17, 2025',
+      time: '10:00 AM - 12:00 PM',
+      location: 'BLOCK 11, MAIT',
+      type: 'Group Discussion',
+      spots: 20,
       maxSpots: 50,
-      description: 'Learn essential cybersecurity practices for small businesses and individuals.',
+      description: 'Discussing about the upcoming future and strengthening the society',
     },
-    {
-      id: 2,
-      title: 'Incident Response Drill',
-      date: 'March 22, 2024', 
-      time: '2:00 PM - 5:00 PM EST',
-      location: 'Washington, DC',
-      type: 'Training',
-      spots: 12,
-      maxSpots: 20,
-      description: 'Hands-on simulation exercise for incident response teams.',
-    },
-    {
-      id: 3,
-      title: 'Threat Intelligence Briefing',
-      date: 'April 5, 2024',
-      time: '1:00 PM - 2:30 PM EST', 
-      location: 'Virtual Event',
-      type: 'Briefing',
-      spots: 120,
-      maxSpots: 150,
-      description: 'Monthly briefing on current threat landscape and emerging risks.',
-    }
+
   ];
 
   const pastEvents = [
-    {
-      title: 'Annual Cybersecurity Summit',
-      date: 'February 14-16, 2024',
-      location: 'San Francisco, CA',
-      attendees: 2500,
-      type: 'Conference'
-    },
-    {
-      title: 'Ransomware Prevention Webinar', 
-      date: 'January 25, 2024',
-      location: 'Virtual Event',
-      attendees: 850,
-      type: 'Webinar'
-    }
+    // {
+    //   title: 'Annual Cybersecurity Summit',
+    //   date: 'February 14-16, 2024',
+    //   location: 'San Francisco, CA',
+    //   attendees: 2500,
+    //   type: 'Conference'
+    // },
+    // {
+    //   title: 'Ransomware Prevention Webinar',
+    //   date: 'January 25, 2024',
+    //   location: 'Virtual Event',
+    //   attendees: 850,
+    //   type: 'Webinar'
+    // }
   ];
 
   return (
@@ -137,19 +116,19 @@ const Events = () => {
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-primary">15</div>
+                    <div className="text-2xl font-bold text-primary">1</div>
                     <div className="text-sm text-muted-foreground">Upcoming Events</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-success">2,847</div>
+                    <div className="text-2xl font-bold text-success">28</div>
                     <div className="text-sm text-muted-foreground">Total Participants</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-warning">8</div>
+                    <div className="text-2xl font-bold text-warning">1</div>
                     <div className="text-sm text-muted-foreground">This Month</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-destructive">3</div>
+                    <div className="text-2xl font-bold text-destructive">0</div>
                     <div className="text-sm text-muted-foreground">Virtual Events</div>
                   </div>
                 </div>

@@ -9,28 +9,28 @@ import Footer from '@/components/Footer';
 const Training = () => {
   const upcomingWorkshops = [
     {
-      title: 'Phishing Detection & Prevention',
-      date: 'March 15, 2024',
+      title: 'Incident Response Planning',
+      date: 'October 05, 2025',
       duration: '2 hours',
       level: 'Beginner',
-      instructor: 'Dr. Sarah Chen',
+      instructor: 'Professor name',
       spots: '15 spots remaining'
     },
     {
-      title: 'Incident Response Planning',
-      date: 'March 22, 2024', 
+      title: 'Introduction to Ethical Hacking',
+      date: 'October 12, 2025',
       duration: '4 hours',
       level: 'Intermediate',
-      instructor: 'Mike Rodriguez, CISSP',
-      spots: '8 spots remaining'
+      instructor: 'professor name',
+      spots: '28 spots remaining'
     },
     {
-      title: 'Advanced Threat Hunting',
-      date: 'April 5, 2024',
+      title: 'Capture-the-Flag (CTF) Kickstart Competition',
+      date: 'October 25, 2025',
       duration: '6 hours',
       level: 'Advanced',
-      instructor: 'Alex Thompson',
-      spots: '12 spots remaining'
+      instructor: 'professor name',
+      spots: '52 spots remaining'
     }
   ];
 
@@ -39,19 +39,19 @@ const Training = () => {
       icon: Video,
       title: 'Video Library',
       description: 'On-demand security training videos',
-      count: '150+ videos',
+      count: '50+ videos',
       type: 'Free'
     },
     {
       icon: FileText,
-      title: 'Documentation',
+      title: 'Cyber Law & Incident Reporting Guides',
       description: 'Comprehensive security guides',
       count: '50+ guides',
       type: 'Free'
     },
     {
       icon: BookOpen,
-      title: 'Certification Prep',
+      title: 'I4C & CyTrain , CISA Certifications',
       description: 'Prepare for security certifications',
       count: '5 courses',
       type: 'Premium'
@@ -90,10 +90,10 @@ const Training = () => {
               <p className="font-medium mb-4">What's coming:</p>
               <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground mb-6">
                 <li>Interactive workshops and hands-on labs</li>
-                <li>Certification preparation courses</li>
+                <li>Official short-term certifications for students through I4C & CyTrain Modules.</li>
                 <li>Live webinars with industry experts</li>
-                <li>Self-paced learning modules</li>
-                <li>Assessment and progress tracking</li>
+                <li>Fun,gamified learning events like Capture-the-Flag (CTF) competitions, simulations, and hackathons. </li>
+                <li>Core skill-building in cyber hygiene, incident reporting, and forensic basics.</li>
               </ul>
               
               {/* Interest Registration */}
@@ -198,27 +198,27 @@ const Training = () => {
           {/* Contact for Custom Training */}
           <Card>
             <CardHeader>
-              <CardTitle>Custom Training Solutions</CardTitle>
+              <CardTitle>Advanced Skill Development</CardTitle>
               <CardDescription>
-                Need specialized training for your organization? We offer customized cybersecurity training programs.
-              </CardDescription>
+                  Go beyond the basics and build career-ready skills with our specialized teams and workshops.              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <h4 className="font-semibold mb-3">What we offer:</h4>
                   <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li>• Tailored curriculum for your industry</li>
-                    <li>• On-site or virtual delivery options</li>
-                    <li>• Hands-on practical exercises</li>
-                    <li>• Assessment and certification</li>
-                    <li>• Ongoing support and updates</li>
+                    <li>• Specialized courses in ethical hacking, digital forensics, and cyber law.</li>
+                    <li>• Hands-on experience by joining our student-led Red Team (Attack Simulation) and Blue Team (Defense).</li>
+                    <li>• HParticipation in competitive events like Capture-the-Flag (CTF), simulations, and hackathons.</li>
+                    <li>• Opportunities to gain short-term certifications through official I4C & CyTrain modules.
+                    </li>
+                    <li>• A clear pathway to develop skills for a career in cybersecurity.</li>
                   </ul>
                 </div>
                 <div className="flex flex-col justify-center">
                   <Button size="lg" className="w-full">
                     <GraduationCap className="mr-2 h-5 w-5" />
-                    Request Custom Training
+                    Join the Cyber Team
                   </Button>
                 </div>
               </div>
