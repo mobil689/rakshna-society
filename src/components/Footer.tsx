@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Shield, Mail, Phone, MapPin, Twitter, Linkedin, Github } from 'lucide-react';
+import { Shield, Mail, Phone, MapPin, Twitter, Linkedin, Github, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -21,15 +21,15 @@ const Footer = () => {
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-sm">
                 <Phone className="h-4 w-4" />
-                <span>Emergency: +1-800-CYBER-911</span>
+                <span>Emergency: 1930</span>
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <Mail className="h-4 w-4" />
-                <span>contact@cybersecure.gov</span>
+                <span>rakshana.mait@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <MapPin className="h-4 w-4" />
-                <span>Washington, DC 20001</span>
+                <span>MAIT ,Sec 22, PSP Area, Delhi, 110086</span>
               </div>
             </div>
           </div>
@@ -68,20 +68,26 @@ const Footer = () => {
             
             <div className="flex space-x-3 pt-4">
               <Button variant="ghost" size="icon" className="text-primary-foreground/80 hover:text-primary-foreground" asChild>
-                <a href="https://twitter.com/cybersecure" target="_blank" rel="noopener noreferrer">
+                <a href="https://twitter.com/Rakshna" target="_blank" rel="noopener noreferrer">
                   <Twitter className="h-5 w-5" />
                 </a>
               </Button>
               <Button variant="ghost" size="icon" className="text-primary-foreground/80 hover:text-primary-foreground" asChild>
-                <a href="https://linkedin.com/company/cybersecure" target="_blank" rel="noopener noreferrer">
+                <a href="https://linkedin.com/company/rakshana-mait" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="h-5 w-5" />
                 </a>
               </Button>
-              <Button variant="ghost" size="icon" className="text-primary-foreground/80 hover:text-primary-foreground" asChild>
-                <a href="https://github.com/cybersecure" target="_blank" rel="noopener noreferrer">
-                  <Github className="h-5 w-5" />
-                </a>
-              </Button>
+                {/* Instagram button with your new link */}
+                <Button variant="ghost" size="icon" className="text-primary-foreground/80 hover:text-primary-foreground" asChild>
+                    <a href="[https://www.instagram.com/rakshnamait]" target="_blank" rel="noopener noreferrer">
+                        <Instagram className="h-5 w-5" />
+                    </a>
+                </Button>
+              {/*<Button variant="ghost" size="icon" className="text-primary-foreground/80 hover:text-primary-foreground" asChild>*/}
+              {/*  <a href="https://github.com/cybersecure" target="_blank" rel="noopener noreferrer">*/}
+              {/*    <Github className="h-5 w-5" />*/}
+              {/*  </a>*/}
+              {/*</Button>*/}
             </div>
           </div>
         </div>

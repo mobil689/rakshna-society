@@ -9,14 +9,15 @@ const Hero = () => {
       <div className="container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Cyber Security 
-            <span className="block text-primary-light">Response Center</span>
+            Cyber Security Society of MATES
+            {/*<span className="block text-primary-light">Response Center</span>*/}
           </h1>
           
           <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
-            Your trusted partner in cybersecurity incident response. Report attacks, 
-            access emergency resources, and protect your digital assets with our 
-            comprehensive security platform designed for rapid response and recovery.
+              Our mission is to promote cyber awareness and ethical online behavior,
+              provide cybersecurity training, establish a response system for cybercrime victims,
+              develop technical expertise through student-led teams, and build a culture of truthfulness,
+              empathy, and responsibility in cyberspace.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
