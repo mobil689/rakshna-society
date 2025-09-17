@@ -28,12 +28,12 @@ const Index = () => {
                         <div className="relative flex-1 h-full overflow-hidden">
                             <div className="absolute inset-0 flex items-center animate-marquee whitespace-nowrap">
                                 {newsItems.map((item, index) => (
-                                    <span key={index} className="mx-6 text-muted-foreground">
+                                    <span key={index} className="mx-6 text-gray-800 dark:text-gray-300">
                     {item}
                   </span>
                                 ))}
                                 {newsItems.map((item, index) => (
-                                    <span key={`dup-${index}`} className="mx-6 text-muted-foreground">
+                                    <span key={`dup-${index}`} className="mx-6 text-gray-800 dark:text-gray-300">
                     {item}
                   </span>
                                 ))}
