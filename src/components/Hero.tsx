@@ -3,6 +3,13 @@ import { Card } from '@/components/ui/card';
 import { AlertTriangle, Phone, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+//news bulletin
+const newsItems = [
+    "RAKSHNA society announces its first Capture-the-Flag event for October.",
+    "Beware of new phishing scams targeting student email accounts.",
+    "Our first workshop on 'Ethical Hacking Basics' is now open for registration.",
+    "New resources on securing dorm Wi-Fi have been added to the Guidelines page."
+];
 const Hero = () => {
   return (
     <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-16 lg:py-24">
@@ -71,6 +78,7 @@ const Hero = () => {
                 <p className="text-sm text-white/80">Access to certified cybersecurity professionals</p>
               </div>
             </Card>
+
           </div>
         </div>
       </div>
