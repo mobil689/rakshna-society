@@ -48,6 +48,11 @@ export default defineType({
             initialValue: 'new', // Default status for new reports
         }),
         defineField({
+            name: 'evidenceFile',
+            title: 'Evidence File',
+            type: 'file',
+        }),
+        defineField({
             name: 'submittedAt',
             title: 'Submitted At',
             type: 'datetime',

@@ -3,49 +3,52 @@
 import { createClient } from '@sanity/client';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-// Initialize the Sanity client using the environment variables from Vercel
 const client = createClient({
     projectId: process.env.SANITY_PROJECT_ID,
     dataset: process.env.SANITY_DATASET,
     token: process.env.SANITY_API_TOKEN,
-    useCdn: false, // `false` is required for write operations
-    apiVersion: '2023-05-03', // Use a recent API version
+    useCdn: false,
+    apiVersion: '2023-05-03',
 });
 
-// This is the main function that Vercel will run
 export default async function handler(
     request: VercelRequest,
     response: VercelResponse,
 ) {
-    // Only allow POST requests, reject anything else
     if (request.method !== 'POST') {
         return response.status(405).json({ message: 'Method Not Allowed' });
     }
 
     try {
-        // Get the form data from the request body
-        const { fullName, emailAddress, attackType, description } = request.body;
+        // We now look for an optional evidenceFileAssetId
+        const { fullName, emailAddress, attackType, description, evidenceFileAssetId } = request.body;
 
-        // Create the document to be saved in Sanity
-        const doc = {
+        const doc: any = {
             _type: 'incidentReport',
             submittedAt: new Date().toISOString(),
             fullName,
             emailAddress,
             attackType,
             description,
-            status: 'new', // Default status for all new reports
+            status: 'new',
         };
 
-        // Use the Sanity client to create the new document
-        const result = await client.create(doc);
+        // If an evidence file ID was sent, add it to the document
+        if (evidenceFileAssetId) {
+            doc.evidenceFile = {
+                _type: 'file',
+                asset: {
+                    _type: 'reference',
+                    _ref: evidenceFileAssetId,
+                },
+            };
+        }
 
-        // Send a success response back to the frontend
+        const result = await client.create(doc);
         return response.status(200).json({ success: true, message: 'Report submitted!', data: result });
 
     } catch (error) {
         console.error('Error submitting to Sanity:', error);
-        // Send an error response back to the frontend
-        return response.status(500).json({ success: false, message: 'Internal Server Error. Please try again.' });
+        return response.status(500).json({ success: false, message: 'Internal Server Error.' });
     }
 }
