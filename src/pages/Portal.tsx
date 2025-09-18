@@ -1,209 +1,136 @@
+// The final version of src/pages/Portal.tsx
+
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { AlertTriangle, Upload, Clock, CheckCircle, XCircle, Shield, Phone } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { toast } from "sonner";
+import { Loader2, AlertTriangle } from 'lucide-react';
 
 const Portal = () => {
-  const [reports, setReports] = useState([
-    { id: 'RPT-001', type: 'Phishing', status: 'In Review', date: '2025-09-10', description: 'Suspicious email received...' },
-    { id: 'RPT-002', type: 'Malware', status: 'Resolved', date: '2025-09-12', description: 'Detected malicious software...' },
-    { id: 'RPT-003', type: 'Data Breach', status: 'Pending', date: '2025-09-12', description: 'Potential unauthorized access...' },
-  ]);
+    const [formData, setFormData] = useState({
+        fullName: '',
+        emailAddress: '',
+        attackType: '',
+        description: '',
+    });
+    const [isLoading, setIsLoading] = useState(false);
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'Pending': return <Clock className="h-4 w-4" />;
-      case 'In Review': return <AlertTriangle className="h-4 w-4" />;
-      case 'Resolved': return <CheckCircle className="h-4 w-4" />;
-      default: return <XCircle className="h-4 w-4" />;
-    }
-  };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setFormData((prev) => ({ ...prev, [id]: value }));
+    };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Pending': return 'bg-warning';
-      case 'In Review': return 'bg-primary';
-      case 'Resolved': return 'bg-success';
-      default: return 'bg-destructive';
-    }
-  };
+    const handleSelectChange = (value: string) => {
+        setFormData((prev) => ({ ...prev, attackType: value }));
+    };
 
-  return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main className="py-8">
-        <div className="container mx-auto px-4">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-primary mb-2">Cyber Attack Reporting Portal</h1>
-            <p className="text-muted-foreground">Report security incidents and track their resolution status</p>
-          </div>
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            {/* Incident Report Form */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-destructive" />
-                  Report New Incident
-                </CardTitle>
-                <CardDescription>
-                  Provide detailed information about the security incident
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input id="name" placeholder="Your full name" required />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address *</Label>
-                    <Input id="email" type="email" placeholder="your.email@company.com" required />
-                  </div>
+        try {
+            // THIS IS THE ONLY LINE THAT CHANGES!
+            // We now point to our new Vercel Function endpoint.
+            const response = await fetch('/api/submit-incident', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                toast.success("Report Submitted!", {
+                    description: "Your incident report has been saved successfully.",
+                });
+                setFormData({ fullName: '', emailAddress: '', attackType: '', description: '' });
+            } else {
+                toast.error("Submission Failed", {
+                    description: result.message || "Please try again later.",
+                });
+            }
+        } catch (error) {
+            console.error("Failed to fetch:", error);
+            toast.error("Submission Failed", {
+                description: "An error occurred while submitting your report.",
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-background">
+            <Header />
+            <main className="py-8">
+                <div className="container mx-auto px-4">
+                    <Card className="max-w-3xl mx-auto">
+                        <CardHeader className="text-center">
+                            <AlertTriangle className="h-12 w-12 mx-auto text-primary" />
+                            <CardTitle className="text-3xl">Incident Reporting Portal</CardTitle>
+                            <CardDescription>
+                                If you are a victim of a cybercrime, please provide the details below.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="fullName">Full Name</Label>
+                                        <Input id="fullName" value={formData.fullName} onChange={handleChange} required />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="emailAddress">Email Address</Label>
+                                        <Input id="emailAddress" type="email" value={formData.emailAddress} onChange={handleChange} required />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="attackType">Type of Attack</Label>
+                                    <Select onValueChange={handleSelectChange} value={formData.attackType} required>
+                                        <SelectTrigger id="attackType">
+                                            <SelectValue placeholder="Select the type of incident..." />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="Phishing">Phishing</SelectItem>
+                                            <SelectItem value="Malware/Ransomware">Malware / Ransomware</SelectItem>
+                                            <SelectItem value="Data Breach">Data Breach</SelectItem>
+                                            <SelectItem value="Cyberbullying/Harassment">Cyberbullying / Harassment</SelectItem>
+                                            <SelectItem value="Other">Other</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="description">Incident Description</Label>
+                                    <Textarea
+                                        id="description"
+                                        value={formData.description}
+                                        onChange={handleChange}
+                                        placeholder="Describe the incident in detail..."
+                                        required
+                                        rows={6}
+                                    />
+                                </div>
+                                <Button type="submit" className="w-full" disabled={isLoading}>
+                                    {isLoading ? (
+                                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting...</>
+                                    ) : ( 'Submit Incident Report' )}
+                                </Button>
+                            </form>
+                        </CardContent>
+                    </Card>
                 </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="attack-type">Type of Attack *</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select attack type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="phishing">Phishing</SelectItem>
-                      <SelectItem value="malware">Malware</SelectItem>
-                      <SelectItem value="ransomware">Ransomware</SelectItem>
-                      <SelectItem value="data-breach">Data Breach</SelectItem>
-                      <SelectItem value="ddos">DDoS Attack</SelectItem>
-                      <SelectItem value="social-engineering">Social Engineering</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="description">Incident Description *</Label>
-                  <Textarea 
-                    id="description" 
-                    placeholder="Describe the incident in detail, including when it occurred, what you observed, and any actions taken..."
-                    rows={4}
-                    required
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="evidence">Upload Evidence (Optional)</Label>
-                  <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
-                    <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground mb-2">
-                      Drag & drop files or click to browse
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      Max 10MB • PDF, JPG, PNG, DOC accepted
-                    </p>
-                    <Input type="file" className="hidden" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
-                  </div>
-                </div>
-                
-                <Button className="w-full" size="lg">
-                  <Shield className="mr-2 h-4 w-4" />
-                  Submit Incident Report
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Status Tracker & Safety Tips */}
-            <div className="space-y-6">
-              
-              {/* Status Tracker */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Your Incident Reports</CardTitle>
-                  <CardDescription>Track the status of your submitted reports</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {reports.map((report) => (
-                      <div key={report.id} className="flex items-center justify-between p-3 border rounded-lg">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="font-medium text-sm">{report.id}</span>
-                            <Badge className={`${getStatusColor(report.status)} text-white`}>
-                              <span className="flex items-center gap-1">
-                                {getStatusIcon(report.status)}
-                                {report.status}
-                              </span>
-                            </Badge>
-                          </div>
-                          <p className="text-sm text-muted-foreground truncate">{report.description}</p>
-                          <p className="text-xs text-muted-foreground mt-1">{report.type} • {report.date}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Safety Tips */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-primary">Immediate Safety Tips</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-3">
-                    <div className="flex gap-3">
-                      <div className="bg-primary/10 p-2 rounded-full w-fit h-fit">
-                        <Shield className="h-4 w-4 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm">Isolate Affected Systems</h4>
-                        <p className="text-xs text-muted-foreground">Disconnect compromised devices from the network immediately</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-3">
-                      <div className="bg-primary/10 p-2 rounded-full w-fit h-fit">
-                        <AlertTriangle className="h-4 w-4 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm">Do Not Pay Ransoms</h4>
-                        <p className="text-xs text-muted-foreground">Contact authorities before making any payments to attackers</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-3">
-                      <div className="bg-primary/10 p-2 rounded-full w-fit h-fit">
-                        <Phone className="h-4 w-4 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm">Emergency Contact</h4>
-                        <p className="text-xs text-muted-foreground">Call 1930 for immediate assistance</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <Button variant="outline" className="w-full" size="sm">
-                    <Phone className="mr-2 h-4 w-4" />
-                    Contact Emergency Helpline
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+            </main>
+            <Footer />
         </div>
-      </main>
-
-      <Footer />
-    </div>
-  );
+    );
 };
 
 export default Portal;
