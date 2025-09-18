@@ -101,26 +101,31 @@ const News = () => {
                 </div>
             </main>
 
-            {/* 5. The Dialog component that pops up when an article is selected */}
+            // in src/pages/News.tsx, at the bottom of the file
+
+            {/* The Dialog component that pops up when an article is selected */}
             <Dialog open={!!selectedArticle} onOpenChange={() => setSelectedArticle(null)}>
-                <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
+                {/* I've removed the default padding with `p-0` to have full control over the layout */}
+                <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto p-0">
                     {selectedArticle && (
                         <>
                             {selectedArticle.mainImage && (
                                 <img
                                     src={urlFor(selectedArticle.mainImage).width(1200).height(600).url()}
                                     alt={selectedArticle.mainImage.alt || 'Article image'}
-                                    className="w-full h-64 object-cover rounded-t-lg"
+                                    // These classes ensure every image has a consistent size and crops nicely
+                                    className="w-full h-64 object-cover"
                                 />
                             )}
-                            <DialogHeader className="p-6">
+                            <DialogHeader className="p-6 text-left border-b">
                                 <DialogTitle className="text-3xl mb-2">{selectedArticle.title}</DialogTitle>
                                 <DialogDescription className="text-lg">{selectedArticle.summary}</DialogDescription>
                                 <span className="text-sm text-muted-foreground pt-2">
-                  Published on: {new Date(selectedArticle.publishedAt).toLocaleDateString()}
-                </span>
+            Published on: {new Date(selectedArticle.publishedAt).toLocaleDateString()}
+          </span>
                             </DialogHeader>
-                            <div className="px-6 pb-6 prose dark:prose-invert">
+                            {/* These classes style the article body and force text to wrap */}
+                            <div className="px-6 py-4 prose dark:prose-invert max-w-none break-words">
                                 <PortableText value={selectedArticle.body} />
                             </div>
                         </>

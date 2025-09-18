@@ -34,18 +34,17 @@ const Hero = () => {
               </Link>
             </Button>
 
-              // AFTER:
-              <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-primary bg-white hover:bg-gray-100 font-semibold px-8 py-4"
-                  asChild
-              >
-                  <Link to="/helpline">
-                      <Phone className="mr-2 h-5 w-5" />
-                      Emergency Helpline
-                  </Link>
-              </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white text-primary hover:bg-white hover:text-primary font-semibold px-8 py-4"
+              asChild
+            >
+              <Link to="/helpline">
+                <Phone className="mr-2 h-5 w-5" />
+                Emergency Helpline
+              </Link>
+            </Button>
           </div>
 
           {/* Trust Indicators */}
