@@ -23,7 +23,7 @@ const Header = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
                 {/* The Shield icon is replaced with your logo image */}
-                <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-8 w-8" />
+                <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-10 w-10" />
 
                 {/* The text is changed here */}
                 <span className="text-xl font-bold text-primary">RAKSHNA</span>
@@ -53,7 +53,7 @@ const Header = () => {
                 </Button>
 
                 {/* Add your college logo here */}
-                <img src="/mait-logo.png" alt="MAIT Logo" className="h-8" />
+                <img src="/mait-logo.png" alt="MAIT Logo" className="h-10" />
             </div>
 
           {/* Mobile Menu Button */}
