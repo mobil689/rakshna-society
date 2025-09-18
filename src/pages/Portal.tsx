@@ -13,15 +13,16 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from "sonner";
 import { Loader2, AlertTriangle, UploadCloud, Shield, Lock, File as FileIcon, X } from 'lucide-react';
 import { createClient } from '@sanity/client';
+import { sanityClient } from '@/lib/sanityClient';
 
-// Sanity Client for frontend file uploads
-const sanityClient = createClient({
-    projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
-    dataset: 'production',
-    useCdn: false,
-    apiVersion: '2023-05-03',
-    token: import.meta.env.VITE_SANITY_API_TOKEN,
-});
+// // Sanity Client for frontend file uploads
+// const sanityClient = createClient({
+//     projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
+//     dataset: 'production',
+//     useCdn: false,
+//     apiVersion: '2023-05-03',
+//     token: import.meta.env.VITE_SANITY_API_TOKEN,
+// });
 
 
 const Portal = () => {
