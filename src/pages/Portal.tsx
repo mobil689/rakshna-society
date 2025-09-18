@@ -14,14 +14,13 @@ import { toast } from "sonner";
 import { Loader2, AlertTriangle, UploadCloud, Shield, Lock, File as FileIcon, X } from 'lucide-react';
 import { createClient } from '@sanity/client';
 
-// 1. New Sanity Client for frontend file uploads
+// Sanity Client for frontend file uploads
 const sanityClient = createClient({
-    // IMPORTANT: You need to add these as Environment Variables in your Vercel project settings
     projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
     dataset: 'production',
     useCdn: false,
     apiVersion: '2023-05-03',
-    token: import.meta.env.VITE_SANITY_API_TOKEN, // Use a token with write access
+    token: import.meta.env.VITE_SANITY_API_TOKEN,
 });
 
 
@@ -33,8 +32,6 @@ const Portal = () => {
         description: '',
     });
     const [isLoading, setIsLoading] = useState(false);
-
-    // 2. New state and ref for file handling
     const [file, setFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -47,14 +44,12 @@ const Portal = () => {
         setFormData((prev) => ({ ...prev, attackType: value }));
     };
 
-    // 3. New handler for when a file is selected
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             setFile(e.target.files[0]);
         }
     };
 
-    // 4. UPDATED handleSubmit function with file upload logic
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
@@ -62,15 +57,13 @@ const Portal = () => {
         let evidenceFileAssetId = null;
 
         try {
-            // Step 1: If a file is selected, upload it to Sanity first
             if (file) {
                 toast.info("Uploading evidence file...");
                 const asset = await sanityClient.assets.upload('file', file);
-                evidenceFileAssetId = asset._id; // Get the ID of the uploaded file
+                evidenceFileAssetId = asset._id;
                 toast.success("File uploaded successfully!");
             }
 
-            // Step 2: Send the form data (including the file asset ID) to our Vercel function
             const response = await fetch('/api/submit-incident', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -82,13 +75,13 @@ const Portal = () => {
             if (result.success) {
                 toast.success("Report Submitted!", { description: "Your report has been saved." });
                 setFormData({ fullName: '', emailAddress: '', attackType: '', description: '' });
-                setFile(null); // Clear the file after successful submission
+                setFile(null);
             } else {
                 toast.error("Submission Failed", { description: result.message || "Please try again." });
             }
         } catch (error) {
             console.error("Submission error:", error);
-            toast.error("Submission Failed", { description: "An error occurred during submission." });
+            toast.error("Submission Failed", { description: "An error occurred." });
         } finally {
             setIsLoading(false);
         }
@@ -99,7 +92,9 @@ const Portal = () => {
             <Header />
             <main className="py-8">
                 <div className="container mx-auto px-4">
+                    {/* Main two-column grid layout */}
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
                         {/* Left Column: The Form */}
                         <div className="lg:col-span-3">
                             <Card>
@@ -114,31 +109,39 @@ const Portal = () => {
                                 </CardHeader>
                                 <CardContent>
                                     <form onSubmit={handleSubmit} className="space-y-6">
-                                        {/* Your other form fields remain the same */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            {/* ... Full Name and Email Address Inputs ... */}
+                                            <div className="space-y-2">
+                                                <Label htmlFor="fullName">Full Name *</Label>
+                                                <Input id="fullName" value={formData.fullName} onChange={handleChange} placeholder="Your full name" required />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="emailAddress">Email Address *</Label>
+                                                <Input id="emailAddress" type="email" value={formData.emailAddress} onChange={handleChange} placeholder="your.email@company.com" required />
+                                            </div>
                                         </div>
                                         <div className="space-y-2">
-                                            {/* ... Type of Attack Select ... */}
+                                            <Label htmlFor="attackType">Type of Attack *</Label>
+                                            <Select onValueChange={handleSelectChange} value={formData.attackType} required>
+                                                <SelectTrigger id="attackType"><SelectValue placeholder="Select attack type" /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="Phishing">Phishing</SelectItem>
+                                                    <SelectItem value="Malware/Ransomware">Malware / Ransomware</SelectItem>
+                                                    <SelectItem value="Data Breach">Data Breach</SelectItem>
+                                                    <SelectItem value="Cyberbullying/Harassment">Cyberbullying / Harassment</SelectItem>
+                                                    <SelectItem value="Other">Other</SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </div>
                                         <div className="space-y-2">
-                                            {/* ... Incident Description Textarea ... */}
+                                            <Label htmlFor="description">Incident Description *</Label>
+                                            <Textarea id="description" value={formData.description} onChange={handleChange} placeholder="Describe the incident in detail, including when it occurred, what you observed, and any actions taken..." required rows={5} />
                                         </div>
 
-                                        {/* 5. UPDATED Upload Evidence Section */}
                                         <div className="space-y-2">
                                             <Label htmlFor="evidence">Upload Evidence (Optional)</Label>
-                                            <input
-                                                type="file"
-                                                ref={fileInputRef}
-                                                onChange={handleFileChange}
-                                                className="hidden"
-                                            />
+                                            <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" />
                                             {!file ? (
-                                                <div
-                                                    onClick={() => fileInputRef.current?.click()}
-                                                    className="border-2 border-dashed rounded-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-muted transition-colors"
-                                                >
+                                                <div onClick={() => fileInputRef.current?.click()} className="border-2 border-dashed rounded-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-muted transition-colors">
                                                     <UploadCloud className="h-12 w-12 text-muted-foreground mb-2" />
                                                     <p className="font-semibold">Drag & drop files or click to browse</p>
                                                     <p className="text-sm text-muted-foreground">Max 10MB • PDF, JPG, PNG, DOC accepted</p>
@@ -149,9 +152,7 @@ const Portal = () => {
                                                         <FileIcon className="h-6 w-6 text-primary flex-shrink-0" />
                                                         <span className="text-sm font-medium truncate">{file.name}</span>
                                                     </div>
-                                                    <Button type="button" variant="ghost" size="icon" onClick={() => setFile(null)}>
-                                                        <X className="h-4 w-4" />
-                                                    </Button>
+                                                    <Button type="button" variant="ghost" size="icon" onClick={() => setFile(null)}><X className="h-4 w-4" /></Button>
                                                 </div>
                                             )}
                                         </div>
@@ -164,9 +165,59 @@ const Portal = () => {
                             </Card>
                         </div>
 
-                        {/* Right Column: Reports and Tips (Unchanged) */}
+                        {/* Right Column: Reports and Tips */}
                         <div className="lg:col-span-2 space-y-8">
-                            {/* ... Your Incident Reports Card and Safety Tips Card ... */}
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Your Incident Reports</CardTitle>
+                                    <CardDescription>Track the status of your submitted reports</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <div className="flex justify-between items-center p-3 rounded-lg border">
+                                        <div>
+                                            <p className="font-semibold">RPT-001</p>
+                                            <p className="text-sm text-muted-foreground">Suspicious email received... • Phishing</p>
+                                        </div>
+                                        <Badge>In Review</Badge>
+                                    </div>
+                                    <div className="flex justify-between items-center p-3 rounded-lg border">
+                                        <div>
+                                            <p className="font-semibold">RPT-002</p>
+                                            <p className="text-sm text-muted-foreground">Detected malicious software... • Malware</p>
+                                        </div>
+                                        <Badge className="bg-green-100 text-green-800">Resolved</Badge>
+                                    </div>
+                                    <div className="flex justify-between items-center p-3 rounded-lg border">
+                                        <div>
+                                            <p className="font-semibold">RPT-003</p>
+                                            <p className="text-sm text-muted-foreground">Potential unauthorized access... • Data Breach</p>
+                                        </div>
+                                        <Badge variant="destructive">Pending</Badge>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Immediate Safety Tips</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <div className="flex items-start gap-3">
+                                        <Shield className="h-5 w-5 text-primary mt-1" />
+                                        <div>
+                                            <h4 className="font-semibold">Isolate Affected Systems</h4>
+                                            <p className="text-sm text-muted-foreground">Disconnect compromised devices from the network immediately.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-start gap-3">
+                                        <Lock className="h-5 w-5 text-destructive mt-1" />
+                                        <div>
+                                            <h4 className="font-semibold">Do Not Pay Ransoms</h4>
+                                            <p className="text-sm text-muted-foreground">Contact authorities before making any payments to attackers.</p>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
                         </div>
                     </div>
                 </div>
