@@ -1,58 +1,56 @@
-// The new, data-driven version of src/pages/News.tsx
+// The final version of src/pages/News.tsx with clickable modals
 
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Newspaper, Loader2 } from 'lucide-react';
 import { sanityClient } from '@/lib/sanityClient';
 import imageUrlBuilder from '@sanity/image-url';
+import { PortableText } from '@portabletext/react'; // 1. Import the new library
 
-// Set up a helper function to generate image URLs from Sanity data
+// Helper function for images (unchanged)
 const builder = imageUrlBuilder(sanityClient);
 function urlFor(source: any) {
     return builder.image(source);
 }
 
-// Define the structure of an article (TypeScript interface)
+// Updated interface to include the full 'body'
 interface Article {
     _id: string;
     title: string;
     publishedAt: string;
     summary: string;
-    mainImage: {
-        alt: string;
-        asset: object;
-    };
+    mainImage: any;
+    body: any[]; // The rich text content
 }
 
 const News = () => {
-    // State for storing articles and the loading status
     const [articles, setArticles] = useState<Article[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // This hook runs once when the page loads to fetch data
+    // 2. New state to manage the selected article for the dialog
+    const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+
     useEffect(() => {
-        // This is a GROQ query to fetch all news articles from Sanity, ordered by date
+        // 3. Updated query to fetch the 'body' of the article as well
         const query = `*[_type == "newsArticle"] | order(publishedAt desc) {
       _id,
       title,
       publishedAt,
       summary,
-      mainImage {
-        alt,
-        asset
-      }
+      mainImage,
+      body // <-- Fetching the rich text body
     }`;
 
-        // Use the Sanity client to fetch the data
         sanityClient.fetch(query)
             .then((data) => {
                 setArticles(data);
-                setIsLoading(false); // Stop the loader
+                setIsLoading(false);
             })
             .catch(console.error);
-    }, []); // The empty array ensures this effect runs only once
+    }, []);
 
     return (
         <div className="min-h-screen bg-background">
@@ -67,19 +65,22 @@ const News = () => {
                         </p>
                     </div>
 
-                    {/* Show a loading spinner while data is being fetched */}
                     {isLoading ? (
                         <div className="flex justify-center items-center h-64">
                             <Loader2 className="h-12 w-12 animate-spin text-primary" />
                         </div>
                     ) : (
-                        // Once loaded, display the grid of articles
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {articles.map((article) => (
-                                <Card key={article._id} className="flex flex-col overflow-hidden hover:shadow-lg transition-shadow">
+                                // 4. Added onClick handler to open the dialog
+                                <Card
+                                    key={article._id}
+                                    className="flex flex-col overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+                                    onClick={() => setSelectedArticle(article)}
+                                >
                                     {article.mainImage && (
                                         <img
-                                            src={urlFor(article.mainImage.asset).width(600).height(400).url()}
+                                            src={urlFor(article.mainImage).width(600).height(400).url()}
                                             alt={article.mainImage.alt || 'Article image'}
                                             className="w-full h-48 object-cover"
                                         />
@@ -99,6 +100,34 @@ const News = () => {
                     )}
                 </div>
             </main>
+
+            {/* 5. The Dialog component that pops up when an article is selected */}
+            <Dialog open={!!selectedArticle} onOpenChange={() => setSelectedArticle(null)}>
+                <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
+                    {selectedArticle && (
+                        <>
+                            {selectedArticle.mainImage && (
+                                <img
+                                    src={urlFor(selectedArticle.mainImage).width(1200).height(600).url()}
+                                    alt={selectedArticle.mainImage.alt || 'Article image'}
+                                    className="w-full h-64 object-cover rounded-t-lg"
+                                />
+                            )}
+                            <DialogHeader className="p-6">
+                                <DialogTitle className="text-3xl mb-2">{selectedArticle.title}</DialogTitle>
+                                <DialogDescription className="text-lg">{selectedArticle.summary}</DialogDescription>
+                                <span className="text-sm text-muted-foreground pt-2">
+                  Published on: {new Date(selectedArticle.publishedAt).toLocaleDateString()}
+                </span>
+                            </DialogHeader>
+                            <div className="px-6 pb-6 prose dark:prose-invert">
+                                <PortableText value={selectedArticle.body} />
+                            </div>
+                        </>
+                    )}
+                </DialogContent>
+            </Dialog>
+
             <Footer />
         </div>
     );
