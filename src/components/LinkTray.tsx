@@ -1,8 +1,32 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { AlertTriangle, Calendar, ExternalLink, FileText, Search } from 'lucide-react';
+import {AlertTriangle, Calendar, ExternalLink, FileText, Newspaper, Search} from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+
+//  news data array
+const newsData = [
+    {
+        id: 'rakshna-ctf-event',
+        title: 'RAKSHNA Society Announces First CTF Event',
+        summary: 'Get ready to test your skills! Our first ever Capture-the-Flag competition will be held in October.',
+        image: '/news1.jpg',
+    },
+    {
+        id: 'phishing-scam-alert',
+        title: 'New Phishing Scams Targeting Student Emails',
+        summary: 'We have identified a new wave of phishing emails pretending to be from the university accounts office.',
+        image: '/news2.png',
+    },
+    {
+        id: 'ethical-hacking-workshop',
+        title: 'Ethical Hacking Workshop A Success',
+        summary: 'Over 50 students attended our introductory workshop on ethical hacking and vulnerability assessment.',
+        image: '/news3.png',
+    },
+];
 
 const LinkTray = () => {
   const quickLinks = [
@@ -80,27 +104,44 @@ const LinkTray = () => {
             </CardContent>
           </Card>
 
-          {/* Search */}
-          <Card className="lg:col-span-1">
-            <CardHeader>
-              <CardTitle className="text-primary">Search Resources</CardTitle>
-              <CardDescription>Find security information quickly</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  placeholder="Search topics, guidelines, alerts..." 
-                  className="pl-10"
-                />
-              </div>
-              <Button variant="default" className="w-full">
-                Search Knowledge Base
-              </Button>
-            </CardContent>
-          </Card>
+            {/* V V V THIS IS THE NEW NEWS CAROUSEL V V V */}
+            <Card className="lg:col-span-1 flex flex-col">
+                <CardHeader>
+                    <CardTitle className="text-primary flex items-center gap-2">
+                        <Newspaper className="h-5 w-5" />
+                        Latest News
+                    </CardTitle>
+                    <CardDescription>Updates from the society</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow flex items-center justify-center">
+                    <Carousel
+                        className="w-full max-w-xs"
+                        plugins={[Autoplay({ delay: 3000, stopOnInteraction: true })]}
+                        opts={{ loop: true }}
+                    >
+                        <CarouselContent>
+                            {newsData.map((news) => (
+                                <CarouselItem key={news.id}>
+                                    <Link to={`/news#${news.id}`}>
+                                        <Card className="overflow-hidden">
+                                            <CardContent className="flex flex-col items-center justify-center p-0">
+                                                <img src={news.image} alt={news.title} className="w-full h-40 object-cover" />
+                                                <div className="p-4">
+                                                    <h3 className="font-semibold mb-2">{news.title}</h3>
+                                                    <p className="text-sm text-muted-foreground">{news.summary}</p>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    </Link>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                    </Carousel>
+                </CardContent>
+            </Card>
 
-          {/* Useful Links */}
+
+            {/* Useful Links */}
           <Card className="lg:col-span-1">
             <CardHeader>
               <CardTitle className="text-primary">External Resources</CardTitle>
