@@ -5,13 +5,8 @@ import LinkTray from '@/components/LinkTray';
 import Footer from '@/components/Footer';
 
 const Index = () => {
-    // 1. I've added your news data here
-    const newsItems = [
-        "RAKSHNA society announces its first Capture-the-Flag event for October.",
-        "Beware of new phishing scams targeting student email accounts.",
-        "Our first workshop on 'Ethical Hacking Basics' is now open for registration.",
-        "New resources on securing dorm Wi-Fi have been added to the Guidelines page."
-    ];
+
+
 
     return (
         <div className="min-h-screen bg-background">
