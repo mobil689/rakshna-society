@@ -1,4 +1,4 @@
-// The new, data-driven version of LinkTray.tsx
+// The final, merged, and animated version of LinkTray.tsx
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,16 +7,14 @@ import { AlertTriangle, Calendar, ExternalLink, FileText, Newspaper, Loader2 } f
 import { Link } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { sanityClient } from '@/lib/sanityClient'; // Assuming you have this file
+import { sanityClient } from '@/lib/sanityClient';
 import imageUrlBuilder from '@sanity/image-url';
 
-// Setup for Sanity images
 const builder = imageUrlBuilder(sanityClient);
 function urlFor(source: any) {
     return builder.image(source);
 }
 
-// Define the structure of our article data
 interface Article {
     _id: string;
     title: string;
@@ -28,13 +26,10 @@ interface Article {
 }
 
 const LinkTray = () => {
-    // State for news articles and loading status
     const [news, setNews] = useState<Article[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Fetch data from Sanity when the component loads
     useEffect(() => {
-        // This query fetches the 3 most recent news articles
         const query = `*[_type == "newsArticle"] | order(publishedAt desc) [0...3] {
       _id,
       title,
@@ -42,16 +37,9 @@ const LinkTray = () => {
       mainImage,
       slug
     }`;
-
-        sanityClient.fetch(query)
-            .then((data) => {
-                setNews(data);
-                setIsLoading(false);
-            })
-            .catch(console.error);
+        sanityClient.fetch(query).then(setNews).catch(console.error).finally(() => setIsLoading(false));
     }, []);
 
-    // Your existing data for other cards
     const quickLinks = [
         { icon: AlertTriangle, title: 'Report Attack', description: 'Immediate incident reporting', link: '/portal', urgent: true },
         { icon: Calendar, title: 'Major Events', description: 'Critical security alerts', link: '/events', urgent: false },
@@ -66,29 +54,40 @@ const LinkTray = () => {
     ];
 
     return (
-        <section className="py-16 bg-background">
-            <div className="container mx-auto px-4">
+        // ANIMATION: Added relative, overflow-hidden
+        <section className="py-16 bg-background relative overflow-hidden">
+            {/* ANIMATION: Added animated background pattern */}
+            <div className="absolute inset-0 opacity-5">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary))_1px,transparent_1px)] bg-[size:50px_50px] animate-pulse"></div>
+            </div>
+
+            {/* ANIMATION: Added relative, z-10 */}
+            <div className="container mx-auto px-4 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-                    {/* Quick Access Card (Unchanged) */}
-                    <Card className="lg:col-span-1">
+                    {/* Quick Access Card */}
+                    {/* ANIMATION: Added fade-in and hover effects */}
+                    <Card className="lg:col-span-1 animate-fade-in-left transform hover:scale-105 transition-all duration-300">
                         <CardHeader>
                             <CardTitle className="text-primary">Quick Access</CardTitle>
                             <CardDescription>Essential security functions</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-3">
-                            {quickLinks.map((link) => {
+                            {quickLinks.map((link, index) => {
                                 const IconComponent = link.icon;
                                 return (
                                     <Button
                                         key={link.title}
                                         variant={link.urgent ? 'destructive' : 'outline'}
-                                        className="w-full justify-start p-4 h-auto"
+                                        // ANIMATION: Added hover effects and staggered fade-in
+                                        className="w-full justify-start p-4 h-auto transform hover:translate-x-2 transition-all duration-300 animate-fade-in-up hover:shadow-lg"
+                                        style={{ animationDelay: `${index * 0.1}s` }}
                                         asChild
                                     >
                                         <Link to={link.link}>
                                             <div className="flex items-center space-x-3">
-                                                <IconComponent className="h-5 w-5 shrink-0" />
+                                                {/* ANIMATION: Added floating icon animation */}
+                                                <IconComponent className="h-5 w-5 shrink-0 animate-float" style={{ animationDelay: `${index * -0.5}s` }} />
                                                 <div className="text-left">
                                                     <div className="font-medium">{link.title}</div>
                                                     <div className="text-sm opacity-70">{link.description}</div>
@@ -101,8 +100,9 @@ const LinkTray = () => {
                         </CardContent>
                     </Card>
 
-                    {/* UPDATED NEWS CAROUSEL */}
-                    <Card className="lg:col-span-1 flex flex-col">
+                    {/* Latest News Carousel */}
+                    {/* ANIMATION: Added fade-in and hover effects */}
+                    <Card className="lg:col-span-1 flex flex-col animate-fade-in transform hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.2s' }}>
                         <CardHeader>
                             <CardTitle className="text-primary flex items-center gap-2">
                                 <Newspaper className="h-5 w-5" />
@@ -111,23 +111,15 @@ const LinkTray = () => {
                             <CardDescription>Updates from the society</CardDescription>
                         </CardHeader>
                         <CardContent className="flex-grow flex items-center justify-center">
-                            {isLoading ? (
-                                <Loader2 className="h-12 w-12 animate-spin text-primary" />
-                            ) : (
-                                <Carousel
-                                    className="w-full max-w-xs"
-                                    plugins={[Autoplay({ delay: 4000, stopOnInteraction: true })]}
-                                    opts={{ loop: true }}
-                                >
+                            {isLoading ? <Loader2 className="h-12 w-12 animate-spin text-primary" /> : (
+                                <Carousel className="w-full max-w-xs" plugins={[Autoplay({ delay: 4000, stopOnInteraction: true })]} opts={{ loop: true }}>
                                     <CarouselContent>
                                         {news.map((article) => (
                                             <CarouselItem key={article._id}>
                                                 <Link to={`/news#${article.slug.current}`}>
                                                     <Card className="overflow-hidden hover:shadow-md transition-shadow">
                                                         <CardContent className="flex flex-col items-center justify-center p-0">
-                                                            {article.mainImage && (
-                                                                <img src={urlFor(article.mainImage).width(400).height(250).url()} alt={article.mainImage.alt || article.title} className="w-full h-40 object-cover" />
-                                                            )}
+                                                            {article.mainImage && <img src={urlFor(article.mainImage).width(400).height(250).url()} alt={article.mainImage.alt || article.title} className="w-full h-40 object-cover" />}
                                                             <div className="p-4 text-left w-full">
                                                                 <h3 className="font-semibold mb-2 leading-tight">{article.title}</h3>
                                                                 <p className="text-sm text-muted-foreground">{article.summary}</p>
@@ -143,23 +135,27 @@ const LinkTray = () => {
                         </CardContent>
                     </Card>
 
-                    {/* External Resources Card (Unchanged) */}
-                    <Card className="lg:col-span-1">
+                    {/* External Resources Card */}
+                    {/* ANIMATION: Added fade-in and hover effects */}
+                    <Card className="lg:col-span-1 animate-fade-in-right transform hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.4s' }}>
                         <CardHeader>
                             <CardTitle className="text-primary">External Resources</CardTitle>
                             <CardDescription>Trusted security organizations</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
-                            {externalLinks.map((link) => (
+                            {externalLinks.map((link, index) => (
                                 <Button
                                     key={link.name}
                                     variant="ghost"
-                                    className="w-full justify-between p-3 h-auto"
+                                    // ANIMATION: Added hover effects and staggered fade-in
+                                    className="w-full justify-between p-3 h-auto transform hover:translate-x-1 transition-all duration-300 animate-fade-in-up hover:bg-primary/5"
+                                    style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                                     asChild
                                 >
                                     <a href={link.url} target="_blank" rel="noopener noreferrer">
                                         <span className="text-left text-sm font-medium">{link.name}</span>
-                                        <ExternalLink className="h-4 w-4 shrink-0" />
+                                        {/* ANIMATION: Added hover effect to icon */}
+                                        <ExternalLink className="h-4 w-4 shrink-0 group-hover:rotate-12 transition-transform" />
                                     </a>
                                 </Button>
                             ))}
