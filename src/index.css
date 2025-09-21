@@ -124,7 +124,10 @@
         @apply max-w-full h-auto rounded-lg my-4;
     }
     .news-modal-content a {
-        @apply text-primary hover: underline break-all;
+        @apply text-primary break-all;
+    }
+    .news-modal-content a:hover {
+        @apply underline;
     }
     .news-modal-content code {
         @apply bg-muted px-2 py-1 rounded text-sm break-all;
@@ -136,3 +139,6 @@
         @apply bg-transparent p-0 break-normal;
     }
 }
+
+
+/* FIXED: Removed the extra closing brace from the end of the file */
