@@ -50,7 +50,7 @@ const LinkTray = () => {
         { name: 'CERT-In Security Guidelines', url: 'https://www.cert-in.org.in/' },
         { name: 'National Cyber Crime Portal', url: 'https://www.cybercrime.gov.in/' },
         { name: 'Cyber Dost Awareness', url: 'https://x.com/Cyberdost' },
-        { name: 'I4C - Indian Cyber Crime Centre', url: 'https://i4c.gov.in/' },
+        { name: 'I4C - Indian Cyber Crime Centre', url: 'https://i4c.mha.gov.in/' },
     ];
 
     return (
