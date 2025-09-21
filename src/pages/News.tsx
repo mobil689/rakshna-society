@@ -105,28 +105,38 @@ const News = () => {
 
             {/* The Dialog component that pops up when an article is selected */}
             <Dialog open={!!selectedArticle} onOpenChange={() => setSelectedArticle(null)}>
-                {/* I've removed the default padding with `p-0` to have full control over the layout */}
-                <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto p-0">
+                <DialogContent className="sm:max-w-4xl max-h-[95vh] overflow-hidden flex flex-col p-0">
                     {selectedArticle && (
                         <>
+                            {/* Image Section - Fixed height with proper aspect ratio */}
                             {selectedArticle.mainImage && (
-                                <img
-                                    src={urlFor(selectedArticle.mainImage).width(1200).height(600).url()}
-                                    alt={selectedArticle.mainImage.alt || 'Article image'}
-                                    // These classes ensure every image has a consistent size and crops nicely
-                                    className="w-full h-64 object-cover"
-                                />
+                                <div className="relative w-full h-80 overflow-hidden">
+                                    <img
+                                        src={urlFor(selectedArticle.mainImage).width(1200).height(600).url()}
+                                        alt={selectedArticle.mainImage.alt || 'Article image'}
+                                        className="w-full h-full object-cover object-center"
+                                    />
+                                </div>
                             )}
-                            <DialogHeader className="p-6 text-left border-b">
-                                <DialogTitle className="text-3xl mb-2">{selectedArticle.title}</DialogTitle>
-                                <DialogDescription className="text-lg">{selectedArticle.summary}</DialogDescription>
-                                <span className="text-sm text-muted-foreground pt-2">
-            Published on: {new Date(selectedArticle.publishedAt).toLocaleDateString()}
-          </span>
+                            
+                            {/* Header Section - Fixed height */}
+                            <DialogHeader className="p-6 text-left border-b bg-background flex-shrink-0">
+                                <DialogTitle className="text-2xl md:text-3xl mb-3 break-words leading-tight">
+                                    {selectedArticle.title}
+                                </DialogTitle>
+                                <DialogDescription className="text-base md:text-lg text-muted-foreground break-words leading-relaxed">
+                                    {selectedArticle.summary}
+                                </DialogDescription>
+                                <span className="text-sm text-muted-foreground pt-3 block">
+                                    Published on: {new Date(selectedArticle.publishedAt).toLocaleDateString()}
+                                </span>
                             </DialogHeader>
-                            {/* These classes style the article body and force text to wrap */}
-                            <div className="px-6 py-4 prose dark:prose-invert max-w-none break-words">
-                                <PortableText value={selectedArticle.body} />
+                            
+                            {/* Content Section - Scrollable */}
+                            <div className="flex-1 overflow-y-auto px-6 py-4">
+                                <div className="prose dark:prose-invert max-w-none news-modal-content">
+                                    <PortableText value={selectedArticle.body} />
+                                </div>
                             </div>
                         </>
                     )}

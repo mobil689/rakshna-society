@@ -26,12 +26,12 @@ const Header = () => {
                 <div className="flex items-center justify-between">
 
                     {/* ANIMATION: Added hover effects to the logo link */}
-                    <Link to="/" className="flex items-center space-x-2 group transform hover:scale-105 transition-all duration-300">
-                        {/* ANIMATION: Added hover effect to the logo image */}
-                        <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-10 w-10 group-hover:rotate-12 transition-transform duration-300" />
+                    <Link to="/" className="flex items-center space-x-3 group transform hover:scale-105 transition-all duration-300">
+                        {/* ANIMATION: Added hover effect to the logo image - Increased size */}
+                        <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-14 w-14 group-hover:rotate-12 transition-transform duration-300" />
 
-                        {/* ANIMATION: Added shimmer effect to the text */}
-                        <span className="text-xl font-bold text-primary relative">
+                        {/* ANIMATION: Added shimmer effect to the text - Moved right with more spacing */}
+                        <span className="text-2xl font-bold text-primary relative ml-2">
                     RAKSHNA
                     <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary-light to-primary opacity-0 group-hover:opacity-20 animate-shimmer"></div>
                 </span>
@@ -54,8 +54,8 @@ const Header = () => {
                         ))}
                     </nav>
 
-                    {/* Login/Register Buttons */}
-                    <div className="hidden md:flex items-center space-x-4">
+                    {/* Login/Register Buttons - Moved left with increased logo size */}
+                    <div className="hidden md:flex items-center space-x-3 mr-4">
                         {/* ANIMATION: Added hover effect */}
                         <Button variant="ghost" className="transform hover:scale-105 transition-all duration-300" asChild>
                             <Link to="/login">Login</Link>
@@ -65,7 +65,8 @@ const Header = () => {
                             <Link to="/register">Register</Link>
                         </Button>
 
-                        <img src="/mait-logo.png" alt="MAIT Logo" className="h-10" />
+                        {/* Increased MAIT logo size */}
+                        <img src="/mait-logo.png" alt="MAIT Logo" className="h-14" />
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -97,8 +98,8 @@ const Header = () => {
                                 </Link>
                             ))}
                             <div className="flex flex-col items-center space-y-2 pt-4 border-t border-border">
-                                {/* I also added your college logo to the mobile menu for consistency */}
-                                <img src="/mait-logo.png" alt="MAIT Logo" className="h-8 mb-2" />
+                                {/* I also added your college logo to the mobile menu for consistency - Increased size */}
+                                <img src="/mait-logo.png" alt="MAIT Logo" className="h-12 mb-2" />
                                 <Button variant="ghost" className="w-full" asChild>
                                     <Link to="/login">Login</Link>
                                 </Button>
