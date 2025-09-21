@@ -15,14 +15,14 @@ import { Loader2, AlertTriangle, UploadCloud, Shield, Lock, File as FileIcon, X 
 import { createClient } from '@sanity/client';
 import { sanityClient } from '@/lib/sanityClient';
 
-// // Sanity Client for frontend file uploads
-// const sanityClient = createClient({
-//     projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
-//     dataset: 'production',
-//     useCdn: false,
-//     apiVersion: '2023-05-03',
-//     token: import.meta.env.VITE_SANITY_API_TOKEN,
-// });
+// Sanity Client for frontend file uploads with token
+const uploadClient = createClient({
+    projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
+    dataset: 'production',
+    useCdn: false,
+    apiVersion: '2023-05-03',
+    token: import.meta.env.VITE_SANITY_API_TOKEN,
+});
 
 
 const Portal = () => {
@@ -60,7 +60,7 @@ const Portal = () => {
         try {
             if (file) {
                 toast.info("Uploading evidence file...");
-                const asset = await sanityClient.assets.upload('file', file);
+                const asset = await uploadClient.assets.upload('file', file);
                 evidenceFileAssetId = asset._id;
                 toast.success("File uploaded successfully!");
             }

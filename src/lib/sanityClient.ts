@@ -7,5 +7,5 @@ export const sanityClient = createClient({
     dataset: 'production',
     useCdn: true, // `true` for faster read operations
     apiVersion: '2023-05-03',
-    // No token is needed for read-only public data
+    token: import.meta.env.VITE_SANITY_API_TOKEN, // Required for file uploads
 });
