@@ -13,14 +13,19 @@ import Login from "./pages/Login";
 import Guidelines from "./pages/Guidelines";
 import NotFound from "./pages/NotFound";
 import News from "./pages/News";
+import ChatbotButton from "./components/ChatbotButton";
+import TermsModal from "./components/TermsModal";
+import CyberLoading from "./components/CyberLoading";
+import { LoadingProvider, useLoading } from "./contexts/LoadingContext";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
+const AppContent = () => {
+  const { isLoading } = useLoading();
+
+  return (
+    <>
+      {isLoading && <CyberLoading />}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -35,7 +40,21 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <TermsModal />
+        <ChatbotButton />
       </BrowserRouter>
+    </>
+  );
+};
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <LoadingProvider>
+        <AppContent />
+      </LoadingProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
