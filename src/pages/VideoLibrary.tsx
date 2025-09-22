@@ -23,15 +23,6 @@ const VideoLibrary = () => {
           level: 'Beginner'
         },
         {
-          title: 'Types of Cyber Attacks',
-          description: 'Comprehensive overview of different types of cyber attacks and how to defend against them.',
-          duration: '22:45',
-          views: '1.8M',
-          thumbnail: 'https://img.youtube.com/vi/Dk-ZqQ-bEY4/maxresdefault.jpg',
-          url: 'https://www.youtube.com/watch?v=Dk-ZqQ-bEY4',
-          level: 'Beginner'
-        },
-        {
           title: 'Network Security Basics',
           description: 'Understanding network security protocols, firewalls, and intrusion detection systems.',
           duration: '18:20',
@@ -53,81 +44,12 @@ const VideoLibrary = () => {
           thumbnail: 'https://img.youtube.com/vi/3Kq1MIfTWCE/maxresdefault.jpg',
           url: 'https://www.youtube.com/watch?v=3Kq1MIfTWCE',
           level: 'Advanced'
-        },
-        {
-          title: 'Penetration Testing with Kali Linux',
-          description: 'Learn penetration testing techniques using Kali Linux tools and methodologies.',
-          duration: '8:30:15',
-          views: '2.1M',
-          thumbnail: 'https://img.youtube.com/vi/lZAoFs75_cs/maxresdefault.jpg',
-          url: 'https://www.youtube.com/watch?v=lZAoFs75_cs',
-          level: 'Advanced'
-        },
-        {
-          title: 'Metasploit Framework Tutorial',
-          description: 'Complete guide to using Metasploit for penetration testing and vulnerability assessment.',
-          duration: '3:45:20',
-          views: '1.9M',
-          thumbnail: 'https://img.youtube.com/vi/8t6t6PQ5qXE/maxresdefault.jpg',
-          url: 'https://www.youtube.com/watch?v=8t6t6PQ5qXE',
-          level: 'Intermediate'
         }
       ]
     },
     {
-      title: 'Incident Response & Digital Forensics',
-      videos: [
-        {
-          title: 'Incident Response Planning',
-          description: 'Learn how to develop and implement effective incident response plans for your organization.',
-          duration: '25:10',
-          views: '856K',
-          thumbnail: 'https://img.youtube.com/vi/qjE5dX9b5lY/maxresdefault.jpg',
-          url: 'https://www.youtube.com/watch?v=qjE5dX9b5lY',
-          level: 'Intermediate'
-        },
-        {
-          title: 'Digital Forensics Fundamentals',
-          description: 'Introduction to digital forensics, evidence collection, and analysis techniques.',
-          duration: '32:45',
-          views: '1.2M',
-          thumbnail: 'https://img.youtube.com/vi/ZltvaKj1zVs/maxresdefault.jpg',
-          url: 'https://www.youtube.com/watch?v=ZltvaKj1zVs',
-          level: 'Intermediate'
-        },
-        {
-          title: 'Malware Analysis Basics',
-          description: 'Learn how to analyze malware, understand its behavior, and develop countermeasures.',
-          duration: '28:30',
-          views: '743K',
-          thumbnail: 'https://img.youtube.com/vi/29h0VgWgB6U/maxresdefault.jpg',
-          url: 'https://www.youtube.com/watch?v=29h0VgWgB6U',
-          level: 'Advanced'
-        }
-      ]
-    },
-    {
-      title: 'Cyber Law & Compliance',
-      videos: [
-        {
-          title: 'Cyber Law in India - IT Act 2000',
-          description: 'Comprehensive overview of cyber laws in India, including IT Act 2000 and recent amendments.',
-          duration: '35:20',
-          views: '567K',
-          thumbnail: 'https://img.youtube.com/vi/RFh_7XJd0Pg/maxresdefault.jpg',
-          url: 'https://www.youtube.com/watch?v=RFh_7XJd0Pg',
-          level: 'Beginner'
-        },
-        {
-          title: 'GDPR Compliance for Cybersecurity',
-          description: 'Understanding GDPR requirements and how they impact cybersecurity practices.',
-          duration: '28:15',
-          views: '432K',
-          thumbnail: 'https://img.youtube.com/vi/4c2lJAlBmMI/maxresdefault.jpg',
-          url: 'https://www.youtube.com/watch?v=4c2lJAlBmMI',
-          level: 'Intermediate'
-        }
-      ]
+      title: 'NPTEL Courses',
+      videos: []
     }
   ];
 
@@ -223,7 +145,7 @@ const VideoLibrary = () => {
                           handleVideoClick(video.url);
                         }}>
                           <ExternalLink className="mr-2 h-4 w-4" />
-                          Watch on YouTube
+                          {category.title === 'NPTEL Courses' ? 'Watch on NPTEL' : 'Watch on YouTube'}
                         </Button>
                       </div>
                     </CardContent>
@@ -233,36 +155,46 @@ const VideoLibrary = () => {
             </div>
           ))}
 
-          {/* Additional Resources */}
+          {/* Learning Tips */}
           <Card className="mt-12">
             <CardHeader>
-              <CardTitle>Additional Learning Resources</CardTitle>
+              <CardTitle>Learning Tips</CardTitle>
               <CardDescription>
-                Explore more cybersecurity content from trusted sources and educational platforms
+                Essential tips to maximize your cybersecurity learning journey
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold mb-3">Recommended Channels:</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li>• <strong>Professor Messer</strong> - CompTIA Security+ training</li>
-                    <li>• <strong>NetworkChuck</strong> - Practical cybersecurity tutorials</li>
-                    <li>• <strong>John Hammond</strong> - Malware analysis and CTF walkthroughs</li>
-                    <li>• <strong>IppSec</strong> - Advanced penetration testing techniques</li>
-                    <li>• <strong>Cybrary</strong> - Professional cybersecurity courses</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-3">Learning Tips:</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li>• Practice hands-on with virtual labs</li>
-                    <li>• Join cybersecurity communities and forums</li>
-                    <li>• Participate in CTF competitions</li>
-                    <li>• Stay updated with latest security news</li>
-                    <li>• Build a home lab for experimentation</li>
-                  </ul>
-                </div>
+              <div className="max-w-2xl">
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span><strong>Practice hands-on with virtual labs</strong> - Set up virtual machines and practice with tools like Kali Linux, Metasploit, and Wireshark</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span><strong>Join cybersecurity communities and forums</strong> - Engage with Reddit communities, Discord servers, and professional forums</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span><strong>Participate in CTF competitions</strong> - Test your skills with platforms like HackTheBox, TryHackMe, and PicoCTF</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span><strong>Stay updated with latest security news</strong> - Follow security blogs, podcasts, and industry publications</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span><strong>Build a home lab for experimentation</strong> - Create a safe environment to test and learn new techniques</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span><strong>Follow structured learning paths</strong> - Complete NPTEL courses systematically and take notes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span><strong>Network with professionals</strong> - Attend cybersecurity conferences, webinars, and meetups</span>
+                  </li>
+                </ul>
               </div>
             </CardContent>
           </Card>
