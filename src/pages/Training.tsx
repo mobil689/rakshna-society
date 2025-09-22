@@ -5,8 +5,10 @@ import { Label } from '@/components/ui/label';
 import { GraduationCap, Clock, Users, Star, BookOpen, Video, FileText } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const Training = () => {
+  const navigate = useNavigate();
   const upcomingWorkshops = [
     {
       title: 'Incident Response Planning',
@@ -51,10 +53,10 @@ const Training = () => {
     },
     {
       icon: BookOpen,
-      title: 'I4C & CyTrain , CISA Certifications',
-      description: 'Prepare for security certifications',
-      count: '5 courses',
-      type: 'Premium'
+      title: 'Cyber Security Resources',
+      description: 'Official guides, standards, and certification materials',
+      count: '25+ resources',
+      type: 'Free'
     }
   ];
 
@@ -183,10 +185,30 @@ const Training = () => {
                             {resource.type}
                           </span>
                         </div>
-                        <Button className="w-full" variant="outline" disabled>
-                          <Star className="mr-2 h-4 w-4" />
-                          Available Soon
-                        </Button>
+                        {index === 0 ? (
+                          <Button 
+                            className="w-full" 
+                            variant="outline"
+                            onClick={() => navigate('/video-library')}
+                          >
+                            <Video className="mr-2 h-4 w-4" />
+                            View Videos
+                          </Button>
+                        ) : index === 2 ? (
+                          <Button 
+                            className="w-full" 
+                            variant="outline"
+                            onClick={() => navigate('/cyber-security-resources')}
+                          >
+                            <BookOpen className="mr-2 h-4 w-4" />
+                            View Resources
+                          </Button>
+                        ) : (
+                          <Button className="w-full" variant="outline" disabled>
+                            <Star className="mr-2 h-4 w-4" />
+                            Available Soon
+                          </Button>
+                        )}
                       </div>
                     </CardContent>
                   </Card>

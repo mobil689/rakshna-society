@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import Portal from "./pages/Portal";
 import IncidentResponse from "./pages/IncidentResponse";
 import Training from "./pages/Training";
+import VideoLibrary from "./pages/VideoLibrary";
+import CyberSecurityResources from "./pages/CyberSecurityResources";
 import Events from "./pages/Events";
 import Helpline from "./pages/Helpline";
 import Login from "./pages/Login";
@@ -31,6 +33,8 @@ const AppContent = () => {
           <Route path="/portal" element={<Portal />} />
           <Route path="/incident-response" element={<IncidentResponse />} />
           <Route path="/training" element={<Training />} />
+          <Route path="/video-library" element={<VideoLibrary />} />
+          <Route path="/cyber-security-resources" element={<CyberSecurityResources />} />
           <Route path="/events" element={<Events />} />
           <Route path="/helpline" element={<Helpline />} />
           <Route path="/login" element={<Login />} />
