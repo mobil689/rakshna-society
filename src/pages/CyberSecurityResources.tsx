@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Globe } from 'lucide-react';
+// AFTER:
+import { ArrowLeft, Shield, Globe, BookOpen } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useNavigate } from 'react-router-dom';
