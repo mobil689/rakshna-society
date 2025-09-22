@@ -26,9 +26,9 @@ const Header = () => {
                 <div className="flex items-center justify-between">
 
                     {/* ANIMATION: Added hover effects to the logo link */}
-                    <Link to="/" className="flex items-center space-x-3 group transform hover:scale-105 transition-all duration-300">
-                        {/* ANIMATION: Added hover effect to the logo image - Increased size */}
-                        <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-18 w-18" />
+                    <Link to="/" className="flex items-center space-x-3 group">
+                        {/* Fixed logo size and removed hover scale/rotation */}
+                        <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-16 w-16" />
 
                         {/* ANIMATION: Added shimmer effect to the text - Moved right with more spacing */}
                         <span className="text-2xl font-bold text-primary relative ml-3">
@@ -65,8 +65,8 @@ const Header = () => {
                             <Link to="/register">Register</Link>
                         </Button>
 
-                        {/* Increased MAIT logo size */}
-                        <img src="/mait-logo.png" alt="MAIT Logo" className="h-14" />
+                        {/* Normalized MAIT logo size */}
+                        <img src="/mait-logo.png" alt="MAIT Logo" className="h-16" />
                     </div>
 
                     {/* Mobile Menu Button */}
