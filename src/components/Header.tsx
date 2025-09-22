@@ -28,10 +28,10 @@ const Header = () => {
                     {/* ANIMATION: Added hover effects to the logo link */}
                     <Link to="/" className="flex items-center space-x-3 group transform hover:scale-105 transition-all duration-300">
                         {/* ANIMATION: Added hover effect to the logo image - Increased size */}
-                        <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-14 w-14 group-hover:rotate-12 transition-transform duration-300" />
+                        <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-18 w-18" />
 
                         {/* ANIMATION: Added shimmer effect to the text - Moved right with more spacing */}
-                        <span className="text-2xl font-bold text-primary relative ml-2">
+                        <span className="text-2xl font-bold text-primary relative ml-3">
                     RAKSHNA
                     <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary-light to-primary opacity-0 group-hover:opacity-20 animate-shimmer"></div>
                 </span>

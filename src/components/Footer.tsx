@@ -19,10 +19,8 @@ const Footer = () => {
                     {/* Brand & Contact */}
                     {/* ANIMATION: Added fade-in animation */}
                     <div className="space-y-4 animate-fade-in-up">
-                        {/* ANIMATION: Added group class for hover effects */}
-                        <div className="flex items-center space-x-2 group">
-                            {/* ANIMATION: Added floating and hover effects */}
-                            <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-8 w-8 animate-float group-hover:rotate-12 transition-transform duration-300" />
+                        <div className="flex items-center space-x-2">
+                            <img src="/rakshna-logo.png" alt="RAKSHNA Logo" className="h-8 w-8" />
                             <span className="text-xl font-bold">RAKSHNA</span>
                         </div>
                         <p className="text-primary-foreground/80">
