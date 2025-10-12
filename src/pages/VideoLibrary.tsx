@@ -57,19 +57,46 @@ const VideoLibrary = () => {
           title: 'Cyber Security and Privacy',
           description: 'An NPTEL course by Prof. Saji K Mathew from IIT Madras covering the fundamentals of security and privacy.',
           duration: '12 weeks',
-          enrolled: '39.3k Enrolled', // Changed from 'views' to 'enrolled'
-          thumbnail: 'https://img.youtube.com/vi/o-PNEV-p-sM/maxresdefault.jpg', // Thumbnail from the intro video
-          url: 'https://onlinecourses.nptel.ac.in/noc24_mg49/preview', // Direct link to the NPTEL course page
+          enrolled: '39.3k', // Changed from 'views' to 'enrolled'
+          thumbnail: 'https://img.youtube.com/vi/OYsY5B9pqYU/maxresdefault.jpg', // Thumbnail from the intro video
+          url: 'https://onlinecourses.nptel.ac.in/noc23_cs127/preview', // Direct link to the NPTEL course page
           level: 'Intermediate'
         },
         {
           title: 'Ethical Hacking',
           description: 'An NPTEL course By Prof. Indranil Sen Gupta from IIT Kharagpur covering the fundamentals of Ethical Hacking.',
-          duration: 'Full Course',
-          enrolled: '45k+ Enrolled',
-          thumbnail: 'https://img.youtube.com/vi/9Qayx953k7g/maxresdefault.jpg',
-          url: 'https://onlinecourses.nptel.ac.in/noc24_cs12/preview',
+          duration: '12 weeks',
+          enrolled: '45.9k',
+          thumbnail: 'https://img.youtube.com/vi/kpM4GopdXm0/maxresdefault.jpg',
+          url: 'https://onlinecourses.nptel.ac.in/noc22_cs13/preview',
           level: 'Beginner'
+        },
+        {
+          title: 'Privacy and Security in Online Social Media',
+          description: 'An NPTEL course By Prof. Ponnurangam Kumaraguru from IIIT Hyderabad covering the practical theory of Privacy and Security in Online Social Media.',
+          duration: '12 weeks',
+          enrolled: '11.9k',
+          thumbnail: 'https://img.youtube.com/vi/AQClJAif5w8/maxresdefault.jpg',
+          url: 'https://onlinecourses.nptel.ac.in/noc23_cs13/preview',
+          level: 'Intermediate'
+        },        
+        {
+          title: 'Demystifying networking',
+          description: 'An NPTEL course By Prof. Sridhar Iyer from IIT Bombay covering the fundamentals of computer networking.',
+          duration: '4 weeks',
+          enrolled: '5.3k',
+          thumbnail: 'https://img.youtube.com/vi/y0Ji2-b8-OY/maxresdefault.jpg',
+          url: 'https://onlinecourses.nptel.ac.in/noc19_cs75/preview',
+          level: 'Beginner'
+        },
+        {
+          title: 'Introduction to Computer and Network Performance Analysis using Queuing Systems',
+          description: 'An NPTEL course By Prof. Varsha Apte from IIT Bombay covering the fundamentals of computer and network performance analysis using queuing systems.',
+          duration: '4 weeks',
+          enrolled: '4.2k',
+          thumbnail: 'https://img.youtube.com/vi/CbliVDveAyI/maxresdefault.jpg',
+          url: 'https://onlinecourses.nptel.ac.in/noc22_cs114/preview ',
+          level: 'Advance'
         }
       ]
     }
