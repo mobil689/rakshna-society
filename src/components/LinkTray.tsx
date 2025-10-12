@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, Calendar, ExternalLink, FileText, Newspaper, Loader2 } from 'lucide-react';
+import { AlertTriangle, Calendar, ExternalLink, FileText, Newspaper, Loader2, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
@@ -43,7 +43,7 @@ const LinkTray = () => {
     const quickLinks = [
         { icon: AlertTriangle, title: 'Report Attack', description: 'Immediate incident reporting', link: '/portal', urgent: true },
         { icon: Calendar, title: 'Major Events', description: 'Critical security alerts', link: '/events', urgent: false },
-        { icon: AlertTriangle, title: 'Current Alerts', description: 'Active threat notifications', link: '/alerts', urgent: true },
+        { icon: Play, title: 'Video Library', description: 'Educational cybersecurity videos', link: '/video-library', urgent: true },
         { icon: FileText, title: 'Guidelines', description: 'Security best practices', link: '/guidelines', urgent: false },
     ];
     const externalLinks = [
