@@ -18,7 +18,7 @@ import News from "./pages/News";
 import TermsModal from "./components/TermsModal";
 import CyberLoading from "./components/CyberLoading";
 import { LoadingProvider, useLoading } from "./contexts/LoadingContext";
-import ScrollToTop from './components/ScrollToTop';
+// import ScrollToTop from './components/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -30,7 +30,7 @@ const AppContent = () => {
       {isLoading && <CyberLoading />}
       <BrowserRouter>
         <Routes>
-          <ScrollToTop />
+
           <Route path="/" element={<Index />} />
           <Route path="/portal" element={<Portal />} />
           <Route path="/incident-response" element={<IncidentResponse />} />
