@@ -12,27 +12,27 @@ const Training = () => {
   const upcomingWorkshops = [
     {
       title: 'Incident Response Planning',
-      date: 'October 05, 2025',
+      date: 'November 15, 2025',
       duration: '2 hours',
       level: 'Beginner',
-      instructor: 'Professor name',
-      spots: '15 spots remaining'
+      instructor: 'will be available soon',
+      spots: '05 spots remaining'
     },
     {
       title: 'Introduction to Ethical Hacking',
-      date: 'October 12, 2025',
+      date: 'November 18, 2025',
       duration: '4 hours',
       level: 'Intermediate',
-      instructor: 'professor name',
-      spots: '28 spots remaining'
+      instructor: 'will be available soon',
+      spots: '38 spots remaining'
     },
     {
       title: 'Capture-the-Flag (CTF) Kickstart Competition',
-      date: 'October 25, 2025',
+      date: 'Coming soon',
       duration: '6 hours',
       level: 'Advanced',
-      instructor: 'professor name',
-      spots: '52 spots remaining'
+      instructor: 'will be available soon',
+      spots: '92 spots remaining'
     }
   ];
 

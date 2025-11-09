@@ -1,5 +1,5 @@
 // The new, fully dynamic version of src/pages/Events.tsx
-// (With "Learn More" Modal and automatic "Registration Ended" logic)
+// (With fixes for Event Stats and Past Events sections)
 
 import { useState, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,7 +20,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 // --- (NEW) Event Interface ---
-// We define a type for our event objects
 interface Event {
     id: number;
     title: string;
@@ -30,13 +29,60 @@ interface Event {
     spots: number;
     maxSpots: number;
     description: string;
-    posterUrl?: string; // For the event poster
-    details?: React.ReactNode; // For the detailed modal body
+    posterUrl?: string;
+    details?: React.ReactNode;
+    registrationLink?: string; // <-- 1. ADD THIS LINE
 }
 
 // --- (NEW) Event Data ---
-// I've added the posterUrl and details to your events
 const upcomingEvents: Event[] = [
+    {
+        id: 2,
+        title: 'RAKSHNA Inauguration Ceremony',
+        date: new Date('2025-11-10T11:00:00'), // This date is in the future
+        location: 'Main Auditorium, MAIT',
+        type: 'Inauguration',
+        spots: 280,
+        maxSpots: 400,
+        description: 'The official inauguration of the RAKSHNA Cyber Security Society.',
+        registrationLink: 'https://forms.gle/JjMweAWXJjcGZJ6A9', // <-- 2. ADD THIS LINE
+        posterUrl: 'https://placehold.co/600x400/1f2937/ffffff?text=RAKSHNA+Poster',
+        details: (
+            <div className="space-y-4 whitespace-pre-line">
+                <p className="font-bold text-lg">🔵 RAKSHNA – The Cybersecurity Society of MAIT 🔵</p>
+                <p>We’re thrilled to announce the Grand Inauguration of RAKSHNA, MAIT’s official Cybersecurity Society!</p>
+                <p className="font-semibold">👉 Mandatory Registration:
+                    <a href="https://forms.gle/JjMweAWXJjcGZJ6A9" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline ml-2">
+                        https://forms.gle/JjMweAWXJjcGZJ6A9
+                    </a>
+                </p>
+                <h4 className="font-semibold">What will you get 🔐</h4>
+                <ul className="list-none space-y-2">
+                    <li>⿡ Learn by doing! hands-on labs and guided projects, CTFs, hackathons, and cyber drills 💻</li>
+                    <li>⿢ Build your future! Collaborate with industry experts, government bodies, and law enforcement to become the next-gen Cybersecurity Leader. 🔐</li>
+                    <li>⿣ Official society 3 credits 🤫</li>
+                </ul>
+                <h4 className="font-semibold">📲 Follow us :</h4>
+                <ul className="list-none">
+                    <li>
+                        🌐 Instagram – <a href="https://www.instagram.com/rakshnamait/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                        https://www.instagram.com/rakshnamait/
+                    </a>
+                    </li>
+                    <li>
+                        💼 LinkedIn – <a href="https://www.linkedin.com/company/rakshna-mait/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                        https://www.linkedin.com/company/rakshna-mait/
+                    </a>
+                    </li>
+                </ul>
+                <h4 className="font-semibold">Student coordinators</h4>
+                <p>Utsav mittal 9996638...</p>
+            </div>
+        )
+    },
+];
+
+const pastEvents: Event[] = [
     {
         id: 1,
         title: 'The Working of the society',
@@ -58,68 +104,17 @@ const upcomingEvents: Event[] = [
                 </ul>
             </div>
         )
-    },
-    {
-        id: 2,
-        title: 'RAKSHNA Inauguration Ceremony',
-        date: new Date('2025-11-10T11:00:00'), // This date is in the future
-        location: 'Main Auditorium, MAIT',
-        type: 'Inauguration',
-        spots: 150,
-        maxSpots: 200,
-        description: 'The official inauguration of the RAKSHNA Cyber Security Society.',
-        posterUrl: 'https://github.com/mobil689/rakshna-society/blob/main/rakshnnnnaa.jpg', // Placeholder
-        // --- (NEW) Your full event details ---
-        details: (
-            <div className="space-y-4 whitespace-pre-line">
-                <p className="font-bold text-lg">🔵 RAKSHNA – The Cybersecurity Society of MAIT 🔵</p>
-                <p>We’re thrilled to announce the Grand Inauguration of RAKSHNA, MAIT’s official Cybersecurity Society!</p>
-
-                <p className="font-semibold">👉 Mandatory Registration:
-                    <a href="https://forms.gle/JjMweAWXJjcGZJ6A9" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline ml-2">
-                        https://forms.gle/JjMweAWXJjcGZJ6A9
-                    </a>
-                </p>
-
-                <h4 className="font-semibold">What will you get 🔐</h4>
-                <ul className="list-none space-y-2">
-                    <li>⿡ Learn by doing! hands-on labs and guided projects, CTFs, hackathons, and cyber drills 💻</li>
-                    <li>⿢ Build your future! Collaborate with industry experts, government bodies, and law enforcement to become the next-gen Cybersecurity Leader. 🔐</li>
-                    <li>⿣ Official society 3 credits 🤫</li>
-                </ul>
-
-                <h4 className="font-semibold">📲 Follow us :</h4>
-                <ul className="list-none">
-                    <li>
-                        🌐 Instagram – <a href="https://www.instagram.com/rakshnamait/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                        https://www.instagram.com/rakshnamait/
-                    </a>
-                    </li>
-                    <li>
-                        💼 LinkedIn – <a href="https://www.linkedin.com/company/rakshna-mait/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                        https://www.linkedin.com/company/rakshna-mait/
-                    </a>
-                    </li>
-                </ul>
-
-
-            </div>
-        )
-    },
-];
-
-const pastEvents: Event[] = [
-    // ...
+    }
 ];
 // --- (END NEW) Event Data ---
 
 
 const Events = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null); // --- (NEW) State for modal
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
     const today = new Date();
-    const now = new Date(); // --- (NEW) For checking event status
+    const now = new Date();
 
     const handlePrevMonth = () => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
@@ -134,7 +129,9 @@ const Events = () => {
 
     const eventDays = useMemo(() => {
         const days = new Set<number>();
-        for (const event of upcomingEvents) {
+        // Highlight days for both upcoming and past events in the calendar
+        const allEvents = [...upcomingEvents, ...pastEvents];
+        for (const event of allEvents) {
             if (event.date.getMonth() === currentMonth && event.date.getFullYear() === currentYear) {
                 days.add(event.date.getDate());
             }
@@ -171,11 +168,22 @@ const Events = () => {
                     </div>
 
                     {/* Coming Soon Notice (Unchanged) */}
-                    <Card className="mb-8 border-warning bg-warning/5">{/* ... */}</Card>
+                    <Card className="mb-8 border-warning bg-warning/5">
+                        <CardHeader>
+                            <CardTitle className="text-warning flex items-center gap-2">
+                                <Clock className="h-5 w-5" />
+                                Event Registration Coming Soon
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p>We're preparing an enhanced event management system with registration capabilities, waitlists, and calendar integration. Stay tuned for updates!</p>
+                        </CardContent>
+                    </Card>
 
-                    {/* Calendar Interface (Unchanged) */}
+                    {/* Calendar Interface */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-                        {/* ... Dynamic Mini Calendar ... */}
+
+                        {/* --- Dynamic Mini Calendar (Unchanged) --- */}
                         <Card>
                             <CardHeader>
                                 <div className="flex items-center justify-between">
@@ -224,11 +232,41 @@ const Events = () => {
                             </CardContent>
                         </Card>
 
-                        {/* --- (Dynamic Quick Stats - Unchanged) --- */}
-                        <Card className="lg:col-span-2">{/* ... */}</Card>
+                        {/* --- (FIXED) DYNAMIC Quick Stats --- */}
+                        <Card className="lg:col-span-2">
+                            <CardHeader>
+                                <CardTitle>Event Statistics</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-primary">{upcomingEvents.length}</div>
+                                        <div className="text-sm text-muted-foreground">Upcoming Events</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-success">
+                                            {upcomingEvents.reduce((acc, ev) => acc + ev.spots, 0)}
+                                        </div>
+                                        <div className="text-sm text-muted-foreground">Total Participants</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-warning">
+                                            {eventDays.size}
+                                        </div>
+                                        <div className="text-sm text-muted-foreground">Events This Month</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-destructive">
+                                            {upcomingEvents.filter(ev => ev.location === 'Virtual Event').length}
+                                        </div>
+                                        <div className="text-sm text-muted-foreground">Virtual Events</div>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
                     </div>
 
-                    {/* --- (NEW) DYNAMIC Upcoming Events --- */}
+                    {/* --- DYNAMIC Upcoming Events (Unchanged) --- */}
                     <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">Upcoming Events</h2>
                         <div className="space-y-4">
@@ -237,7 +275,6 @@ const Events = () => {
                                 const locationVariant: "outline" | "default" =
                                     event.location === 'Virtual Event' ? 'outline' : 'default';
 
-                                // --- (NEW) Check if the event is in the past ---
                                 const isPastEvent = event.date < now;
 
                                 return (
@@ -276,21 +313,27 @@ const Events = () => {
                                                 </div>
 
                                                 <div className="flex flex-col gap-2">
-                                                    {/* --- (NEW) Dynamic Button Logic --- */}
+                                                    {/* --- 3. REPLACE THIS ENTIRE BLOCK --- */}
                                                     {isPastEvent ? (
                                                         <Button className="w-full" variant="secondary" disabled>
                                                             Registration Ended
+                                                        </Button>
+                                                    ) : event.registrationLink ? (
+                                                        <Button className="w-full" asChild>
+                                                            <a href={event.registrationLink} target="_blank" rel="noopener noreferrer">
+                                                                Register Now
+                                                            </a>
                                                         </Button>
                                                     ) : (
                                                         <Button
                                                             className="w-full"
                                                             disabled={event.spots >= event.maxSpots}
                                                         >
-                                                            {event.spots >= event.maxSpots ? 'Event Full' : 'Register Soon'}
+                                                            {event.spots >= event.maxSpots ? 'Event Full' : 'Registration Closed'}
                                                         </Button>
                                                     )}
+                                                    {/* --- END OF REPLACEMENT --- */}
 
-                                                    {/* --- (NEW) Learn More Button --- */}
                                                     <Button
                                                         variant="outline"
                                                         className="w-full"
@@ -307,12 +350,45 @@ const Events = () => {
                         </div>
                     </div>
 
-                    {/* Past Events Archive (Unchanged) */}
-                    <Card>{/* ... */}</Card>
+                    {/* --- (FIXED) DYNAMIC Past Events Archive --- */}
+                    <div className="mb-12">
+                        <h2 className="text-3xl font-bold text-primary mb-6">Past Events Archive</h2>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Event History</CardTitle>
+                                <CardDescription>Browse summaries and details from our past events.</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                {pastEvents.length > 0 ? (
+                                    pastEvents.map((event) => (
+                                        <div key={event.id} className="flex flex-col md:flex-row items-center justify-between p-4 border rounded-lg gap-4">
+                                            <div className="flex-grow">
+                                                <Badge variant="secondary" className="mb-2">{event.type}</Badge>
+                                                <h4 className="font-semibold text-lg">{event.title}</h4>
+                                                <p className="text-sm text-muted-foreground">
+                                                    {event.date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                                                </p>
+                                            </div>
+                                            <Button
+                                                variant="outline"
+                                                className="w-full md:w-auto"
+                                                onClick={() => setSelectedEvent(event)}
+                                            >
+                                                View Details
+                                            </Button>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="text-muted-foreground text-center">No past events to show yet.</p>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </div>
+
                 </div>
             </main>
 
-            {/* --- (NEW) Event Details Modal --- */}
+            {/* --- Event Details Modal (Unchanged) --- */}
             <Dialog open={!!selectedEvent} onOpenChange={(isOpen) => !isOpen && setSelectedEvent(null)}>
                 <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
                     {selectedEvent && (
@@ -328,10 +404,8 @@ const Events = () => {
                                 </button>
                             </DialogHeader>
 
-                            {/* This is the layout from your diagram */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-4">
 
-                                {/* Left Column (Body) */}
                                 <div className="md:col-span-2">
                                     <h3 className="font-bold text-xl mb-4 text-primary">Event Details</h3>
                                     <div className="prose prose-sm dark:prose-invert max-w-none">
@@ -339,7 +413,6 @@ const Events = () => {
                                     </div>
                                 </div>
 
-                                {/* Right Column (Poster & Info) */}
                                 <div className="md:col-span-1 space-y-4">
                                     <div>
                                         <h3 className="font-bold text-xl mb-4 text-primary">Event Poster</h3>
