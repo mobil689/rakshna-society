@@ -10,6 +10,7 @@ import Training from "./pages/Training";
 import VideoLibrary from "./pages/VideoLibrary";
 import CyberSecurityResources from "./pages/CyberSecurityResources";
 import Events from "./pages/Events";
+import EventGallery from "./pages/EventGallery"; // <-- 1. Import the new page
 import Helpline from "./pages/Helpline";
 import Login from "./pages/Login";
 import Guidelines from "./pages/Guidelines";
@@ -39,6 +40,10 @@ const AppContent = () => {
           <Route path="/video-library" element={<VideoLibrary />} />
           <Route path="/cyber-security-resources" element={<CyberSecurityResources />} />
           <Route path="/events" element={<Events />} />
+          
+          {/* --- 2. NEW ROUTE --- */}
+          <Route path="/events/gallery/:slug" element={<EventGallery />} />
+
           <Route path="/helpline" element={<Helpline />} />
           <Route path="/login" element={<Login />} />
           <Route path="/guidelines" element={<Guidelines />} />

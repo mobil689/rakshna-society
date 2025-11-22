@@ -3,5 +3,6 @@
 import blockContent from './blockContent'
 import newsArticle from './newsArticle'
 import incidentReport from './incidentReport'
+import eventGallery from './eventGallery'
 
-export const schemaTypes = [newsArticle,incidentReport , blockContent]
+export const schemaTypes = [newsArticle,incidentReport , blockContent,eventGallery]
