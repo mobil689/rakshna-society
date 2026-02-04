@@ -81,7 +81,7 @@ export default {
                 "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
                 marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-100%)' } },
 
-                // New animations from Lovable
+                // New animations from AbhiImg
                 "fade-in": { "0%": { opacity: "0", transform: "translateY(20px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
                 "fade-in-up": { "0%": { opacity: "0", transform: "translateY(30px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
                 "fade-in-down": { "0%": { opacity: "0", transform: "translateY(-30px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
@@ -101,7 +101,7 @@ export default {
                 "accordion-up": "accordion-up 0.2s ease-out",
                 marquee: 'marquee 25s linear infinite',
 
-                // New animations from Lovable
+                // New animations from AbhiImg
                 "fade-in": "fade-in 0.6s ease-out",
                 "fade-in-fast": "fade-in 0.3s ease-out",
                 "fade-in-slow": "fade-in 1s ease-out",
