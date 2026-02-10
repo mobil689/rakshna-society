@@ -23,8 +23,8 @@ interface Event {
   date: Date;
   location: string;
   type: string;
-  spots: number;
-  maxSpots: number;
+  spots: string;
+  maxSpots: string;
   description: string;
   posterUrl?: string; 
   details?: React.ReactNode;
@@ -32,8 +32,55 @@ interface Event {
   galleryLink?: string; // <-- NEW: Link to the gallery page
 }
 
-// --- UPCOMING EVENTS (Empty now) ---
-const upcomingEvents: Event[] = [];
+// --- ONGOING EVENTS ---
+const ongoingEvents: Event[] = [
+  {
+    id: 3,
+    title: 'Rakshna Recruitment Tasks',
+    date: new Date(), 
+    location: 'Online',
+    type: 'Recruitment',
+    spots: "N/A", 
+    maxSpots: "N/A",
+    description: 'Complete the tasks to join Rakshna Society. Download the challenges and submit your flags.',
+    posterUrl: '/rakshna-logo.png', // Using the Rakshna Logo
+    details: (
+      <div className="space-y-6">
+        <div className="p-4 border rounded-lg bg-muted/20">
+            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
+                <FileText className="h-5 w-5 text-primary" />
+                Tasks
+            </h3>
+            <p className="mb-4 text-muted-foreground">
+                Download the challenge zip file containing the recruitment tasks.
+                <br/>
+                <span className="text-xs italic">Note: Extract the zip file on your pc and solve the tasks.</span>
+            </p>
+            <Button asChild>
+                <a href="https://github.com/mobil689/rakshna-society/raw/84c2adeb6b3d3ba5b7b8c3a2793b8d85816f2004/Rakshna_Recruitment_Task.zip" target="_blank" rel="noopener noreferrer">
+                    Download Tasks (Zip)
+                </a>
+            </Button>
+        </div>
+
+        <div className="p-4 border rounded-lg bg-muted/20">
+            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
+                <Users className="h-5 w-5 text-primary" />
+                Submit the Flags
+            </h3>
+            <p className="mb-4 text-muted-foreground">
+                Once you have solved the challenges, submit your flags via the Google Form below.
+            </p>
+            <Button asChild>
+                <a href="https://forms.gle/NDC1VpoBFzSPdV968" target="_blank" rel="noopener noreferrer">
+                    Go to Submission Form
+                </a>
+            </Button>
+        </div>
+      </div>
+    )
+  }
+];
 
 // --- PAST EVENTS (Moved Inauguration here) ---
 const pastEvents: Event[] = [
@@ -43,8 +90,8 @@ const pastEvents: Event[] = [
     date: new Date('2025-11-10T11:00:00'),
     location: 'Main Auditorium, MAIT',
     type: 'Inauguration',
-    spots: 280,
-    maxSpots: 400,
+    spots: "280",
+    maxSpots: "400",
     description: 'The official inauguration of the RAKSHNA Cyber Security Society.',
     posterUrl: 'https://placehold.co/600x400/1f2937/ffffff?text=RAKSHNA+Poster', 
     galleryLink: '/events/gallery/rakshna-inauguration-report', // <-- LINK TO NEW PAGE
@@ -61,8 +108,8 @@ const pastEvents: Event[] = [
     date: new Date('2025-09-17T10:00:00'),
     location: 'BLOCK 11, MAIT',
     type: 'Group Discussion',
-    spots: 20,
-    maxSpots: 50,
+    spots: "20",
+    maxSpots: "50",
     description: 'Discussing about the upcoming future and strengthening the society',
     posterUrl: 'https://placehold.co/600x400/1f2937/ffffff?text=Event+Poster',
     details: (
@@ -88,7 +135,7 @@ const Events = () => {
 
   const eventDays = useMemo(() => {
     const days = new Set<number>();
-    const allEvents = [...upcomingEvents, ...pastEvents];
+    const allEvents = [...ongoingEvents, ...pastEvents];
     for (const event of allEvents) {
       if (event.date.getMonth() === currentMonth && event.date.getFullYear() === currentYear) {
         days.add(event.date.getDate());
@@ -169,8 +216,8 @@ const Events = () => {
                 <CardContent>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="text-center">
-                            <div className="text-2xl font-bold text-primary">{upcomingEvents.length}</div>
-                            <div className="text-sm text-muted-foreground">Upcoming</div>
+                            <div className="text-2xl font-bold text-primary">{ongoingEvents.length}</div>
+                            <div className="text-sm text-muted-foreground">Ongoing</div>
                         </div>
                         <div className="text-center">
                             <div className="text-2xl font-bold text-success">250+</div>
@@ -189,14 +236,58 @@ const Events = () => {
              </Card>
           </div>
 
-          {/* UPCOMING EVENTS */}
+          {/* ONGOING EVENTS */}
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-primary mb-6">Upcoming Events</h2>
-            {upcomingEvents.length === 0 ? (
+            <h2 className="text-3xl font-bold text-primary mb-6">ongoing Events</h2>
+            {ongoingEvents.length === 0 ? (
                 <div className="text-center p-8 border-2 border-dashed rounded-xl bg-muted/30">
-                    <p className="text-muted-foreground">No upcoming events scheduled. Check back soon!</p>
+                    <p className="text-muted-foreground">No ongoing events scheduled. Check back soon!</p>
                 </div>
-            ) : ( <div/> )}
+            ) : (
+                <div className="grid gap-6">
+                    {ongoingEvents.map((event) => (
+                        <Card key={event.id} className="border-primary/20 shadow-lg">
+                            <CardContent className="p-6">
+                                <div className="flex flex-col md:flex-row gap-6">
+                                    <div className="flex-grow space-y-4">
+                                        <div className="flex items-center justify-between">
+                                            <Badge className="bg-primary hover:bg-primary/90 text-primary-foreground px-3 py-1 text-sm">
+                                                {event.type}
+                                            </Badge>
+                                            <span className="text-sm text-muted-foreground flex items-center gap-1 bg-muted px-2 py-1 rounded-full">
+                                                <CalendarIcon className="h-4 w-4"/>
+                                                {event.date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                                            </span>
+                                        </div>
+                                        
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-2">{event.title}</h3>
+                                            <p className="text-muted-foreground leading-relaxed">{event.description}</p>
+                                        </div>
+
+                                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                                            <div className="flex items-center gap-2">
+                                                <MapPin className="h-4 w-4 text-primary" />
+                                                {event.location}
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <Users className="h-4 w-4 text-primary" />
+                                                {event.spots} / {event.maxSpots} Spots
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col justify-center gap-3 min-w-[200px]">
+                                        <Button size="lg" onClick={() => setSelectedEvent(event)} className="w-full shadow-md hover:shadow-lg transition-all">
+                                            View Details & Tasks
+                                        </Button>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            )}
           </div>
 
           {/* PAST EVENTS */}
@@ -251,7 +342,7 @@ const Events = () => {
               <DialogHeader>
                 <DialogTitle>{selectedEvent.title}</DialogTitle>
                 <DialogDescription>{selectedEvent.description}</DialogDescription>
-                <button className="absolute top-4 right-4" onClick={() => setSelectedEvent(null)}><X className="h-6 w-6" /></button>
+
               </DialogHeader>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-4">
                 <div className="md:col-span-2 prose dark:prose-invert max-w-none">
