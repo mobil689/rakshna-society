@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Trophy, CheckCircle, Star, Sparkles, Code, Shield, Terminal } from 'lucide-react';
+import { Trophy, CheckCircle, Star, Sparkles, Code, Shield, Terminal , Rocket } from 'lucide-react';
 
 const RecruitmentResults = () => {
     const [showFirecrackers, setShowFirecrackers] = useState(true);
@@ -69,7 +69,7 @@ const RecruitmentResults = () => {
         {
             id: 'non-tech',
             title: 'Non Technical Team',
-            icon: Trophy,
+            icon: Rocket,
             description: '',
             members: [],
             customMessage: "Results will be announced soon"
