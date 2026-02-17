@@ -17,7 +17,9 @@ import Guidelines from "./pages/Guidelines";
 import NotFound from "./pages/NotFound";
 import News from "./pages/News";
 import NewsArticle from "./pages/NewsArticle";
+import RecruitmentResults from "./pages/RecruitmentResults";
 import TermsModal from "./components/TermsModal";
+
 import CyberLoading from "./components/CyberLoading";
 import { LoadingProvider, useLoading } from "./contexts/LoadingContext";
 // import ScrollToTop from './components/ScrollToTop';
@@ -47,6 +49,7 @@ const AppContent = () => {
           <Route path="/helpline" element={<Helpline />} />
           <Route path="/login" element={<Login />} />
           <Route path="/guidelines" element={<Guidelines />} />
+          <Route path="/results" element={<RecruitmentResults />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/:slug" element={<NewsArticle />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
