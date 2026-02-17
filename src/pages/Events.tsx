@@ -72,8 +72,8 @@ const ongoingEvents: Event[] = [
                 Once you have solved the challenges, submit your flags via the Google Form below.
             </p>
             <Button asChild>
-                <a href="https://forms.gle/NDC1VpoBFzSPdV968" target="_blank" rel="noopener noreferrer">
-                    Go to Submission Form
+                <a href="" target="_blank" rel="noopener noreferrer">
+                    Submission Closed!!!
                 </a>
             </Button>
         </div>
