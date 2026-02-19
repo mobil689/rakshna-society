@@ -71,8 +71,20 @@ const RecruitmentResults = () => {
             title: 'Non Technical Team',
             icon: Rocket,
             description: '',
-            members: [],
-            customMessage: "Results will be announced soon"
+            members: [
+                { name: "Anshul Singh Negi", year: "3rd Year" },
+                { name: "Rishabh Kaushik", year: "1st Year" },
+                { name: "Manav Garg", year: "2nd Year" },
+                { name: "Kartik Sharma", year: "1st Year" },
+                { name: "Muskan Bhardwaj", year: "2nd Year" },
+                { name: "Rishabh Raj", year: "2nd Year" },
+                { name: "Prateek Tanwar", year: "2nd Year" },
+                { name: "Sahib Singh Sodhi", year: "2nd Year" },
+                { name: "Ashmita Khanal", year: "2nd Year" },
+                { name: "Varun Kumar", year: "2nd Year" },
+                { name: "Keshav Garg", year: "1st Year" },
+                { name: "Devanshi Verma", year: "2nd Year" },
+            ]
         }
     ];
 
@@ -139,36 +151,25 @@ const RecruitmentResults = () => {
                                     </CardHeader>
                                     
                                     <CardContent className="relative z-10">
-                                        {category.customMessage ? (
-                                            <div className="flex flex-col items-center justify-center py-12 text-center h-[300px] border-2 border-dashed border-primary/10 rounded-xl bg-primary/5/50">
-                                                <div className="p-4 rounded-full bg-primary/10 mb-4 animate-pulse">
-                                                    <Trophy className="w-8 h-8 text-primary/60" />
-                                                </div>
-                                                <p className="text-xl font-medium text-muted-foreground/80">
-                                                    {category.customMessage}
-                                                </p>
-                                            </div>
-                                        ) : (
-                                            <div className="grid gap-3">
-                                                {category.members.map((member, mIdx) => (
-                                                    <motion.div 
-                                                        key={mIdx}
-                                                        initial={{ opacity: 0, x: -10 }}
-                                                        animate={{ opacity: 1, x: 0 }}
-                                                        transition={{ delay: 0.2 + (mIdx * 0.05) }}
-                                                        className="flex items-center justify-between p-4 rounded-xl bg-secondary/40 hover:bg-secondary/80 border border-transparent hover:border-primary/20 transition-all group/item backdrop-blur-sm"
-                                                    >
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="h-2 w-2 rounded-full bg-primary/40 group-hover/item:bg-primary transition-colors" />
-                                                            <h4 className="font-semibold text-base group-hover/item:text-primary transition-colors">{member.name}</h4>
-                                                        </div>
-                                                        <Badge variant="secondary" className="bg-background/50 text-[11px] font-medium text-muted-foreground border-primary/10">
-                                                            {member.year}
-                                                        </Badge>
-                                                    </motion.div>
-                                                ))}
-                                            </div>
-                                        )}
+                                        <div className="grid gap-3">
+                                            {category.members.map((member, mIdx) => (
+                                                <motion.div 
+                                                    key={mIdx}
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: 0.2 + (mIdx * 0.05) }}
+                                                    className="flex items-center justify-between p-4 rounded-xl bg-secondary/40 hover:bg-secondary/80 border border-transparent hover:border-primary/20 transition-all group/item backdrop-blur-sm"
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="h-2 w-2 rounded-full bg-primary/40 group-hover/item:bg-primary transition-colors" />
+                                                        <h4 className="font-semibold text-base group-hover/item:text-primary transition-colors">{member.name}</h4>
+                                                    </div>
+                                                    <Badge variant="secondary" className="bg-background/50 text-[11px] font-medium text-muted-foreground border-primary/10">
+                                                        {member.year}
+                                                    </Badge>
+                                                </motion.div>
+                                            ))}
+                                        </div>
                                     </CardContent>
                                 </Card>
                             </motion.div>
