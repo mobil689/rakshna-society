@@ -20,18 +20,14 @@ import NewsArticle from "./pages/NewsArticle";
 import RecruitmentResults from "./pages/RecruitmentResults";
 import TermsModal from "./components/TermsModal";
 
-import CyberLoading from "./components/CyberLoading";
-import { LoadingProvider, useLoading } from "./contexts/LoadingContext";
+
 // import ScrollToTop from './components/ScrollToTop';
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  const { isLoading } = useLoading();
-
   return (
     <>
-      {isLoading && <CyberLoading />}
       <BrowserRouter>
         <Routes>
 
@@ -66,9 +62,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <LoadingProvider>
-        <AppContent />
-      </LoadingProvider>
+      <AppContent />
     </TooltipProvider>
   </QueryClientProvider>
 );
