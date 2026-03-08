@@ -89,7 +89,10 @@ const Helpline = () => {
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
           access_key: '0ec500b0-f819-4bb2-8ea7-dc217a17807d',
           subject: `Support Ticket: ${ticketForm.subject}`,
@@ -105,9 +108,11 @@ const Helpline = () => {
         setTicketSubmitted(true);
         setTicketForm({ name: '', email: '', subject: '', priority: 'low', description: '' });
       } else {
+        console.error("Web3Forms API Error:", result);
         setTicketStatus('error');
       }
-    } catch {
+    } catch (error) {
+      console.error("Web3Forms submission failed:", error);
       setTicketStatus('error');
     }
   };

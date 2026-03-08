@@ -25,7 +25,10 @@ const Guidelines = () => {
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json' 
+        },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
           subject: `New Resource Suggestion from ${suggestForm.name}`,
@@ -40,9 +43,11 @@ const Guidelines = () => {
         setSuggestStatus('success');
         setSuggestForm({ name: '', email: '', resource: '', details: '' });
       } else {
+        console.error("Web3Forms API Error:", result);
         setSuggestStatus('error');
       }
-    } catch {
+    } catch (error) {
+      console.error("Web3Forms submission failed:", error);
       setSuggestStatus('error');
     }
   };
