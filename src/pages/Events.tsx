@@ -33,17 +33,22 @@ interface Event {
 }
 
 // --- ONGOING EVENTS ---
-const ongoingEvents: Event[] = [
+const ongoingEvents: Event[] = [];
+
+
+// --- PAST EVENTS ---
+const pastEvents: Event[] = [
   {
     id: 3,
     title: 'Rakshna Recruitment Tasks',
-    date: new Date(), 
+    date: new Date('2026-03-08'),
     location: 'Online',
     type: 'Recruitment',
-    spots: "N/A", 
+    spots: "N/A",
     maxSpots: "N/A",
     description: 'Complete the tasks to join Rakshna Society. Download the challenges and submit your flags.',
-    posterUrl: '/rakshna-logo.png', // Using the Rakshna Logo
+    posterUrl: '/rakshna-logo.png',
+    galleryLink: '/events/gallery/rakshna-recruitment',
     details: (
       <div className="space-y-6">
         <div className="p-4 border rounded-lg bg-muted/20">
@@ -62,7 +67,6 @@ const ongoingEvents: Event[] = [
                 </a>
             </Button>
         </div>
-
         <div className="p-4 border rounded-lg bg-muted/20">
             <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
                 <Users className="h-5 w-5 text-primary" />
@@ -79,11 +83,7 @@ const ongoingEvents: Event[] = [
         </div>
       </div>
     )
-  }
-];
-
-// --- PAST EVENTS (Moved Inauguration here) ---
-const pastEvents: Event[] = [
+  },
   {
     id: 2,
     title: 'RAKSHNA Inauguration Ceremony',
@@ -93,8 +93,8 @@ const pastEvents: Event[] = [
     spots: "280",
     maxSpots: "400",
     description: 'The official inauguration of the RAKSHNA Cyber Security Society.',
-    posterUrl: 'https://placehold.co/600x400/1f2937/ffffff?text=RAKSHNA+Poster', 
-    galleryLink: '/events/gallery/rakshna-inauguration-report', // <-- LINK TO NEW PAGE
+    posterUrl: 'https://placehold.co/600x400/1f2937/ffffff?text=RAKSHNA+Poster',
+    galleryLink: '/events/gallery/rakshna-inauguration-report',
     details: (
         <div className="space-y-4 whitespace-pre-line">
             <p className="font-bold text-lg">🔵 RAKSHNA – The Cybersecurity Society of MAIT 🔵</p>
@@ -238,7 +238,7 @@ const Events = () => {
 
           {/* ONGOING EVENTS */}
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-primary mb-6">ongoing Events</h2>
+            <h2 className="text-3xl font-bold text-primary mb-6">Ongoing Events</h2>
             {ongoingEvents.length === 0 ? (
                 <div className="text-center p-8 border-2 border-dashed rounded-xl bg-muted/30">
                     <p className="text-muted-foreground">No ongoing events scheduled. Check back soon!</p>

@@ -8,13 +8,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { FileText, Search, Shield, Lock, AlertTriangle, CheckCircle, ExternalLink, Eye, Send, Loader2 } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const EMAILJS_SERVICE_ID = 'service_8pkh432';
-const EMAILJS_TEMPLATE_ID = 'template_dijljqp';
-const EMAILJS_PUBLIC_KEY = '6Ygd25TG9QxNWhqAm';
+const WEB3FORMS_ACCESS_KEY = '0ec500b0-f819-4bb2-8ea7-dc217a17807d';
 
 const Guidelines = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,20 +23,25 @@ const Guidelines = () => {
     e.preventDefault();
     setSuggestStatus('sending');
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New Resource Suggestion from ${suggestForm.name}`,
           from_name: suggestForm.name,
-          from_email: suggestForm.email,
+          email: suggestForm.email,
           resource: suggestForm.resource,
           details: suggestForm.details,
-          to_email: 'rakshnamait@gmail.com',
-        },
-        EMAILJS_PUBLIC_KEY
-      );
-      setSuggestStatus('success');
-      setSuggestForm({ name: '', email: '', resource: '', details: '' });
+        }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setSuggestStatus('success');
+        setSuggestForm({ name: '', email: '', resource: '', details: '' });
+      } else {
+        setSuggestStatus('error');
+      }
     } catch {
       setSuggestStatus('error');
     }

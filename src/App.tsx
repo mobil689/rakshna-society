@@ -21,7 +21,7 @@ import RecruitmentResults from "./pages/RecruitmentResults";
 import TermsModal from "./components/TermsModal";
 
 
-// import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './components/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -29,6 +29,7 @@ const AppContent = () => {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
 
           <Route path="/" element={<Index />} />

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { AlertTriangle, Phone, Shield } from 'lucide-react';
+import { AlertTriangle, Phone, Shield, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
@@ -91,6 +91,11 @@ const Hero = () => {
                             </div>
                         </Card>
 
+                    </div>
+
+                    {/* Scroll Down Indicator */}
+                    <div className="mt-16 flex justify-center animate-bounce">
+                        <ChevronDown className="h-8 w-8 text-white/70" />
                     </div>
                 </div>
             </div>

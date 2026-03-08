@@ -148,7 +148,7 @@ const LinkTray = () => {
                                     key={link.name}
                                     variant="ghost"
                                     // ANIMATION: Added hover effects and staggered fade-in
-                                    className="w-full justify-between p-3 h-auto transform hover:translate-x-1 transition-all duration-300 animate-fade-in-up hover:bg-primary/5"
+                                    className="w-full justify-between p-3 h-auto transform hover:translate-x-1 transition-all duration-300 animate-fade-in-up hover:bg-accent hover:text-accent-foreground"
                                     style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                                     asChild
                                 >
