@@ -1,15 +1,58 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { FileText, Download, Search, Shield, Lock, AlertTriangle, CheckCircle, ExternalLink } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { FileText, Search, Shield, Lock, AlertTriangle, CheckCircle, ExternalLink, Eye, Send, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+const EMAILJS_SERVICE_ID = 'service_8pkh432';
+const EMAILJS_TEMPLATE_ID = 'template_dijljqp';
+const EMAILJS_PUBLIC_KEY = '6Ygd25TG9QxNWhqAm';
+
 const Guidelines = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [suggestDialogOpen, setSuggestDialogOpen] = useState(false);
+  const [suggestForm, setSuggestForm] = useState({ name: '', email: '', resource: '', details: '' });
+  const [suggestStatus, setSuggestStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  const handleSuggestSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSuggestStatus('sending');
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: suggestForm.name,
+          from_email: suggestForm.email,
+          resource: suggestForm.resource,
+          details: suggestForm.details,
+          to_email: 'rakshnamait@gmail.com',
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      setSuggestStatus('success');
+      setSuggestForm({ name: '', email: '', resource: '', details: '' });
+    } catch {
+      setSuggestStatus('error');
+    }
+  };
+
+  const resetSuggestDialog = () => {
+    setSuggestDialogOpen(false);
+    // Reset after close animation
+    setTimeout(() => {
+      setSuggestStatus('idle');
+      setSuggestForm({ name: '', email: '', resource: '', details: '' });
+    }, 200);
+  };
 
   const bestPractices = [
     {
@@ -164,6 +207,50 @@ const Guidelines = () => {
     resource.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Unified search results across all tabs
+  const searchResults = useMemo(() => {
+    if (!searchTerm.trim()) return null;
+    const term = searchTerm.toLowerCase();
+    const results: Array<{ type: 'practice' | 'download' | 'external'; title: string; summary: string; icon: typeof Shield; link?: string }> = [];
+
+    // Search best practices
+    bestPractices.forEach((category) => {
+      const matchingPractices = category.practices.filter(p => p.toLowerCase().includes(term));
+      const categoryMatch = category.category.toLowerCase().includes(term);
+      if (categoryMatch || matchingPractices.length > 0) {
+        const displayPractices = categoryMatch ? category.practices : matchingPractices;
+        const summary = displayPractices.length > 2
+          ? `${displayPractices.slice(0, 2).join(' • ')} — and ${displayPractices.length - 2} more tip${displayPractices.length - 2 > 1 ? 's' : ''}`
+          : displayPractices.join(' • ');
+        results.push({ type: 'practice', title: category.category, summary, icon: category.icon });
+      }
+    });
+
+    // Search downloadable resources
+    downloadableResources.forEach((resource) => {
+      if (
+        resource.title.toLowerCase().includes(term) ||
+        resource.description.toLowerCase().includes(term) ||
+        resource.category.toLowerCase().includes(term)
+      ) {
+        results.push({ type: 'download', title: resource.title, summary: resource.description, icon: FileText, link: resource.previewUrl });
+      }
+    });
+
+    // Search external resources
+    externalResources.forEach((resource) => {
+      if (
+        resource.title.toLowerCase().includes(term) ||
+        resource.organization.toLowerCase().includes(term) ||
+        resource.description.toLowerCase().includes(term)
+      ) {
+        results.push({ type: 'external', title: resource.title, summary: `${resource.organization} — ${resource.description}`, icon: ExternalLink, link: resource.url });
+      }
+    });
+
+    return results;
+  }, [searchTerm]);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -202,6 +289,66 @@ const Guidelines = () => {
             </CardContent>
           </Card>
 
+          {/* Search Results View */}
+          {searchResults && searchResults.length > 0 ? (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold">
+                  Found {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} for "{searchTerm}"
+                </h2>
+                <Button variant="ghost" size="sm" onClick={() => setSearchTerm('')}>
+                  Clear Search
+                </Button>
+              </div>
+              {searchResults.map((result, index) => {
+                const IconComponent = result.icon;
+                return (
+                  <Card key={index} className="hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-4">
+                        <div className="mt-1 shrink-0">
+                          <IconComponent className="h-5 w-5 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-lg font-semibold">{result.title}</h3>
+                            <Badge variant={result.type === 'practice' ? 'default' : result.type === 'download' ? 'secondary' : 'outline'}>
+                              {result.type === 'practice' ? 'Best Practice' : result.type === 'download' ? 'Resource' : 'External'}
+                            </Badge>
+                          </div>
+                          <p className="text-muted-foreground text-sm">{result.summary}</p>
+                        </div>
+                        {result.link && (
+                          <Button size="sm" asChild className="shrink-0">
+                            <a href={result.link} target="_blank" rel="noopener noreferrer">
+                              {result.type === 'download' ? (
+                                <><Eye className="mr-2 h-4 w-4" /> Preview</>
+                              ) : (
+                                <><ExternalLink className="mr-2 h-4 w-4" /> Visit</>
+                              )}
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          ) : searchResults && searchResults.length === 0 ? (
+            <Card>
+              <CardContent className="p-8 text-center">
+                <Search className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-lg font-semibold mb-2">No results found</h3>
+                <p className="text-muted-foreground">
+                  Try adjusting your search terms or browse all resources.
+                </p>
+                <Button variant="ghost" size="sm" className="mt-4" onClick={() => setSearchTerm('')}>
+                  Clear Search
+                </Button>
+              </CardContent>
+            </Card>
+          ) : (
           <Tabs defaultValue="practices" className="space-y-6">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="practices">Best Practices</TabsTrigger>
@@ -239,7 +386,7 @@ const Guidelines = () => {
 
             <TabsContent value="downloads">
               <div className="space-y-4">
-                {filteredResources.map((resource, index) => (
+                {downloadableResources.map((resource, index) => (
                   <Card key={index} className="hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
@@ -256,33 +403,17 @@ const Guidelines = () => {
                           </div>
                         </div>
                         <div className="flex flex-col gap-2 ml-6">
-                          <Button size="sm">
-                            <Download className="mr-2 h-4 w-4" />
-                            Download
+                          <Button size="sm" asChild>
+                            <a href={resource.previewUrl} target="_blank" rel="noopener noreferrer">
+                              <Eye className="mr-2 h-4 w-4" />
+                              Preview
+                            </a>
                           </Button>
-
-                            <Button size="sm" variant="outline" asChild>
-                                <a href={resource.previewUrl} target="_blank" rel="noopener noreferrer">
-                                    Preview
-                                </a>
-                            </Button>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
-                
-                {filteredResources.length === 0 && searchTerm && (
-                  <Card>
-                    <CardContent className="p-8 text-center">
-                      <Search className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-semibold mb-2">No results found</h3>
-                      <p className="text-muted-foreground">
-                        Try adjusting your search terms or browse all resources.
-                      </p>
-                    </CardContent>
-                  </Card>
-                )}
               </div>
             </TabsContent>
 
@@ -320,7 +451,7 @@ const Guidelines = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full" onClick={() => setSuggestDialogOpen(true)}>
                     <FileText className="mr-2 h-4 w-4" />
                     Suggest New Resource
                   </Button>
@@ -328,8 +459,109 @@ const Guidelines = () => {
               </Card>
             </TabsContent>
           </Tabs>
+          )}
         </div>
       </main>
+
+      {/* Suggest Resource Dialog */}
+      <Dialog open={suggestDialogOpen} onOpenChange={(open) => { if (!open) resetSuggestDialog(); else setSuggestDialogOpen(true); }}>
+        <DialogContent className="sm:max-w-[480px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5 text-primary" />
+              Suggest a Resource
+            </DialogTitle>
+            <DialogDescription>
+              Share a cybersecurity resource you find valuable. We'll review and add it to our collection.
+            </DialogDescription>
+          </DialogHeader>
+
+          {suggestStatus === 'success' ? (
+            <div className="text-center py-6">
+              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Thank You!</h3>
+              <p className="text-muted-foreground text-sm mb-4">
+                Your resource suggestion has been submitted successfully. Our team will review it soon.
+              </p>
+              <Button variant="outline" className="w-full" onClick={resetSuggestDialog}>
+                Close
+              </Button>
+            </div>
+          ) : suggestStatus === 'error' ? (
+            <div className="text-center py-6">
+              <div className="bg-red-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <AlertTriangle className="h-8 w-8 text-red-600" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Something went wrong</h3>
+              <p className="text-muted-foreground text-sm mb-4">
+                We couldn't send your suggestion. Please try again or email us directly at rakshnamait@gmail.com.
+              </p>
+              <div className="flex gap-2">
+                <Button variant="outline" className="flex-1" onClick={resetSuggestDialog}>
+                  Close
+                </Button>
+                <Button className="flex-1" onClick={() => setSuggestStatus('idle')}>
+                  Try Again
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleSuggestSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="suggest-name">Name *</Label>
+                <Input
+                  id="suggest-name"
+                  placeholder="Your full name"
+                  value={suggestForm.name}
+                  onChange={(e) => setSuggestForm({ ...suggestForm, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="suggest-email">Email *</Label>
+                <Input
+                  id="suggest-email"
+                  type="email"
+                  placeholder="your.email@example.com"
+                  value={suggestForm.email}
+                  onChange={(e) => setSuggestForm({ ...suggestForm, email: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="suggest-resource">Resource *</Label>
+                <Input
+                  id="suggest-resource"
+                  placeholder="URL or name of the resource"
+                  value={suggestForm.resource}
+                  onChange={(e) => setSuggestForm({ ...suggestForm, resource: e.target.value })}
+                  required
+                />
+                <p className="text-xs text-muted-foreground">Can be a website URL, document name, or tool name</p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="suggest-details">Details</Label>
+                <Textarea
+                  id="suggest-details"
+                  placeholder="Why do you recommend this resource? What makes it useful?"
+                  rows={3}
+                  value={suggestForm.details}
+                  onChange={(e) => setSuggestForm({ ...suggestForm, details: e.target.value })}
+                />
+              </div>
+              <Button type="submit" className="w-full" disabled={suggestStatus === 'sending'}>
+                {suggestStatus === 'sending' ? (
+                  <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...</>
+                ) : (
+                  <><Send className="mr-2 h-4 w-4" /> Submit Suggestion</>
+                )}
+              </Button>
+            </form>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>
