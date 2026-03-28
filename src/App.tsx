@@ -19,6 +19,8 @@ import News from "./pages/News";
 import NewsArticle from "./pages/NewsArticle";
 import RecruitmentResults from "./pages/RecruitmentResults";
 import TermsModal from "./components/TermsModal";
+import { BlogList } from "./pages/Blog/BlogList";
+import { BlogPost } from "./pages/Blog/BlogPost";
 
 
 import ScrollToTop from './components/ScrollToTop';
@@ -49,6 +51,8 @@ const AppContent = () => {
           <Route path="/results" element={<RecruitmentResults />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/:slug" element={<NewsArticle />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

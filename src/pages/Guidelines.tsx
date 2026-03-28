@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { FileText, Search, Shield, Lock, AlertTriangle, CheckCircle, ExternalLink, Eye, Send, Loader2 } from 'lucide-react';
+import { FileText, Search, Shield, Lock, AlertTriangle, CheckCircle, ExternalLink, Eye, Send, Loader2, Globe, CreditCard, Smartphone, HardDrive, Usb, Package, Users } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -18,6 +18,7 @@ const Guidelines = () => {
   const [suggestDialogOpen, setSuggestDialogOpen] = useState(false);
   const [suggestForm, setSuggestForm] = useState({ name: '', email: '', resource: '', details: '' });
   const [suggestStatus, setSuggestStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [detailDialog, setDetailDialog] = useState<{ open: boolean; title: string; practices: string[]; icon: typeof Shield } | null>(null);
 
   const handleSuggestSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,72 +64,171 @@ const Guidelines = () => {
 
   const bestPractices = [
     {
-      category: 'Password Security',
+      category: 'Secure Web Browsing',
+      icon: Globe,
+      practices: [
+        'Use browsers that support phishing and malware protection features.',
+        'Enable automatic blocking of pop-ups and malicious redirects.',
+        'Verify website certificates before entering sensitive information.',
+        'Avoid installing unnecessary browser extensions.',
+        'Close browser sessions after using shared systems.',
+      ]
+    },
+    {
+      category: 'Digital Privacy Awareness',
+      icon: Eye,
+      practices: [
+        'Limit how much personal information is visible in online profiles.',
+        'Regularly check which websites or apps have access to your accounts.',
+        'Opt out of unnecessary data tracking or targeted advertising settings.',
+        'Be cautious when participating in online surveys requesting personal details.',
+      ]
+    },
+    {
+      category: 'Online Payment & Financial Safety',
+      icon: CreditCard,
+      practices: [
+        'Use trusted payment gateways when making purchases.',
+        'Enable bank transaction alerts.',
+        'Avoid saving card details on unfamiliar websites.',
+        'Double-check URLs before entering payment information.',
+        'Use virtual cards or secure payment apps where possible.',
+      ]
+    },
+    {
+      category: 'Account & Password Security',
       icon: Lock,
       practices: [
-        'Use strong, unique passwords for each account (minimum 12 characters)',
-        'Enable two-factor authentication (2FA) wherever possible',
-        'Use a reputable password manager to generate and store passwords',
-        'Never share passwords or write them down in unsecured locations',
-        'Change passwords immediately if you suspect they\'ve been compromised',
-        'Avoid using personal information in passwords (names, birthdays, etc.)'
+        'Use strong passwords (12–16 characters with mix of letters, numbers, symbols).',
+        'Use a password manager to generate and store passwords.',
+        'Enable multi-factor authentication (MFA) for important accounts.',
+        'Avoid reusing passwords across multiple platforms.',
+        'Review account recovery options (backup email, phone numbers).',
+        'Enable login alerts for new device access.',
+        'Log out of accounts on shared or public computers.',
       ]
     },
     {
-      category: 'Email Security',
+      category: 'Email & Phishing Protection',
       icon: Shield,
       practices: [
-        'Verify sender identity before clicking links or downloading attachments',
-        'Look for spelling errors, urgent language, or unusual requests',
-        'Hover over links to preview destinations before clicking',
-        'Report suspicious emails to your IT security team',
-        'Use encrypted email for sensitive communications',
-        'Be cautious of emails requesting personal or financial information'
-      ]
-    },
-    {
-      category: 'Device Security',
-      icon: AlertTriangle,
-      practices: [
-        'Keep operating systems and software updated with latest patches',
-        'Use reputable antivirus software with real-time protection',
-        'Enable automatic screen locks with strong PINs or biometrics',
-        'Avoid using public Wi-Fi for sensitive activities',
-        'Encrypt sensitive data on laptops and mobile devices',
-        'Regularly backup important data to secure, offline locations'
+        'Verify sender identity before opening attachments or links.',
+        'Be cautious of urgent messages asking for money or credentials.',
+        'Hover over links to inspect the actual destination.',
+        'Watch for unusual grammar, spelling, or formatting.',
+        'Never send sensitive information via email unless encrypted.',
+        'Report suspicious emails to the appropriate IT/security team.',
       ]
     },
     {
       category: 'Incident Response',
       icon: CheckCircle,
       practices: [
-        'Immediately disconnect infected devices from networks',
-        'Document all observed symptoms and suspicious activities',
-        'Contact IT security team or emergency helpline immediately',
-        'Preserve evidence - don\'t delete files or clear browser history',
-        'Change passwords for potentially compromised accounts',
-        'Monitor financial accounts for unauthorized transactions'
+        'Disconnect infected devices from networks.',
+        'Change compromised passwords immediately.',
+        'Report incidents to IT/security teams.',
+        'Monitor accounts for suspicious activity.',
+        'Document all observed symptoms and suspicious activities.',
+        'Contact IT security team or emergency helpline immediately.',
+        'Preserve evidence — don\'t delete files or clear browser history.',
+        'Monitor financial accounts for unauthorized transactions.',
       ]
     },
     {
-        category: 'Avoiding Student Scams',
-        icon: AlertTriangle,
-        practices: [
-         'Be skeptical of emails about scholarships, job offers, or grade changes you didn\'t apply for.',
-         'Never pay a fee for a job application or scholarship. Legitimate organizations don\'t ask for this.',
-         'Verify urgent requests from "professors" or "deans" by contacting them through an official channel.',
-         'Watch out for phishing emails that look like they\'re from the college library, accounts office, or IT desk.'
-        ]
+      category: 'Device & System Security',
+      icon: HardDrive,
+      practices: [
+        'Keep operating systems and applications updated with security patches.',
+        'Enable automatic screen lock with PIN, password, or biometrics.',
+        'Use antivirus or endpoint protection software.',
+        'Encrypt laptops and mobile devices.',
+        'Disable installation from unknown sources.',
+      ]
     },
     {
-          category: 'Smart Social Media Habits',
-          icon: Lock,
-          practices: [
-              'Review your privacy settings regularly on Instagram, Facebook, etc., to control who sees your information.',
-              'Avoid oversharing personal details like your class schedule, home address, or phone number.',
-              'Be careful what\'s in the background of your photos before you post.',
-              'Think twice before accepting friend requests from people you don\'t know.'
-          ]
+      category: 'External Devices & USB Safety',
+      icon: Usb,
+      practices: [
+        'Avoid plugging in unknown USB drives.',
+        'Scan external storage devices before opening files.',
+        'Disable auto run features.',
+      ]
+    },
+    {
+      category: 'Software & Application Safety',
+      icon: Package,
+      practices: [
+        'Download software only from official sources.',
+        'Avoid pirated or cracked software.',
+        'Remove unused applications.',
+        'Check app permissions before installing.',
+      ]
+    },
+    {
+      category: 'Mobile Device Security',
+      icon: Smartphone,
+      practices: [
+        'Install apps only from official app stores.',
+        'Review permissions like camera, microphone, location.',
+        'Enable remote device tracking and remote wipe.',
+        'Lock devices with strong authentication.',
+      ]
+    },
+    {
+      category: 'Password Security',
+      icon: Lock,
+      practices: [
+        'Use strong, unique passwords for each account (minimum 12 characters).',
+        'Enable two-factor authentication (2FA) wherever possible.',
+        'Use a reputable password manager to generate and store passwords.',
+        'Never share passwords or write them down in unsecured locations.',
+        'Change passwords immediately if you suspect they\'ve been compromised.',
+        'Avoid using personal information in passwords (names, birthdays, etc.).',
+      ]
+    },
+    {
+      category: 'Email Security',
+      icon: Shield,
+      practices: [
+        'Verify sender identity before clicking links or downloading attachments.',
+        'Look for spelling errors, urgent language, or unusual requests.',
+        'Hover over links to preview destinations before clicking.',
+        'Report suspicious emails to your IT security team.',
+        'Use encrypted email for sensitive communications.',
+        'Be cautious of emails requesting personal or financial information.',
+      ]
+    },
+    {
+      category: 'Device Security',
+      icon: AlertTriangle,
+      practices: [
+        'Keep operating systems and software updated with latest patches.',
+        'Use reputable antivirus software with real-time protection.',
+        'Enable automatic screen locks with strong PINs or biometrics.',
+        'Avoid using public Wi-Fi for sensitive activities.',
+        'Encrypt sensitive data on laptops and mobile devices.',
+        'Regularly backup important data to secure, offline locations.',
+      ]
+    },
+    {
+      category: 'Avoiding Student Scams',
+      icon: AlertTriangle,
+      practices: [
+        'Be skeptical of emails about scholarships, job offers, or grade changes you didn\'t apply for.',
+        'Never pay a fee for a job application or scholarship. Legitimate organizations don\'t ask for this.',
+        'Verify urgent requests from "professors" or "deans" by contacting them through an official channel.',
+        'Watch out for phishing emails that look like they\'re from the college library, accounts office, or IT desk.',
+      ]
+    },
+    {
+      category: 'Smart Social Media Habits',
+      icon: Users,
+      practices: [
+        'Review your privacy settings regularly on Instagram, Facebook, etc., to control who sees your information.',
+        'Avoid oversharing personal details like your class schedule, home address, or phone number.',
+        'Be careful what\'s in the background of your photos before you post.',
+        'Think twice before accepting friend requests from people you don\'t know.',
+      ]
     }
   ];
 
@@ -309,8 +409,20 @@ const Guidelines = () => {
               </div>
               {searchResults.map((result, index) => {
                 const IconComponent = result.icon;
+                const isPractice = result.type === 'practice';
+                const practiceCategory = isPractice
+                  ? bestPractices.find(bp => bp.category === result.title)
+                  : null;
                 return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <Card
+                    key={index}
+                    className="hover:shadow-lg transition-shadow cursor-pointer"
+                    onClick={() => {
+                      if (isPractice && practiceCategory) {
+                        setDetailDialog({ open: true, title: practiceCategory.category, practices: practiceCategory.practices, icon: practiceCategory.icon });
+                      }
+                    }}
+                  >
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
                         <div className="mt-1 shrink-0">
@@ -324,9 +436,12 @@ const Guidelines = () => {
                             </Badge>
                           </div>
                           <p className="text-muted-foreground text-sm">{result.summary}</p>
+                          {isPractice && (
+                            <p className="text-xs text-primary mt-1">Click to view full details</p>
+                          )}
                         </div>
                         {result.link && (
-                          <Button size="sm" asChild className="shrink-0">
+                          <Button size="sm" asChild className="shrink-0" onClick={e => e.stopPropagation()}>
                             <a href={result.link} target="_blank" rel="noopener noreferrer">
                               {result.type === 'download' ? (
                                 <><Eye className="mr-2 h-4 w-4" /> Preview</>
@@ -469,6 +584,31 @@ const Guidelines = () => {
           )}
         </div>
       </main>
+
+      {/* Best Practice Detail Dialog */}
+      {detailDialog && (
+        <Dialog open={detailDialog.open} onOpenChange={(open) => setDetailDialog(open ? detailDialog : null)}>
+          <DialogContent className="sm:max-w-[520px] max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                {(() => { const Icon = detailDialog.icon; return <Icon className="h-5 w-5 text-primary" />; })()}
+                {detailDialog.title}
+              </DialogTitle>
+              <DialogDescription>
+                Best practices and guidelines for {detailDialog.title.toLowerCase()}.
+              </DialogDescription>
+            </DialogHeader>
+            <ul className="space-y-3 mt-2">
+              {detailDialog.practices.map((practice, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm">
+                  <CheckCircle className="h-4 w-4 text-success mt-0.5 shrink-0" />
+                  <span>{practice}</span>
+                </li>
+              ))}
+            </ul>
+          </DialogContent>
+        </Dialog>
+      )}
 
       {/* Suggest Resource Dialog */}
       <Dialog open={suggestDialogOpen} onOpenChange={(open) => { if (!open) resetSuggestDialog(); else setSuggestDialogOpen(true); }}>

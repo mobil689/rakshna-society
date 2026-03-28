@@ -168,18 +168,7 @@ const Events = () => {
             </div>
           </div>
 
-          {/* Coming Soon Notice */}
-          <Card className="mb-8 border-warning bg-warning/5">
-             <CardHeader>
-              <CardTitle className="text-warning flex items-center gap-2">
-                <Clock className="h-5 w-5" />
-                Event Registration Coming Soon
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">We're preparing an enhanced event management system with registration capabilities, waitlists, and calendar integration. Stay tuned for updates!</p>
-            </CardContent>
-          </Card>
+
 
           {/* Calendar Interface */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
