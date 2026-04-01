@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock, Heart, Facebook, Twitter, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
-import { getBlogBySlug, mockBlogs } from "@/data/mockBlogs";
 import { hasLiked, toggleLike } from "@/utils/likes";
 import { RelatedPosts } from "@/components/RelatedPosts";
 import { NewsletterSubscribe } from "@/components/NewsletterSubscribe";
@@ -11,23 +10,66 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { sanityClient } from "@/lib/sanityClient";
+import type { BlogPost as BlogPostType } from "@/types/blog";
+import { PortableText } from '@portabletext/react';
 
 export function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const blog = slug ? getBlogBySlug(slug) : undefined;
+  const [blog, setBlog] = useState<BlogPostType | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    if (blog) {
-      setLiked(hasLiked(blog.id));
-      setLikeCount(blog.likes);
-      window.scrollTo(0, 0);
-    }
-  }, [blog]);
+    const fetchBlog = async () => {
+      setIsLoading(true);
+      if (!slug) return;
+      try {
+        const query = `*[_type == "blogPost" && slug.current == $slug][0] {
+          "id": _id,
+          "slug": slug.current,
+          title,
+          excerpt,
+          content,
+          author -> {
+            name,
+            role,
+            "avatar": avatar.asset->url
+          },
+          "coverImage": coverImage.asset->url,
+          publishedAt,
+          readTime,
+          likes,
+          tags
+        }`;
+        const data = await sanityClient.fetch(query, { slug });
+        if (data) {
+          const safeData = {
+            ...data,
+            author: data.author || { name: 'Admin', role: 'Editor' },
+            likes: data.likes || 0,
+            tags: data.tags || [],
+            publishedAt: data.publishedAt || new Date().toISOString()
+          };
+          setBlog(safeData);
+          setLiked(hasLiked(safeData.id));
+          setLikeCount(safeData.likes);
+          window.scrollTo(0, 0);
+        } else {
+          setBlog(null);
+        }
+      } catch (error) {
+        console.error("Failed to fetch individual blog:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchBlog();
+  }, [slug]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +79,10 @@ export function BlogPost() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (isLoading) {
+    return <div className="min-h-screen bg-white" />; // Optionally wrap with a layout if required, but simple un-styled is fine until loaded
+  }
 
   if (!blog) {
     return (
@@ -253,8 +299,9 @@ export function BlogPost() {
                   [&_figcaption]:italic
                   [&_strong]:text-black
                 "
-                dangerouslySetInnerHTML={{ __html: blog.content }}
-              />
+              >
+                <PortableText value={blog.content} />
+              </div>
             </AnimateOnScroll>
 
             {/* Author Bio */}
@@ -284,7 +331,9 @@ export function BlogPost() {
 
       {/* Related Posts */}
       <AnimateOnScroll>
-        <RelatedPosts currentBlogId={blog.id} blogs={mockBlogs} currentTags={blog.tags} />
+        {/* We pass an empty array temporarily or modify RelatedPosts to fetch its own data. 
+            For now, RelatedPosts expects an array, so we pass [] to fix the missing mockBlogs reference. */}
+        <RelatedPosts currentBlogId={blog.id} blogs={[]} currentTags={blog.tags} />
       </AnimateOnScroll>
 
       <Footer />

@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { BlogCard } from "@/components/BlogCard";
 import { NewsletterSubscribe } from "@/components/NewsletterSubscribe";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
-import { mockBlogs } from "@/data/mockBlogs";
+import { sanityClient } from "@/lib/sanityClient";
+import type { BlogPost } from "@/types/blog";
 import { format } from "date-fns";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -13,25 +14,67 @@ import Footer from "@/components/Footer";
 const ROTATE_INTERVAL = 5000;
 
 export function BlogList() {
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const filteredBlogs = mockBlogs.filter((blog) => {
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      setIsLoading(true);
+      try {
+        const query = `*[_type == "blogPost"] | order(publishedAt desc) {
+          "id": _id,
+          "slug": slug.current,
+          title,
+          excerpt,
+          content,
+          author -> {
+            name,
+            role,
+            "avatar": avatar.asset->url
+          },
+          "coverImage": coverImage.asset->url,
+          publishedAt,
+          readTime,
+          likes,
+          tags
+        }`;
+        const data = await sanityClient.fetch(query);
+        // Fallback robust mapping in case of missing fields
+        const safeData = data.map((b: Partial<BlogPost> & Record<string, unknown>) => ({
+          ...b,
+          author: b.author || { name: 'Admin', role: 'Editor' },
+          likes: b.likes || 0,
+          tags: b.tags || [],
+          publishedAt: b.publishedAt || new Date().toISOString()
+        }));
+        setBlogs(safeData);
+      } catch (error) {
+        console.error("Failed to fetch blogs from Sanity:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  const filteredBlogs = blogs.filter((blog) => {
     const matchesSearch =
       blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesTag = !selectedTag || blog.tags.includes(selectedTag);
+      blog.excerpt?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesTag = !selectedTag || blog.tags?.includes(selectedTag);
     return matchesSearch && matchesTag;
   });
 
-  // Editor's picks pool from filtered blogs
+  // Editor's picks pool from filtered blogs (or we could use featured boolean flag if we wanted)
   const picksPool = filteredBlogs.slice(0, 4);
 
   // Latest always shows ALL blogs (not affected by tag filter), only search applies
-  const latestBlogs = mockBlogs.filter((blog) =>
+  const latestBlogs = blogs.filter((blog) =>
     blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+    blog.excerpt?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   useEffect(() => {

@@ -5,18 +5,42 @@ export function NewsletterSubscribe() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
       toast.error("Please enter your email address");
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      toast.success("Thanks for subscribing! Check your inbox for confirmation.");
-      setEmail("");
+
+    const url = `https://rakshnamait.us22.list-manage.com/subscribe/post-json?u=cf26f75e8143f35615833944a&id=84148061aa&f_id=00b6c2e1f0&EMAIL=${encodeURIComponent(email)}&c=mailchimpCallback`;
+
+    (window as unknown as Record<string, any>).mailchimpCallback = (response: { result: string; msg?: string }) => {
       setLoading(false);
-    }, 1000);
+      if (response.result === "success") {
+        toast.success("Thanks for subscribing! Check your inbox for confirmation.");
+        setEmail("");
+      } else {
+        // Mailchimp error messages often contain HTML or "0 - Message" format
+        const errorMsg = response.msg?.replace(/<[^>]*>?/gm, '') || "Something went wrong. Please try again.";
+        toast.error(errorMsg);
+      }
+      
+      // Cleanup script
+      const script = document.getElementById("mc-jsonp-script");
+      if (script) document.body.removeChild(script);
+      delete (window as unknown as Record<string, any>).mailchimpCallback;
+    };
+
+    const script = document.createElement("script");
+    script.id = "mc-jsonp-script";
+    script.src = url;
+    // Add an error handler in case it completely fails to load (network error)
+    script.onerror = () => {
+      setLoading(false);
+      toast.error("Network error. Please try again.");
+    };
+    document.body.appendChild(script);
   };
 
   return (
@@ -43,7 +67,7 @@ export function NewsletterSubscribe() {
         </button>
       </form>
       <div className="flex flex-col sm:flex-row gap-6 justify-center mt-8 text-xs text-gray-400">
-        <p className="italic">"One of the best cybersecurity newsletters I've read."</p>
+        <p className="italic">"One of the best cybersecurity blogs I've read."</p>
         <p className="italic">"Clear, practical, and always on-point."</p>
       </div>
     </div>

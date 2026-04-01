@@ -12,7 +12,7 @@ export const mockBlogs: BlogPost[] = [
       <p>At Rakshna Mait, we believe that the strength of our community lies in our ability to work together towards common goals. This week, we explore how collaboration has become the cornerstone of our society's success.</p>
       
       <figure>
-        <img src="https://images.unsplash.com/photo-1759884247160-27b8465544b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwY29sbGFib3JhdGlvbiUyMHdoaXRlYm9hcmR8ZW58MXx8fHwxNzczNjg3ODc1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Team collaboration session" />
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1080&q=80" alt="Team collaboration session" />
         <figcaption>Figure 1: Our members collaborating on community initiatives during a planning session</figcaption>
       </figure>
       
@@ -28,7 +28,7 @@ export const mockBlogs: BlogPost[] = [
       </ul>
       
       <figure>
-        <img src="https://images.unsplash.com/photo-1765018028697-2baae4577cdd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tdW5pdHklMjBldmVudCUyMHZvbHVudGVlcnN8ZW58MXx8fHwxNzczNzQ3NzYyfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Community volunteers at work" />
+        <img src="https://images.unsplash.com/photo-1593113580332-ceb47bf23d1d?auto=format&fit=crop&w=1080&q=80" alt="Community volunteers at work" />
         <figcaption>Figure 2: Volunteers distributing resources during our community outreach program</figcaption>
       </figure>
       
@@ -46,7 +46,7 @@ export const mockBlogs: BlogPost[] = [
       name: "Priya Sharma",
       role: "Community Coordinator",
     },
-    coverImage: "https://images.unsplash.com/photo-1761666520005-3ffcf13e74c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tdW5pdHklMjBtZWV0aW5nJTIwZ3JvdXB8ZW58MXx8fHwxNzczNzY5MTg1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    coverImage: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1080&q=80",
     publishedAt: "2026-03-15T10:00:00Z",
     readTime: 5,
     likes: 42,
@@ -62,7 +62,7 @@ export const mockBlogs: BlogPost[] = [
       <p>In today's fast-paced world, technology plays a crucial role in how we connect and collaborate. Our society has embraced this change, implementing various digital solutions to improve member experience.</p>
       
       <figure>
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXRhJTIwYW5hbHl0aWNzJTIwZGFzaGJvYXJkfGVufDF8fHx8MTc3MzY3NzI1NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Analytics dashboard" />
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1080&q=80" alt="Analytics dashboard" />
         <figcaption>Figure 1: Our new analytics dashboard showing member engagement metrics</figcaption>
       </figure>
       
@@ -76,7 +76,7 @@ export const mockBlogs: BlogPost[] = [
       <p>Soon launching our mobile application that will make it even easier to stay connected on the go.</p>
       
       <figure>
-        <img src="https://images.unsplash.com/photo-1605108222700-0d605d9ebafe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzczNjc2NDg1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Mobile app interface mockup" />
+        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1080&q=80" alt="Mobile app interface mockup" />
         <figcaption>Figure 2: Preview of our upcoming mobile application interface</figcaption>
       </figure>
       
@@ -93,7 +93,7 @@ export const mockBlogs: BlogPost[] = [
       name: "Rahul Verma",
       role: "Technology Lead",
     },
-    coverImage: "https://images.unsplash.com/photo-1767797852518-d3c8bc6088eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWNobm9sb2d5JTIwaW5ub3ZhdGlvbiUyMG5ldHdvcmt8ZW58MXx8fHwxNzczNzY5MTg1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1080&q=80",
     publishedAt: "2026-03-10T14:30:00Z",
     readTime: 4,
     likes: 38,
