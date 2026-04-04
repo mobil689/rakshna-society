@@ -33,6 +33,23 @@ export function NewsletterSubscribe() {
     const script = document.createElement("script");
     script.id = "mc-jsonp-script";
     script.src = url;
+    
+    // Fallbacks in case an Adblocker or CSP blocks the network request
+    script.onerror = () => {
+      setLoading(false);
+      toast.error("Network error. Your browser or adblocker may be blocking the request.");
+      delete (window as unknown as Record<string, unknown>).mailchimpCallback;
+    };
+    
+    // Safety timeout to reset state if the script hangs natively
+    setTimeout(() => {
+      if ((window as unknown as Record<string, unknown>).mailchimpCallback) {
+        setLoading(false);
+        toast.error("The request timed out. Please try again later.");
+        delete (window as unknown as Record<string, unknown>).mailchimpCallback;
+      }
+    }, 10000);
+
     document.body.appendChild(script);
   };
 
