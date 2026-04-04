@@ -375,6 +375,22 @@ const Guidelines = () => {
             </div>
           </div>
 
+          {/* Submit a Resource */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle>Submit a Resource</CardTitle>
+              <CardDescription>
+                Know of a valuable cybersecurity resource? Help us expand our collection.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full" onClick={() => setSuggestDialogOpen(true)}>
+                <FileText className="mr-2 h-4 w-4" />
+                Suggest New Resource
+              </Button>
+            </CardContent>
+          </Card>
+
           {/* Search Bar */}
           <Card className="mb-8">
             <CardContent className="p-6">
@@ -565,20 +581,6 @@ const Guidelines = () => {
                 ))}
               </div>
 
-              <Card className="mt-6">
-                <CardHeader>
-                  <CardTitle>Submit a Resource</CardTitle>
-                  <CardDescription>
-                    Know of a valuable cybersecurity resource? Help us expand our collection.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button variant="outline" className="w-full" onClick={() => setSuggestDialogOpen(true)}>
-                    <FileText className="mr-2 h-4 w-4" />
-                    Suggest New Resource
-                  </Button>
-                </CardContent>
-              </Card>
             </TabsContent>
           </Tabs>
           )}
