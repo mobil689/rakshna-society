@@ -12,11 +12,28 @@ export function NewsletterSubscribe() {
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      toast.success("Thanks for subscribing! Check your inbox for confirmation.");
-      setEmail("");
+
+    const url = `https://rakshnamait.us22.list-manage.com/subscribe/post-json?u=cf26f75e8143f35615833944a&id=84148061aa&f_id=00b6c2e1f0&EMAIL=${encodeURIComponent(email)}&c=mailchimpCallback`;
+
+    (window as unknown as Record<string, unknown>).mailchimpCallback = (response: { result: string; msg?: string }) => {
       setLoading(false);
-    }, 1000);
+      if (response.result === "success") {
+        toast.success("Thanks for subscribing! Check your inbox for confirmation.");
+        setEmail("");
+      } else {
+        const errorMsg = response.msg?.replace(/<[^>]*>?/gm, '') || "Something went wrong. Please try again.";
+        toast.error(errorMsg);
+      }
+      
+      const script = document.getElementById("mc-jsonp-script");
+      if (script) document.body.removeChild(script);
+      delete (window as unknown as Record<string, unknown>).mailchimpCallback;
+    };
+
+    const script = document.createElement("script");
+    script.id = "mc-jsonp-script";
+    script.src = url;
+    document.body.appendChild(script);
   };
 
   return (
