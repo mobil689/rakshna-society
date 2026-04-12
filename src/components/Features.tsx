@@ -65,11 +65,7 @@ const Features = () => {
                         return (
                             // ANIMATION: Added new animation and hover effect classes
                             <Card key={feature.title} className={`relative overflow-hidden group hover:shadow-xl transition-all duration-500 transform hover:scale-105 hover:-rotate-1 ${animationClass}`}>
-                                {!feature.available && (
-                                    <Badge className="absolute top-4 right-4 bg-warning text-warning-foreground">
-                                        Coming Soon
-                                    </Badge>
-                                )}
+
 
                                 {/* ANIMATION: Added a shimmer effect that appears on hover */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity duration-300"></div>

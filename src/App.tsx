@@ -17,6 +17,7 @@ import Guidelines from "./pages/Guidelines";
 import NotFound from "./pages/NotFound";
 import News from "./pages/News";
 import NewsArticle from "./pages/NewsArticle";
+import MeetTheTeam from "./pages/MeetTheTeam";
 import RecruitmentResults from "./pages/RecruitmentResults";
 import TermsModal from "./components/TermsModal";
 import { BlogList } from "./pages/Blog/BlogList";
@@ -48,6 +49,7 @@ const AppContent = () => {
           <Route path="/helpline" element={<Helpline />} />
           <Route path="/login" element={<Login />} />
           <Route path="/guidelines" element={<Guidelines />} />
+          <Route path="/team" element={<MeetTheTeam />} />
           <Route path="/results" element={<RecruitmentResults />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/:slug" element={<NewsArticle />} />

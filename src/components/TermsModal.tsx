@@ -27,7 +27,7 @@ const TermsModal = () => {
 
     return (
         <Dialog open={isOpen} onOpenChange={() => {}} modal>
-            <DialogContent className="max-w-2xl max-h-[80vh] bg-background/95 backdrop-blur-md border-2 border-primary/20">
+            <DialogContent hideClose className="max-w-2xl max-h-[80vh] bg-background/95 backdrop-blur-md border-2 border-primary/20">
                 <DialogHeader className="space-y-4">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-primary/10 rounded-full">
