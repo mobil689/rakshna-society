@@ -19,7 +19,7 @@ import News from "./pages/News";
 import NewsArticle from "./pages/NewsArticle";
 import MeetTheTeam from "./pages/MeetTheTeam";
 import RecruitmentResults from "./pages/RecruitmentResults";
-import TermsModal from "./components/TermsModal";
+// import TermsModal from "./components/TermsModal";
 import { BlogList } from "./pages/Blog/BlogList";
 import { BlogPost } from "./pages/Blog/BlogPost";
 
@@ -58,7 +58,7 @@ const AppContent = () => {
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <TermsModal />
+        {/* <TermsModal /> */}
       </BrowserRouter>
     </>
   );
