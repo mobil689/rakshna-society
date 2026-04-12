@@ -216,10 +216,8 @@ const MeetTheTeam = () => {
                                 </div>
                             </div>
                             <div className="social-bar">
-                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><i
-                                        className="fa-brands fa-linkedin"></i></a>
-                                <a target="_blank" href="#" className="social-link" title="GitHub"><i
-                                        className="fa-brands fa-github"></i></a>
+                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                <a target="_blank" href="#" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
                             </div>
                         </div>
 
@@ -293,8 +291,7 @@ const MeetTheTeam = () => {
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/garv-goel?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="GitHub"><i
-                                        className="fa-brands fa-github"></i></a>
+                                <a target="_blank" href="#" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
@@ -318,8 +315,7 @@ const MeetTheTeam = () => {
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/raghav-sharma-9b8566345?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="GitHub"><i
-                                        className="fa-brands fa-github"></i></a>
+                                <a target="_blank" href="#" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
@@ -377,8 +373,7 @@ const MeetTheTeam = () => {
                             <a target="_blank"
                                 href="https://www.linkedin.com/in/abhisht-pratap-shukla?utm_source=share_via&utm_content=profile&utm_medium=member_androidhttps://www.linkedin.com/in/abhisht-pratap-shukla?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                                 className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                            <a target="_blank" href="https://github.com/mobil689" className="social-link" title="GitHub"><i
-                                    className="fa-brands fa-github"></i></a>
+                            <a target="_blank" href="https://github.com/mobil689" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
                         </div>
                     </div>
                     
@@ -424,10 +419,8 @@ const MeetTheTeam = () => {
                             </div>
                         </div>
                         <div className="social-bar">
-                            <a target="_blank" href="#" className="social-link" title="LinkedIn"><i
-                                    className="fa-brands fa-linkedin"></i></a>
-                            <a target="_blank" href="#" className="social-link" title="GitHub"><i
-                                    className="fa-brands fa-github"></i></a>
+                            <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                            <a target="_blank" href="#" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
                         </div>
                     </div>
                 </div>
@@ -646,8 +639,7 @@ const MeetTheTeam = () => {
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/jessica-166441323?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="https://www.instagram.com/jeessyyccaaa?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="social-link" title="Instagram"><i
-                                        className="fa-brands fa-instagram"></i></a>
+                                <a target="_blank" href="https://www.instagram.com/jeessyyccaaa?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
@@ -667,10 +659,8 @@ const MeetTheTeam = () => {
                                 </div>
                             </div>
                             <div className="social-bar">
-                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><i
-                                        className="fa-brands fa-linkedin"></i></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><i
-                                        className="fa-brands fa-instagram"></i></a>
+                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                     </div>
@@ -688,12 +678,10 @@ const MeetTheTeam = () => {
                                     </div>
                                     <div className="stick-socials">
                                         <a target="_blank" href="https://www.linkedin.com/in/anushka-singh-777aa831a"
-                                            className="stick-link" title="LinkedIn"><i
-                                                className="fa-brands fa-linkedin"></i></a>
+                                            className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                         <a target="_blank"
                                             href="https://www.instagram.com/anu.sshhkkaa?igsh=YTliaWM4bXdoNmk%3D&utm_source=qr"
-                                            className="stick-link" title="Instagram"><i
-                                                className="fa-brands fa-instagram"></i></a>
+                                            className="stick-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                                     </div>
                                 </div>
                                 <div className="stick-item">
@@ -704,12 +692,10 @@ const MeetTheTeam = () => {
                                     <div className="stick-socials">
                                         <a target="_blank"
                                             href="https://www.linkedin.com/in/ashmita-khanal-7460b4331?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                            className="stick-link" title="LinkedIn"><i
-                                                className="fa-brands fa-linkedin"></i></a>
+                                            className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                         <a target="_blank"
                                             href="https://www.instagram.com/ashmitakhanal_?igsh=Mm54bXN4eXR5NGlt"
-                                            className="stick-link" title="Instagram"><i
-                                                className="fa-brands fa-instagram"></i></a>
+                                            className="stick-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                                     </div>
                                 </div>
                                 
@@ -742,8 +728,7 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank" href="https://www.linkedin.com/in/vinayakvashishtha112005"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><i
-                                        className="fa-brands fa-instagram"></i></a>
+                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
@@ -763,10 +748,8 @@ const MeetTheTeam = () => {
                                 </div>
                             </div>
                             <div className="social-bar">
-                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><i
-                                        className="fa-brands fa-linkedin"></i></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><i
-                                        className="fa-brands fa-instagram"></i></a>
+                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
@@ -789,8 +772,7 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank" href="https://www.linkedin.com/in/tushar-garg-4608b9374/"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><i
-                                        className="fa-brands fa-instagram"></i></a>
+                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                     </div>
@@ -808,8 +790,7 @@ const MeetTheTeam = () => {
                                     </div>
                                     <div className="stick-socials">
                                         <a target="_blank" href="https://www.linkedin.com/in/rishabh-kaushik-9876a238a/"
-                                            className="stick-link" title="LinkedIn"><i
-                                                className="fa-brands fa-linkedin"></i></a>
+                                            className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                         
                                     </div>
                                 </div>
@@ -821,12 +802,10 @@ const MeetTheTeam = () => {
                                     <div className="stick-socials">
                                         <a target="_blank"
                                             href="https://www.linkedin.com/in/devesh-pratap-singh-9ab707381?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
-                                            className="stick-link" title="LinkedIn"><i
-                                                className="fa-brands fa-linkedin"></i></a>
+                                            className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                         <a target="_blank"
                                             href="https://www.instagram.com/_devesh__rajput_21_?igsh=MWEza2RpbnA0bXdlaA%3D%3D&utm_source=qr"
-                                            className="stick-link" title="Instagram"><i
-                                                className="fa-brands fa-instagram"></i></a>
+                                            className="stick-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                                     </div>
                                 </div>
                                 
@@ -860,8 +839,7 @@ const MeetTheTeam = () => {
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/jai-giri-93953b328?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><i
-                                        className="fa-brands fa-instagram"></i></a>
+                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
@@ -882,10 +860,8 @@ const MeetTheTeam = () => {
                                 </div>
                             </div>
                             <div className="social-bar">
-                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><i
-                                        className="fa-brands fa-linkedin"></i></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><i
-                                        className="fa-brands fa-instagram"></i></a>
+                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
@@ -926,12 +902,10 @@ const MeetTheTeam = () => {
                                     </div>
                                     <div className="stick-socials">
                                         <a target="_blank" href="https://www.linkedin.com/in/muskan-bhardwaj12"
-                                            className="stick-link" title="LinkedIn"><i
-                                                className="fa-brands fa-linkedin"></i></a>
+                                            className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                         <a target="_blank"
                                             href="https://www.instagram.com/mbhardwaj_12?igsh=Nnc4ajZ4NGE5aHpw"
-                                            className="stick-link" title="Instagram"><i
-                                                className="fa-brands fa-instagram"></i></a>
+                                            className="stick-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                                     </div>
                                 </div>
                                 <div className="stick-item">
@@ -953,12 +927,10 @@ const MeetTheTeam = () => {
                                     </div>
                                     <div className="stick-socials">
                                         <a target="_blank" href="https://www.linkedin.com/in/prateek-tanwar-9b61a8332/"
-                                            className="stick-link" title="LinkedIn"><i
-                                                className="fa-brands fa-linkedin"></i></a>
+                                            className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                         <a target="_blank"
                                             href="https://www.instagram.com/_prateek_og?igsh=MWtuNDB4b2x0ZmVwcw=="
-                                            className="stick-link" title="Instagram"><i
-                                                className="fa-brands fa-instagram"></i></a>
+                                            className="stick-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                                     </div>
                                 </div>
                                 <div className="stick-item">
