@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './team.css';
+import { Linkedin, Github, Instagram, ChevronDown, Moon, Sun } from 'lucide-react';
 
 const MeetTheTeam = () => {
     const [isLight, setIsLight] = useState(false);
@@ -41,7 +42,7 @@ const MeetTheTeam = () => {
             </div>
             <div className="terminal-title">Meet The Team - Terminal</div>
             <button id="themeToggle" className="theme-toggle" aria-label="Toggle Theme" onClick={toggleTheme}>
-                <i className={`fa-solid ${isLight ? "fa-moon" : "fa-sun"}`}></i>
+                {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
                 <span>{isLight ? "Dark Mode" : "Light Mode"}</span>
             </button>
         </header>
@@ -80,7 +81,7 @@ const MeetTheTeam = () => {
                         </div>
                         <div className="social-bar">
                             <a target="_blank" href="https://www.linkedin.com/in/neeraj-gupta-0487254/"
-                                className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                         </div>
                     </div>
 
@@ -104,7 +105,7 @@ const MeetTheTeam = () => {
                         </div>
                         <div className="social-bar">
                             <a target="_blank" href="https://www.linkedin.com/in/dr-bhoomi-gupta-3278a734/"
-                                className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                         </div>
                     </div>
 
@@ -138,9 +139,9 @@ const MeetTheTeam = () => {
                         </div>
                         <div className="social-bar">
                             <a target="_blank" href="https://www.linkedin.com/in/aditya-jha-552604230"
-                                className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                             <a target="_blank" href="https://aditya-portfolio-self-ten.vercel.app/" className="social-link"
-                                title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                title="GitHub"><Github className="w-5 h-5" /></a>
                         </div>
                     </div>
 
@@ -166,9 +167,9 @@ const MeetTheTeam = () => {
                             </div>
                             <div className="social-bar">
                                 <a target="_blank" href="https://www.linkedin.com/in/arjunjaincs/" className="social-link"
-                                    title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="https://www.github.com/arjunjaincs" className="social-link"
-                                    title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                    title="GitHub"><Github className="w-5 h-5" /></a>
                             </div>
                         </div>
 
@@ -192,9 +193,9 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/yashika-sharma-931a51324?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="https://github.com/yashikaaasharma" className="social-link"
-                                    title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                    title="GitHub"><Github className="w-5 h-5" /></a>
                             </div>
                         </div>
 
@@ -241,7 +242,7 @@ const MeetTheTeam = () => {
                             </div>
                             <div className="social-bar">
                                 <a target="_blank" href="https://www.linkedin.com/in/nimish-ratra-67b536281/"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 
                             </div>
                         </div>
@@ -266,9 +267,9 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/daksh-sharma-a93340328?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="https://www.instagram.com/dsdaksh_11?igsh=MXZwZXU0bnlmcGozaQ=="
-                                    className="social-link" title="GitHub"><i className="fa-brands fa-instagram"></i></a>
+                                    className="social-link" title="GitHub"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
@@ -291,7 +292,7 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/garv-goel?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="#" className="social-link" title="GitHub"><i
                                         className="fa-brands fa-github"></i></a>
                             </div>
@@ -316,7 +317,7 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/raghav-sharma-9b8566345?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="#" className="social-link" title="GitHub"><i
                                         className="fa-brands fa-github"></i></a>
                             </div>
@@ -341,9 +342,9 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/guneet-kaur-595700329?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="https://github.com/GUN33Tk" className="social-link"
-                                    title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                    title="GitHub"><Github className="w-5 h-5" /></a>
                             </div>
                         </div>
                     </div>
@@ -375,7 +376,7 @@ const MeetTheTeam = () => {
                         <div className="social-bar">
                             <a target="_blank"
                                 href="https://www.linkedin.com/in/abhisht-pratap-shukla?utm_source=share_via&utm_content=profile&utm_medium=member_androidhttps://www.linkedin.com/in/abhisht-pratap-shukla?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                             <a target="_blank" href="https://github.com/mobil689" className="social-link" title="GitHub"><i
                                     className="fa-brands fa-github"></i></a>
                         </div>
@@ -400,9 +401,9 @@ const MeetTheTeam = () => {
                         </div>
                         <div className="social-bar">
                             <a target="_blank" href="https://www.linkedin.com/in/devansh-malik-65745b313/"
-                                className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                             <a target="_blank" href="https://github.com/devanshmalik-13" className="social-link"
-                                title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                title="GitHub"><Github className="w-5 h-5" /></a>
                         </div>
                     </div>
                     
@@ -435,7 +436,7 @@ const MeetTheTeam = () => {
                 <div className={`team-dropdown ${dropdowns[1] ? 'active' : ''}`}>
                     <button className="dropdown-trigger" onClick={() => toggleDropdown(1)}>
                         <span>More Team Members</span>
-                        <i className="fa-solid fa-chevron-down"></i>
+                        <ChevronDown className="w-4 h-4 ml-2 inline-block dropdown-icon" />
                     </button>
                     <div className="dropdown-content">
                         <div className="stick-list">
@@ -447,9 +448,9 @@ const MeetTheTeam = () => {
                                 </div>
                                 <div className="stick-socials">
                                     <a href="https://www.linkedin.com/in/nimish-jindal-0abb31329/" target="_blank"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a href="https://github.com/Nimish3186/" target="_blank" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -459,9 +460,9 @@ const MeetTheTeam = () => {
                                 </div>
                                 <div className="stick-socials">
                                     <a target="_blank" href="https://www.linkedin.com/in/praneel-maitra"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/praneel1" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -471,9 +472,9 @@ const MeetTheTeam = () => {
                                 </div>
                                 <div className="stick-socials">
                                     <a target="_blank" href="https://www.linkedin.com/in/abhiraj-mishra/"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/abhiraj-mishra" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -483,9 +484,9 @@ const MeetTheTeam = () => {
                                 </div>
                                 <div className="stick-socials">
                                     <a target="_blank" href="https://www.linkedin.com/in/sarthak-malik-b63a4b326/"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/SarthakMalik123" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -496,9 +497,9 @@ const MeetTheTeam = () => {
                                 <div className="stick-socials">
                                     <a target="_blank"
                                         href="https://www.linkedin.com/in/madhav-g-90813b321?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/madhav-gagneja" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -509,9 +510,9 @@ const MeetTheTeam = () => {
                                 <div className="stick-socials">
                                     <a target="_blank"
                                         href="https://www.linkedin.com/in/dev-keshav-kumar?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/Keshav1712" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -522,9 +523,9 @@ const MeetTheTeam = () => {
                                 <div className="stick-socials">
                                     <a target="_blank"
                                         href="https://www.linkedin.com/in/saksham-jain-b72220212?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/Saksham16926" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -534,9 +535,9 @@ const MeetTheTeam = () => {
                                 </div>
                                 <div className="stick-socials">
                                     <a target="_blank" href="https://www.linkedin.com/in/anurag-mehra-softwaredev"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/anuragmehra786" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -546,7 +547,7 @@ const MeetTheTeam = () => {
                                 </div>
                                 <div className="stick-socials">
                                     <a target="_blank" href="https://www.linkedin.com/in/prajjwal-hedaoo-737717384/"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     
                                 </div>
                             </div>
@@ -557,9 +558,9 @@ const MeetTheTeam = () => {
                                 </div>
                                 <div className="stick-socials">
                                     <a target="_blank" href="https://www.linkedin.com/in/jatinrajput-0415l"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/JatinRajputexe" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -569,9 +570,9 @@ const MeetTheTeam = () => {
                                 </div>
                                 <div className="stick-socials">
                                     <a target="_blank" href="https://www.linkedin.com/in/aarush-jain-0768aa335/"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/zke-7D6" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
                             <div className="stick-item">
@@ -581,9 +582,9 @@ const MeetTheTeam = () => {
                                 </div>
                                 <div className="stick-socials">
                                     <a target="_blank" href="https://www.linkedin.com/in/rishabh-kaushik-9876a238a/"
-                                        className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a target="_blank" href="https://github.com/Rishu222006/" className="stick-link"
-                                        title="GitHub"><i className="fa-brands fa-github"></i></a>
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
 
@@ -618,10 +619,10 @@ const MeetTheTeam = () => {
                             </div>
                             <div className="social-bar">
                                 <a target="_blank" href="https://www.linkedin.com/in/dhruv-bhatia-00125432b"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank"
                                     href="https://www.instagram.com/i.dhruvv_?igsh=YWpwams0cW5ocGtp&utm_source=qr"
-                                    className="social-link" title="Instagram"><i className="fa-brands fa-instagram"></i></a>
+                                    className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
@@ -644,7 +645,7 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/jessica-166441323?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="https://www.instagram.com/jeessyyccaaa?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="social-link" title="Instagram"><i
                                         className="fa-brands fa-instagram"></i></a>
                             </div>
@@ -676,7 +677,7 @@ const MeetTheTeam = () => {
                     <div className={`team-dropdown ${dropdowns[2] ? 'active' : ''}`}>
                         <button className="dropdown-trigger" onClick={() => toggleDropdown(2)}>
                             <span>More Team Members</span>
-                            <i className="fa-solid fa-chevron-down"></i>
+                            <ChevronDown className="w-4 h-4 ml-2 inline-block dropdown-icon" />
                         </button>
                         <div className="dropdown-content">
                             <div className="stick-list">
@@ -740,7 +741,7 @@ const MeetTheTeam = () => {
                             </div>
                             <div className="social-bar">
                                 <a target="_blank" href="https://www.linkedin.com/in/vinayakvashishtha112005"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="#" className="social-link" title="Instagram"><i
                                         className="fa-brands fa-instagram"></i></a>
                             </div>
@@ -787,7 +788,7 @@ const MeetTheTeam = () => {
                             </div>
                             <div className="social-bar">
                                 <a target="_blank" href="https://www.linkedin.com/in/tushar-garg-4608b9374/"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="#" className="social-link" title="Instagram"><i
                                         className="fa-brands fa-instagram"></i></a>
                             </div>
@@ -796,7 +797,7 @@ const MeetTheTeam = () => {
                     <div className={`team-dropdown ${dropdowns[3] ? 'active' : ''}`}>
                         <button className="dropdown-trigger" onClick={() => toggleDropdown(3)}>
                             <span>More Team Members</span>
-                            <i className="fa-solid fa-chevron-down"></i>
+                            <ChevronDown className="w-4 h-4 ml-2 inline-block dropdown-icon" />
                         </button>
                         <div className="dropdown-content">
                             <div className="stick-list">
@@ -858,7 +859,7 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/jai-giri-93953b328?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                    className="social-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                                    className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                 <a target="_blank" href="#" className="social-link" title="Instagram"><i
                                         className="fa-brands fa-instagram"></i></a>
                             </div>
@@ -914,7 +915,7 @@ const MeetTheTeam = () => {
                     <div className={`team-dropdown ${dropdowns[4] ? 'active' : ''}`}>
                         <button className="dropdown-trigger" onClick={() => toggleDropdown(4)}>
                             <span>More Team Members</span>
-                            <i className="fa-solid fa-chevron-down"></i>
+                            <ChevronDown className="w-4 h-4 ml-2 inline-block dropdown-icon" />
                         </button>
                         <div className="dropdown-content">
                             <div className="stick-list">
@@ -940,9 +941,9 @@ const MeetTheTeam = () => {
                                     </div>
                                     <div className="stick-socials">
                                         <a target="_blank" href="https://www.linkedin.com/in/keshav-garg-169399365
-" className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+" className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                         <a target="_blank" href="https://www.instagram.com/keshav_garg_1807?igsh=NnJuZWk2N296Y3d6
-" className="stick-link" title="Instagram"><i className="fa-brands fa-instagram"></i></a>
+" className="stick-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                                     </div>
                                 </div>
                                 <div className="stick-item">
@@ -967,9 +968,9 @@ const MeetTheTeam = () => {
                                     </div>
                                     <div className="stick-socials">
                                         <a target="_blank" href="https://www.linkedin.com/in/devanshi-verma-4238b3330
-" className="stick-link" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+" className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                         <a target="_blank" href="https://www.instagram.com/devanshi_ii16?igsh=Z2w4eW1hZ2dpZTdr
-" className="stick-link" title="Instagram"><i className="fa-brands fa-instagram"></i></a>
+" className="stick-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                                     </div>
                                 </div>
                             </div>

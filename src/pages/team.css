@@ -787,7 +787,7 @@ header p {
     transition: transform 0.3s ease;
 }
 
-.team-dropdown.active .dropdown-trigger i {
+.team-dropdown.active .dropdown-trigger .dropdown-icon {
     transform: rotate(180deg);
 }
 
