@@ -30,10 +30,10 @@ export function BlogList() {
           title,
           excerpt,
           content,
-          author -> {
-            name,
-            role,
-            "avatar": avatar.asset->url
+          "author": {
+            "name": author.name,
+            "role": author.role,
+            "avatar": author.avatar.asset->url
           },
           "coverImage": coverImage.asset->url,
           publishedAt,

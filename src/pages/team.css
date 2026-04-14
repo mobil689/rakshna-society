@@ -884,7 +884,4 @@ header p {
     transform: scale(1.2);
 }
 
-/* Added hover flip for react migration */
-.flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
+/* Removed hover flip for react migration to stop cards flipping as requested */

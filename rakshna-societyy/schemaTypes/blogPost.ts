@@ -47,6 +47,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'gallery',
+      title: 'Image Gallery',
+      type: 'array',
+      description: 'Add multiple images to create a scrolling carousel in the blog post.',
+      of: [{ type: 'image', options: { hotspot: true } }],
+    }),
+    defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',

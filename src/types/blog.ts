@@ -12,6 +12,7 @@ export interface BlogPost {
     avatar?: string;
   };
   coverImage: string; // Projected image URL string
+  gallery?: string[]; // Array of image URLs
   publishedAt: string;
   readTime: number;
   likes: number;

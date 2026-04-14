@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock, Heart, Facebook, Twitter, Linkedin } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Heart, Facebook, Twitter, Linkedin, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { hasLiked, toggleLike } from "@/utils/likes";
 import { RelatedPosts } from "@/components/RelatedPosts";
@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { sanityClient } from "@/lib/sanityClient";
+import { sanityClient, sanityWriteClient } from "@/lib/sanityClient";
 import type { BlogPost as BlogPostType } from "@/types/blog";
 import { PortableText } from '@portabletext/react';
 
@@ -23,6 +23,7 @@ export function BlogPost() {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -35,12 +36,13 @@ export function BlogPost() {
           title,
           excerpt,
           content,
-          author -> {
-            name,
-            role,
-            "avatar": avatar.asset->url
+          "author": {
+            "name": author.name,
+            "role": author.role,
+            "avatar": author.avatar.asset->url
           },
           "coverImage": coverImage.asset->url,
+          "gallery": gallery[].asset->url,
           publishedAt,
           readTime,
           likes,
@@ -98,12 +100,22 @@ export function BlogPost() {
   const publishedDate = new Date(blog.publishedAt);
   const formattedDate = format(publishedDate, "MMMM d, yyyy");
 
-  const handleLike = () => {
+  const handleLike = async () => {
     const newLikedState = toggleLike(blog.id);
     setLiked(newLikedState);
     setLikeCount((prev) => newLikedState ? prev + 1 : prev - 1);
     if (newLikedState) toast.success("Thanks for the like!");
     else toast.info("Like removed");
+
+    // Sync likes to Sanity so they persist across devices
+    try {
+      await sanityWriteClient
+        .patch(blog.id)
+        .set({ likes: newLikedState ? likeCount + 1 : Math.max(0, likeCount - 1) })
+        .commit();
+    } catch (error) {
+      console.error('Failed to sync like to Sanity:', error);
+    }
   };
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
@@ -168,16 +180,62 @@ export function BlogPost() {
         </motion.div>
       </header>
 
-      {/* Cover Image */}
+      {/* Cover Image or Gallery */}
       <motion.div
         className="container mx-auto px-4 max-w-5xl mb-12"
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.25 }}
       >
-        <div className="aspect-[2/1] rounded-xl overflow-hidden">
-          <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover" />
-        </div>
+        {blog.gallery && blog.gallery.length > 0 ? (
+          <div className="relative aspect-[2/1] rounded-xl overflow-hidden group shadow-lg">
+            {blog.gallery.map((image, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                  index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                <img src={image} alt={`Gallery image ${index + 1}`} className="w-full h-full object-cover" />
+              </div>
+            ))}
+            
+            {/* Carousel Controls */}
+            {blog.gallery.length > 1 && (
+              <>
+                <button
+                  onClick={() => setCurrentSlide((prev) => (prev - 1 + blog.gallery!.length) % blog.gallery!.length)}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={() => setCurrentSlide((prev) => (prev + 1) % blog.gallery!.length)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+
+                {/* Indicators */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                  {blog.gallery.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentSlide(idx)}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        idx === currentSlide ? "w-8 bg-blue-600" : "w-2 bg-white/60 hover:bg-white"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="aspect-[2/1] rounded-xl overflow-hidden shadow-lg">
+            <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover" />
+          </div>
+        )}
       </motion.div>
 
       {/* Content with Sticky Sidebar */}
@@ -300,7 +358,36 @@ export function BlogPost() {
                   [&_strong]:text-black
                 "
               >
-                <PortableText value={blog.content} />
+                <PortableText 
+                  value={blog.content} 
+                  components={{
+                    types: {
+                      image: ({ value }: any) => {
+                        if (!value?.asset?._ref) {
+                          return null;
+                        }
+                        const imgUrl = sanityClient.config().projectId 
+                          ? `https://cdn.sanity.io/images/${sanityClient.config().projectId}/${sanityClient.config().dataset}/${value.asset._ref.split('-')[1]}-${value.asset._ref.split('-')[2]}.${value.asset._ref.split('-')[3]}` 
+                          : '';
+                        return (
+                          <figure className="my-10">
+                            <img
+                              src={imgUrl}
+                              alt={value.alt || 'Blog inline image'}
+                              className="rounded-lg w-full h-auto object-cover"
+                              loading="lazy"
+                            />
+                            {value.caption && (
+                              <figcaption className="text-center text-sm text-gray-500 mt-3 italic">
+                                {value.caption}
+                              </figcaption>
+                            )}
+                          </figure>
+                        );
+                      }
+                    }
+                  }}
+                />
               </div>
             </AnimateOnScroll>
 
