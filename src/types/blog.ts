@@ -10,6 +10,7 @@ export interface BlogPost {
     name: string;
     role: string;
     avatar?: string;
+    linkedin?: string;
   };
   coverImage: string; // Projected image URL string
   gallery?: string[]; // Array of image URLs

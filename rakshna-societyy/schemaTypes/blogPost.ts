@@ -74,7 +74,8 @@ export default defineType({
       fields: [
         { name: 'name', type: 'string', title: 'Name', validation: (Rule) => Rule.required() },
         { name: 'role', type: 'string', title: 'Role (e.g., Security Researcher)', validation: (Rule) => Rule.required() },
-        { name: 'avatar', type: 'image', title: 'Avatar Image (Optional)' }
+        { name: 'avatar', type: 'image', title: 'Avatar Image (Optional)' },
+        { name: 'linkedin', type: 'url', title: 'LinkedIn URL (Optional)' }
       ]
     }),
     defineField({

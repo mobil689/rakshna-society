@@ -39,7 +39,8 @@ export function BlogPost() {
           "author": {
             "name": author.name,
             "role": author.role,
-            "avatar": author.avatar.asset->url
+            "avatar": author.avatar.asset->url,
+            "linkedin": author.linkedin
           },
           "coverImage": coverImage.asset->url,
           "gallery": gallery[].asset->url,
@@ -249,24 +250,7 @@ export function BlogPost() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              {/* Social Share */}
               <div className="flex gap-2 mb-8">
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 hover:border-gray-300 transition-colors"
-                >
-                  <Facebook className="w-4 h-4 text-gray-600" />
-                </a>
-                <a
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(blog.title)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 hover:border-gray-300 transition-colors"
-                >
-                  <Twitter className="w-4 h-4 text-gray-600" />
-                </a>
                 <a
                   href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(blog.title)}`}
                   target="_blank"
@@ -310,7 +294,6 @@ export function BlogPost() {
 
           {/* Article Content */}
           <article>
-            {/* Mobile social/like bar */}
             <div className="flex items-center gap-3 mb-8 lg:hidden">
               <button
                 onClick={handleLike}
@@ -321,14 +304,6 @@ export function BlogPost() {
                 <Heart className={`w-4 h-4 ${liked ? "fill-current" : ""}`} />
                 <span>{likeCount}</span>
               </button>
-              <a
-                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(blog.title)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center"
-              >
-                <Twitter className="w-4 h-4 text-gray-500" />
-              </a>
               <a
                 href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
@@ -398,10 +373,21 @@ export function BlogPost() {
                   <div className="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center text-white text-lg flex-shrink-0">
                     {blog.author.name.charAt(0)}
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <p className="text-sm mb-0.5">{blog.author.name}</p>
                     <p className="text-xs text-gray-500">{blog.author.role}, Rakshna Mait</p>
                   </div>
+                  {blog.author.linkedin && (
+                    <a
+                      href={blog.author.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                      title="LinkedIn Profile"
+                    >
+                      <Linkedin className="w-4 h-4 text-gray-600" />
+                    </a>
+                  )}
                 </div>
               </div>
             </AnimateOnScroll>
