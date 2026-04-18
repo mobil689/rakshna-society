@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock, Heart, Facebook, Twitter, Linkedin, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Heart, Linkedin, ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { hasLiked, toggleLike } from "@/utils/likes";
 import { RelatedPosts } from "@/components/RelatedPosts";
@@ -24,6 +24,36 @@ export function BlogPost() {
   const [likeCount, setLikeCount] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Zoom Image State
+  const [isImageOpen, setIsImageOpen] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [activeImage, setActiveImage] = useState<string | null>(null);
+
+  const openImage = (imgSrc: string) => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return; // Don't work on mobile phone layout
+    setActiveImage(imgSrc);
+    setIsImageOpen(true);
+    setZoomLevel(1);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeImage = () => {
+    setIsImageOpen(false);
+    setZoomLevel(1);
+    setActiveImage(null);
+    document.body.style.overflow = 'unset';
+  };
+
+  const handleZoomIn = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setZoomLevel(prev => Math.min(prev + 0.5, 3));
+  };
+
+  const handleZoomOut = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setZoomLevel(prev => Math.max(prev - 0.5, 1));
+  };
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -193,11 +223,17 @@ export function BlogPost() {
             {blog.gallery.map((image, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out cursor-pointer md:cursor-zoom-in ${
                   index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
                 }`}
+                onClick={() => openImage(image)}
               >
-                <img src={image} alt={`Gallery image ${index + 1}`} className="w-full h-full object-cover" />
+                <img src={image} alt={`Gallery image ${index + 1}`} className="w-full h-full object-cover transition-transform duration-500 md:group-hover:scale-105" />
+                <div className="hidden md:flex absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors items-center justify-center opacity-0 group-hover:opacity-100">
+                    <div className="bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg">
+                        <Maximize2 className="w-6 h-6 text-gray-900" />
+                    </div>
+                </div>
               </div>
             ))}
             
@@ -205,13 +241,13 @@ export function BlogPost() {
             {blog.gallery.length > 1 && (
               <>
                 <button
-                  onClick={() => setCurrentSlide((prev) => (prev - 1 + blog.gallery!.length) % blog.gallery!.length)}
+                  onClick={(e) => { e.stopPropagation(); setCurrentSlide((prev) => (prev - 1 + blog.gallery!.length) % blog.gallery!.length); }}
                   className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
-                  onClick={() => setCurrentSlide((prev) => (prev + 1) % blog.gallery!.length)}
+                  onClick={(e) => { e.stopPropagation(); setCurrentSlide((prev) => (prev + 1) % blog.gallery!.length); }}
                   className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100"
                 >
                   <ChevronRight className="w-6 h-6" />
@@ -222,7 +258,7 @@ export function BlogPost() {
                   {blog.gallery.map((_, idx) => (
                     <button
                       key={idx}
-                      onClick={() => setCurrentSlide(idx)}
+                      onClick={(e) => { e.stopPropagation(); setCurrentSlide(idx); }}
                       className={`h-2 rounded-full transition-all duration-300 ${
                         idx === currentSlide ? "w-8 bg-blue-600" : "w-2 bg-white/60 hover:bg-white"
                       }`}
@@ -233,8 +269,16 @@ export function BlogPost() {
             )}
           </div>
         ) : (
-          <div className="aspect-[2/1] rounded-xl overflow-hidden shadow-lg">
-            <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover" />
+          <div 
+            className="relative aspect-[2/1] rounded-xl overflow-hidden shadow-lg group cursor-pointer md:cursor-zoom-in"
+            onClick={() => openImage(blog.coverImage)}
+          >
+            <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover transition-transform duration-500 md:group-hover:scale-105" />
+            <div className="hidden md:flex absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors items-center justify-center opacity-0 group-hover:opacity-100">
+                <div className="bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg">
+                    <Maximize2 className="w-6 h-6 text-gray-900" />
+                </div>
+            </div>
           </div>
         )}
       </motion.div>
@@ -408,6 +452,58 @@ export function BlogPost() {
             For now, RelatedPosts expects an array, so we pass [] to fix the missing mockBlogs reference. */}
         <RelatedPosts currentBlogId={blog.id} blogs={[]} currentTags={blog.tags} />
       </AnimateOnScroll>
+
+      {/* Image Viewer Modal */}
+      {isImageOpen && activeImage && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={closeImage}
+        >
+          {/* Controls */}
+          <div className="absolute top-4 right-4 flex items-center gap-2 z-[110]">
+            <button 
+              onClick={handleZoomOut}
+              disabled={zoomLevel <= 1}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 disabled:opacity-50 transition-colors"
+            >
+              <ZoomOut className="w-5 h-5" />
+            </button>
+            <span className="bg-black/50 text-white px-3 py-2 rounded-full text-sm font-medium min-w-[60px] text-center select-none">
+              {Math.round(zoomLevel * 100)}%
+            </span>
+            <button 
+              onClick={handleZoomIn}
+              disabled={zoomLevel >= 3}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 disabled:opacity-50 transition-colors"
+            >
+              <ZoomIn className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={closeImage}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-red-500/80 text-white hover:bg-red-600 transition-colors ml-2"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Image Container */}
+          <div 
+            className="relative w-full h-full flex items-center justify-center p-4 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div 
+              className="transition-transform duration-200 ease-out cursor-move"
+              style={{ transform: `scale(${zoomLevel})` }}
+            >
+              <img 
+                src={activeImage}
+                alt="Zoomed"
+                className="max-w-[90vw] max-h-[90vh] object-contain rounded-md shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
