@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-let html = fs.readFileSync('meettheteam/society_members.html', 'utf-8');
+let html = fs.readFileSync('meet_the_team-main/society_members.html', 'utf-8');
 
 // Extract body
 let bodyContentMatch = html.match(/<body>([\s\S]*?)<\/body>/);

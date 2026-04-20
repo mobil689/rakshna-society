@@ -33,6 +33,7 @@ const MeetTheTeam = () => {
             </p>
         </div>
     </section>
+
     <div className={`terminal-window ${isLight ? "light-mode" : ""}`}>
         <header className="terminal-header">
             <div className="terminal-buttons">
@@ -53,7 +54,6 @@ const MeetTheTeam = () => {
                     <span className="prompt">Rakshna@mait:~$</span>
                     <span className="command">cat meet_the_team.sh</span>
                 </div>
-                
             </header>
 
             
@@ -66,7 +66,7 @@ const MeetTheTeam = () => {
                         <div className="flip-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-                                    <img src="/team/neeraj sir photo.jpeg" alt="Dr Neeraj Gupta" className="profile-photo" />
+                                    <img src="/team/neeraj sir photo.webp" alt="Dr Neeraj Gupta" className="profile-photo" />
                                     <h3 className="member-name">Dr Neeraj Gupta</h3>
                                     <p className="member-role">Faculty Advisor</p>
                                 </div>
@@ -90,7 +90,7 @@ const MeetTheTeam = () => {
                         <div className="flip-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-                                    <img src="/team/bhoomi mam photo.jpg" alt="Dr Bhoomi Gupta" className="profile-photo" />
+                                    <img src="/team/bhoomi mam photo.webp" alt="Dr Bhoomi Gupta" className="profile-photo" />
                                     <h3 className="member-name">Dr Bhoomi Gupta</h3>
                                     <p className="member-role">Mentor</p>
                                 </div>
@@ -112,6 +112,8 @@ const MeetTheTeam = () => {
                 </div>
             </section>
 
+
+
             
             <section id="core-council">
                 <h2 className="section-title">Council</h2>
@@ -122,7 +124,7 @@ const MeetTheTeam = () => {
                         <div className="flip-card president-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-                                    <img src="/team/1689613174218 - Aditya jha.jpg" alt="President"
+                                    <img src="/team/1689613174218 - Aditya jha.webp" alt="President"
                                         className="profile-photo" />
                                     <h3 className="member-name">Aditya Kumar Jha
                                     </h3>
@@ -152,7 +154,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/IMG_7864 - Crescent Moon.jpeg" alt="Arjun Jain"
+                                        <img src="/team/IMG_7864 - Crescent Moon.webp" alt="Arjun Jain"
                                             className="profile-photo" />
                                         <h3 className="member-name">Arjun Jain</h3>
                                         <p className="member-role">Vice President</p>
@@ -177,7 +179,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/high-res-image - YASHIKA SHARMA cropped.png"
+                                        <img src="/team/high-res-image - YASHIKA SHARMA cropped.webp"
                                             alt="Yashika Sharma" className="profile-photo" />
                                         <h3 className="member-name">Yashika Sharma</h3>
                                         <p className="member-role">Vice President</p>
@@ -203,7 +205,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="https://ui-avatars.com/api/?name=Kartik+Singh&background=random" alt="Kartik Singh" className="profile-photo" />
+                                        <img src="/team/Kartik Singh edited.webp" alt="Kartik Singh" className="profile-photo" />
                                         <h3 className="member-name">Kartik Singh</h3>
                                         <p className="member-role">Secretary</p>
                                     </div>
@@ -216,8 +218,8 @@ const MeetTheTeam = () => {
                                 </div>
                             </div>
                             <div className="social-bar">
-                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
+                                <a target="_blank" href="https://www.linkedin.com/in/kartik-singh19" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                <a target="_blank" href="https://github.com/PROBOTTHACK" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
                             </div>
                         </div>
 
@@ -225,7 +227,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/Screenshot_2026-04-05-10-46-55-39_965bbf4d18d205f782c6b8409c5773a4 - Nimish Ratra.jpg"
+                                        <img src="/team/Screenshot_2026-04-05-10-46-55-39_965bbf4d18d205f782c6b8409c5773a4 - Nimish Ratra.webp"
                                             alt="Nimish Ratra" className="profile-photo" />
                                         <h3 className="member-name">Nimish Ratra</h3>
                                         <p className="member-role">Joint Secretary</p>
@@ -249,7 +251,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/IMG_20250304_003542_0544 - Daksh Sharma.jpg"
+                                        <img src="/team/IMG_20250304_003542_0544 - Daksh Sharma.webp"
                                             alt="Daksh Sharma" className="profile-photo" />
                                         <h3 className="member-name">Daksh Sharma</h3>
                                         <p className="member-role">General Secretary</p>
@@ -274,7 +276,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/Screenshot_20260219_225328_Instagram~2 - Garv Goel.jpg"
+                                        <img src="/team/Screenshot_20260219_225328_Instagram~2 - Garv Goel.webp"
                                             alt="Garv Goel" className="profile-photo" />
                                         <h3 className="member-name">Garv Goel</h3>
                                         <p className="member-role">Senior Associate </p>
@@ -291,14 +293,14 @@ const MeetTheTeam = () => {
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/garv-goel?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
+                                
                             </div>
                         </div>
                         <div className="member-wrapper">
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/Screenshot 2026-03-24 at 2.53.40 PM - RAGHAV SHARMA.png"
+                                        <img src="/team/Screenshot 2026-03-24 at 2.53.40 PM - RAGHAV SHARMA.webp"
                                             alt="Raghav Sharma" className="profile-photo" />
                                         <h3 className="member-name">Raghav Sharma</h3>
                                         <p className="member-role">Senior Associate</p>
@@ -315,14 +317,14 @@ const MeetTheTeam = () => {
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/raghav-sharma-9b8566345?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
+                                
                             </div>
                         </div>
                         <div className="member-wrapper">
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/IMG20260403165137~2 - Guneet Kaur.jpg" alt="Guneet Kaur"
+                                        <img src="/team/IMG20260403165137~2 - Guneet Kaur.webp" alt="Guneet Kaur"
                                             className="profile-photo" />
                                         <h3 className="member-name">Guneet Kaur</h3>
                                         <p className="member-role">Senior Associate</p>
@@ -356,7 +358,7 @@ const MeetTheTeam = () => {
                         <div className="flip-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-                                    <img src="/team/IMG_20260108_000957_076 - Abhisht.jpg"
+                                    <img src="/team/IMG_20260108_000957_076 - Abhisht.webp"
                                         alt="Abhisht Pratap Shukla" className="profile-photo" />
                                     <h3 className="member-name">Abhisht Pratap Shukla</h3>
                                     <p className="member-role">Head</p>
@@ -381,7 +383,7 @@ const MeetTheTeam = () => {
                         <div className="flip-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-                                    <img src="/team/Devansh malik updated.jpeg" alt="Devansh Malik"
+                                    <img src="/team/Devansh malik updated.webp" alt="Devansh Malik"
                                         className="profile-photo" />
                                     <h3 className="member-name">Devansh Malik</h3>
                                     <p className="member-role">Co-Head</p>
@@ -406,7 +408,7 @@ const MeetTheTeam = () => {
                         <div className="flip-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-                                    <img src="https://ui-avatars.com/api/?name=Kshitij&background=random" alt="Kshitij" className="profile-photo" />
+                                    <img src="/team/Kshitij image.webp" alt="Kshitij" className="profile-photo" />
                                     <h3 className="member-name">Kshitij</h3>
                                     <p className="member-role">Co-Head</p>
                                 </div>
@@ -419,8 +421,8 @@ const MeetTheTeam = () => {
                             </div>
                         </div>
                         <div className="social-bar">
-                            <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                            <a target="_blank" href="#" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
+                            <a target="_blank" href="https://www.linkedin.com/in/kshitij2804/" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                            <a target="_blank" href="https://github.com/kshitijpal07" className="social-link" title="GitHub"><Github className="w-5 h-5" /></a>
                         </div>
                     </div>
                 </div>
@@ -443,6 +445,31 @@ const MeetTheTeam = () => {
                                     <a href="https://www.linkedin.com/in/nimish-jindal-0abb31329/" target="_blank"
                                         className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
                                     <a href="https://github.com/Nimish3186/" target="_blank" className="stick-link"
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
+                                </div>
+                            </div>
+                            <div className="stick-item">
+                                <div className="stick-info">
+                                    <span className="stick-name">Saksham Jain</span>
+                                    <span className="stick-role">Member</span>
+                                </div>
+                                <div className="stick-socials">
+                                    <a target="_blank"
+                                        href="https://www.linkedin.com/in/saksham-jain-b72220212?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                    <a target="_blank" href="https://github.com/Saksham16926" className="stick-link"
+                                        title="GitHub"><Github className="w-5 h-5" /></a>
+                                </div>
+                            </div>
+                            <div className="stick-item">
+                                <div className="stick-info">
+                                    <span className="stick-name">Anurag Mehra</span>
+                                    <span className="stick-role">Member</span>
+                                </div>
+                                <div className="stick-socials">
+                                    <a target="_blank" href="https://www.linkedin.com/in/anurag-mehra-softwaredev"
+                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                    <a target="_blank" href="https://github.com/anuragmehra786" className="stick-link"
                                         title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
@@ -508,31 +535,7 @@ const MeetTheTeam = () => {
                                         title="GitHub"><Github className="w-5 h-5" /></a>
                                 </div>
                             </div>
-                            <div className="stick-item">
-                                <div className="stick-info">
-                                    <span className="stick-name">Saksham Jain</span>
-                                    <span className="stick-role">Member</span>
-                                </div>
-                                <div className="stick-socials">
-                                    <a target="_blank"
-                                        href="https://www.linkedin.com/in/saksham-jain-b72220212?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                    <a target="_blank" href="https://github.com/Saksham16926" className="stick-link"
-                                        title="GitHub"><Github className="w-5 h-5" /></a>
-                                </div>
-                            </div>
-                            <div className="stick-item">
-                                <div className="stick-info">
-                                    <span className="stick-name">Anurag Mehra</span>
-                                    <span className="stick-role">Member</span>
-                                </div>
-                                <div className="stick-socials">
-                                    <a target="_blank" href="https://www.linkedin.com/in/anurag-mehra-softwaredev"
-                                        className="stick-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                    <a target="_blank" href="https://github.com/anuragmehra786" className="stick-link"
-                                        title="GitHub"><Github className="w-5 h-5" /></a>
-                                </div>
-                            </div>
+                            
                             <div className="stick-item">
                                 <div className="stick-info">
                                     <span className="stick-name">Prajjwal Hedaoo </span>
@@ -597,7 +600,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/IMG_1065 - Dhruv Bhatia.jpeg" alt="Dhruv"
+                                        <img src="/team/IMG_1065 - Dhruv Bhatia.webp" alt="Dhruv"
                                             className="profile-photo" />
                                         <h3 className="member-name">Dhruv</h3>
                                         <p className="member-role">Head Social Media Team</p>
@@ -622,7 +625,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/Snapchat-1036216382 - Jessica.jpg" alt="Jessica"
+                                        <img src="/team/Snapchat-1036216382 - Jessica.webp" alt="Jessica"
                                             className="profile-photo" />
                                         <h3 className="member-name">Jessica</h3>
                                         <p className="member-role">Co-Head</p>
@@ -639,14 +642,14 @@ const MeetTheTeam = () => {
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/jessica-166441323?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="https://www.instagram.com/jeessyyccaaa?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
+                                <a target="_blank" href="https://www.instagram.com/jeessyyccaaa?igsh=MWh0YzZuaGxyczZyMA==" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="https://ui-avatars.com/api/?name=Garv+Nanda&background=random" alt="Garv Nanda" className="profile-photo" />
+                                        <img src="/team/Garv Nanda.webp" alt="Garv Nanda" className="profile-photo" />
                                         <h3 className="member-name">Garv Nanda</h3>
                                         <p className="member-role">Co-Head</p>
                                     </div>
@@ -659,8 +662,8 @@ const MeetTheTeam = () => {
                                 </div>
                             </div>
                             <div className="social-bar">
-                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
+                                <a target="_blank" href="https://www.linkedin.com/in/garv-nanda-4106b6336" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                <a target="_blank" href="https://www.instagram.com/garvnandaa/?hl=en" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                     </div>
@@ -712,7 +715,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/WhatsApp Image 2026-03-24 at 20.32.30 - VINAYAK VASHISHTHA.jpeg"
+                                        <img src="/team/WhatsApp Image 2026-03-24 at 20.32.30 - VINAYAK VASHISHTHA.webp"
                                             alt="Vinayak Vashishtha" className="profile-photo" />
                                         <h3 className="member-name">Vinayak Vashishtha</h3>
                                         <p className="member-role">Head</p>
@@ -728,14 +731,14 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank" href="https://www.linkedin.com/in/vinayakvashishtha112005"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
+                                
                             </div>
                         </div>
                         <div className="member-wrapper">
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="_blank" alt="Mahesh Kumar Mandal" className="profile-photo" />
+                                        <img src="/team/Mahesh Kumar.webp" alt="Mahesh Kumar Mandal" className="profile-photo" />
                                         <h3 className="member-name">Mahesh Kumar Mandal</h3>
                                         <p className="member-role">Co-Head</p>
                                     </div>
@@ -748,15 +751,15 @@ const MeetTheTeam = () => {
                                 </div>
                             </div>
                             <div className="social-bar">
-                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
+                                <a target="_blank" href="https://www.linkedin.com/in/mahesh-kumar-971a94346?utm_source=share_via&utm_content=profile&utm_medium=member_android" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                <a target="_blank" href="https://www.instagram.com/artiste_mahi" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/file_00000000977c720b9bf79e1152447040 - Tushar Garg.png"
+                                        <img src="/team/file_00000000977c720b9bf79e1152447040 - Tushar Garg.webp"
                                             alt="Tushar Garg" className="profile-photo" />
                                         <h3 className="member-name">Tushar Garg</h3>
                                         <p className="member-role">Co-Head</p>
@@ -772,7 +775,7 @@ const MeetTheTeam = () => {
                             <div className="social-bar">
                                 <a target="_blank" href="https://www.linkedin.com/in/tushar-garg-4608b9374/"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
+                                
                             </div>
                         </div>
                     </div>
@@ -822,7 +825,7 @@ const MeetTheTeam = () => {
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/IMG-20260206-WA0012 - Jay.jpg" alt="Jai Giri"
+                                        <img src="/team/IMG-20260206-WA0012 - Jay.webp" alt="Jai Giri"
                                             className="profile-photo" />
                                         <h3 className="member-name">Jai Giri</h3>
                                         <p className="member-role">Head</p>
@@ -839,14 +842,14 @@ const MeetTheTeam = () => {
                                 <a target="_blank"
                                     href="https://www.linkedin.com/in/jai-giri-93953b328?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                                     className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
+                                
                             </div>
                         </div>
                         <div className="member-wrapper">
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/IMG_20260323_130102 - Shivam Gupta.jpg" alt="Shivam Gupta"
+                                        <img src="/team/IMG_20260323_130102 - Shivam Gupta.webp" alt="Shivam Gupta"
                                             className="profile-photo" />
                                         <h3 className="member-name">Shivam Gupta</h3>
                                         <p className="member-role">Co-Head</p>
@@ -860,15 +863,15 @@ const MeetTheTeam = () => {
                                 </div>
                             </div>
                             <div className="social-bar">
-                                <a target="_blank" href="#" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
-                                <a target="_blank" href="#" className="social-link" title="Instagram"><Instagram className="w-5 h-5" /></a>
+                                <a target="_blank" href="https://www.linkedin.com/in/shivam-gupta-4756b6318?utm_source=share_via&utm_content=profile&utm_medium=member_android" className="social-link" title="LinkedIn"><Linkedin className="w-5 h-5" /></a>
+                                <a target="_blank" href="https://github.com/Shivam-Gupta290506" className="social-link" title="Instagram"><Github className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div className="member-wrapper">
                             <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img src="/team/hritik image - hritik tyagi.jpeg" alt="Hritik Tyagi"
+                                        <img src="/team/hritik image - hritik tyagi.webp" alt="Hritik Tyagi"
                                             className="profile-photo" />
                                         <h3 className="member-name">Hritik Tyagi</h3>
                                         <p className="member-role">Co-Head</p>
@@ -883,8 +886,8 @@ const MeetTheTeam = () => {
                             </div>
                             <div className="social-bar">
                                 
-                                <a href="mailto:hritiktyagi1202@gmail.com" className="social-link" title="Email"><i
-                                        className="fa-solid fa-envelope"></i></a>
+                                
+                                        
                             </div>
                         </div>
                     </div>
@@ -955,6 +958,7 @@ const MeetTheTeam = () => {
 
 
     <hr className="footer-divider" />
+    
             <Footer />
         </div>
     );
