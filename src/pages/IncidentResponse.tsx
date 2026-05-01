@@ -1,11 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, Phone, Shield, Clock, CheckSquare, FileText } from 'lucide-react';
+import { AlertTriangle, Phone, Shield, Clock, CheckSquare, FileText, LogIn } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useAuth } from '@/contexts/AuthContext';
 
 const IncidentResponse = () => {
+  const { isAuthenticated } = useAuth();
   const responseSteps = [
     {
       step: 1,
@@ -69,6 +71,24 @@ const IncidentResponse = () => {
               </p>
             </div>
           </div>
+
+          {/* Sign-in CTA for personalized tracking */}
+          {!isAuthenticated && (
+            <div className="mb-8 p-5 bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/20 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">Track Your Incidents</h3>
+                <p className="text-sm text-muted-foreground">
+                  Sign in to submit incident reports, track their status, and get personalized assistance.
+                </p>
+              </div>
+              <Button variant="default" asChild className="flex-shrink-0">
+                <Link to="/login?returnTo=/incident-response">
+                  <LogIn className="mr-2 h-4 w-4" />
+                  Sign In
+                </Link>
+              </Button>
+            </div>
+          )}
 
           {/* Emergency Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">

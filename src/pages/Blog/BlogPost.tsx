@@ -6,17 +6,21 @@ import { hasLiked, toggleLike } from "@/utils/likes";
 import { RelatedPosts } from "@/components/RelatedPosts";
 import { NewsletterSubscribe } from "@/components/NewsletterSubscribe";
 import { AnimateOnScroll } from "@/components/AnimateOnScroll";
+import { CommentSection } from "@/components/CommentSection";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { sanityClient, sanityWriteClient } from "@/lib/sanityClient";
+import { supabase } from "@/lib/supabaseClient";
+import { useAuth } from "@/contexts/AuthContext";
 import type { BlogPost as BlogPostType } from "@/types/blog";
 import { PortableText } from '@portabletext/react';
 
 export function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
   const [blog, setBlog] = useState<BlogPostType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -89,9 +93,25 @@ export function BlogPost() {
             publishedAt: data.publishedAt || new Date().toISOString()
           };
           setBlog(safeData);
-          setLiked(hasLiked(safeData.id));
           setLikeCount(safeData.likes);
           window.scrollTo(0, 0);
+
+          // Check like status — use Supabase if logged in, localStorage otherwise
+          if (user && slug) {
+            try {
+              const { data: likeData } = await supabase
+                .from('likes')
+                .select('id')
+                .eq('user_id', user.id)
+                .eq('blog_slug', slug)
+                .maybeSingle();
+              setLiked(!!likeData);
+            } catch {
+              setLiked(hasLiked(safeData.id));
+            }
+          } else {
+            setLiked(hasLiked(safeData.id));
+          }
         } else {
           setBlog(null);
         }
@@ -102,7 +122,7 @@ export function BlogPost() {
       }
     };
     fetchBlog();
-  }, [slug]);
+  }, [slug, user]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -132,20 +152,49 @@ export function BlogPost() {
   const formattedDate = format(publishedDate, "MMMM d, yyyy");
 
   const handleLike = async () => {
-    const newLikedState = toggleLike(blog.id);
-    setLiked(newLikedState);
-    setLikeCount((prev) => newLikedState ? prev + 1 : prev - 1);
-    if (newLikedState) toast.success("Thanks for the like!");
-    else toast.info("Like removed");
+    // If user is authenticated, use Supabase for persistent cross-device likes
+    if (isAuthenticated && user && slug) {
+      const newLikedState = !liked;
+      setLiked(newLikedState);
+      setLikeCount((prev) => newLikedState ? prev + 1 : prev - 1);
+      if (newLikedState) toast.success("Thanks for the like!");
+      else toast.info("Like removed");
 
-    // Sync likes to Sanity so they persist across devices
-    try {
-      await sanityWriteClient
-        .patch(blog.id)
-        .set({ likes: newLikedState ? likeCount + 1 : Math.max(0, likeCount - 1) })
-        .commit();
-    } catch (error) {
-      console.error('Failed to sync like to Sanity:', error);
+      try {
+        if (newLikedState) {
+          await supabase.from('likes').insert({
+            user_id: user.id,
+            blog_slug: slug,
+          });
+        } else {
+          await supabase.from('likes').delete()
+            .eq('user_id', user.id)
+            .eq('blog_slug', slug);
+        }
+        // Also sync count to Sanity for display
+        await sanityWriteClient
+          .patch(blog.id)
+          .set({ likes: newLikedState ? likeCount + 1 : Math.max(0, likeCount - 1) })
+          .commit();
+      } catch (error) {
+        console.error('Failed to sync like:', error);
+      }
+    } else {
+      // Fallback: localStorage for anonymous users
+      const newLikedState = toggleLike(blog.id);
+      setLiked(newLikedState);
+      setLikeCount((prev) => newLikedState ? prev + 1 : prev - 1);
+      if (newLikedState) toast.success("Thanks for the like!");
+      else toast.info("Like removed");
+
+      try {
+        await sanityWriteClient
+          .patch(blog.id)
+          .set({ likes: newLikedState ? likeCount + 1 : Math.max(0, likeCount - 1) })
+          .commit();
+      } catch (error) {
+        console.error('Failed to sync like to Sanity:', error);
+      }
     }
   };
 
@@ -434,6 +483,11 @@ export function BlogPost() {
                   )}
                 </div>
               </div>
+            </AnimateOnScroll>
+
+            {/* Comments Section */}
+            <AnimateOnScroll>
+              {slug && <CommentSection blogSlug={slug} />}
             </AnimateOnScroll>
           </article>
         </div>

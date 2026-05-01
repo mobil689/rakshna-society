@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 import Index from "./pages/Index";
 import Portal from "./pages/Portal";
 import IncidentResponse from "./pages/IncidentResponse";
@@ -10,9 +11,11 @@ import Training from "./pages/Training";
 import VideoLibrary from "./pages/VideoLibrary";
 import CyberSecurityResources from "./pages/CyberSecurityResources";
 import Events from "./pages/Events";
-import EventGallery from "./pages/EventGallery"; // <-- 1. Import the new page
+import EventGallery from "./pages/EventGallery";
 import Helpline from "./pages/Helpline";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import AuthCallback from "./pages/AuthCallback";
 import Guidelines from "./pages/Guidelines";
 import NotFound from "./pages/NotFound";
 import News from "./pages/News";
@@ -43,11 +46,13 @@ const AppContent = () => {
           <Route path="/cyber-security-resources" element={<CyberSecurityResources />} />
           <Route path="/events" element={<Events />} />
           
-          {/* --- 2. NEW ROUTE --- */}
+          {/* --- Gallery Route --- */}
           <Route path="/events/gallery/:slug" element={<EventGallery />} />
 
           <Route path="/helpline" element={<Helpline />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/guidelines" element={<Guidelines />} />
           <Route path="/team" element={<MeetTheTeam />} />
           <Route path="/results" element={<RecruitmentResults />} />
@@ -69,7 +74,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -1,6 +1,6 @@
 // The final, complete, and merged version of src/pages/Portal.tsx
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -11,9 +11,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from "sonner";
-import { Loader2, AlertTriangle, UploadCloud, Shield, Lock, File as FileIcon, X } from 'lucide-react';
+import { Loader2, AlertTriangle, UploadCloud, Shield, Lock, File as FileIcon, X, LogIn, User } from 'lucide-react';
 import { createClient } from '@sanity/client';
 import { sanityClient } from '@/lib/sanityClient';
+import { useAuth } from '@/contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 // Sanity Client for frontend file uploads with token
 const uploadClient = createClient({
@@ -26,6 +28,7 @@ const uploadClient = createClient({
 
 
 const Portal = () => {
+    const { user, isAuthenticated, displayName } = useAuth();
     const [formData, setFormData] = useState({
         fullName: '',
         emailAddress: '',
@@ -35,6 +38,17 @@ const Portal = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [file, setFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // Auto-fill form when user is authenticated
+    useEffect(() => {
+        if (isAuthenticated && user) {
+            setFormData(prev => ({
+                ...prev,
+                fullName: prev.fullName || displayName || '',
+                emailAddress: prev.emailAddress || user.email || '',
+            }));
+        }
+    }, [isAuthenticated, user, displayName]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
@@ -98,6 +112,23 @@ const Portal = () => {
 
                         {/* Left Column: The Form */}
                         <div className="lg:col-span-3">
+                            {/* Sign-in suggestion banner */}
+                            {!isAuthenticated && (
+                                <div className="mb-4 p-4 bg-primary/5 border border-primary/20 rounded-lg flex items-center justify-between gap-4">
+                                    <div className="flex items-center gap-3">
+                                        <User className="h-5 w-5 text-primary flex-shrink-0" />
+                                        <p className="text-sm text-muted-foreground">
+                                            <span className="font-medium text-foreground">Sign in</span> to auto-fill your details and track your incident reports.
+                                        </p>
+                                    </div>
+                                    <Button variant="outline" size="sm" asChild className="flex-shrink-0">
+                                        <Link to="/login?returnTo=/portal">
+                                            <LogIn className="mr-2 h-4 w-4" />
+                                            Sign In
+                                        </Link>
+                                    </Button>
+                                </div>
+                            )}
                             <Card>
                                 <CardHeader>
                                     <CardTitle className="text-2xl flex items-center gap-2">

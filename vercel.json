@@ -8,7 +8,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.sanity.io https://*.list-manage.com https://*.mailchimp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.sanity.io https://img.youtube.com https://i.ytimg.com; frame-src https://www.youtube.com; connect-src 'self' https://*.sanity.io https://*.list-manage.com https://*.mailchimp.com; frame-ancestors 'none';"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.sanity.io https://*.list-manage.com https://*.mailchimp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.sanity.io https://img.youtube.com https://i.ytimg.com https://*.googleusercontent.com https://avatars.githubusercontent.com; frame-src https://www.youtube.com; connect-src 'self' https://*.sanity.io https://*.list-manage.com https://*.mailchimp.com https://*.supabase.co; frame-ancestors 'none';"
         },
         {
           "key": "X-Frame-Options",
