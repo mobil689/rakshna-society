@@ -7,6 +7,7 @@ import { ArrowLeft, ExternalLink, Clock, Users, Play } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useNavigate } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
 
 const VideoLibrary = () => {
   const navigate = useNavigate();
@@ -121,6 +122,11 @@ const VideoLibrary = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Video Library"
+        description="Access RAKSHNA's curated collection of cybersecurity training videos, ethical hacking tutorials, and NPTEL courses from industry experts."
+        path="/video-library"
+      />
       <Header />
       
       <main className="py-8">

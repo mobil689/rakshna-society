@@ -5,6 +5,7 @@ import { ArrowLeft, Shield, Globe, BookOpen } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useNavigate } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
 
 const CyberSecurityResources = () => {
   const navigate = useNavigate();
@@ -30,6 +31,11 @@ const CyberSecurityResources = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Cybersecurity Resources"
+        description="Access official cybersecurity guidelines, frameworks, and resources from I4C, CERT-IN, and other leading agencies. Free resources for students at MAIT."
+        path="/cyber-security-resources"
+      />
       <Header />
       
       <main className="py-8">

@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Phone, Mail, Clock, AlertTriangle, HelpCircle, Send, Loader2, CheckCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
 
 const Helpline = () => {
   const [ticketSubmitted, setTicketSubmitted] = useState(false);
@@ -119,6 +120,11 @@ const Helpline = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Emergency Cybersecurity Helpline"
+        description="Get immediate cybersecurity assistance from RAKSHNA at MAIT. 24/7 emergency hotline, support tickets, and FAQ for phishing, hacking, ransomware, and more."
+        path="/helpline"
+      />
       <Header />
       
       <main className="py-8">

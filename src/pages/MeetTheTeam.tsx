@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './team.css';
 import { Linkedin, Github, Instagram, ChevronDown, Moon, Sun } from 'lucide-react';
+import SEOHead from '@/components/SEOHead';
 
 const MeetTheTeam = () => {
     const [isLight, setIsLight] = useState(false);
@@ -17,6 +18,11 @@ const MeetTheTeam = () => {
 
     return (
         <div className="team-page-container">
+            <SEOHead
+                title="Meet the Team"
+                description="Meet the members of RAKSHNA - The Cybersecurity Society of MAIT. Faculty mentors, council members, tech team, and social media team driving cyber awareness."
+                path="/team"
+            />
             <Header />
             
     <section className="hero">
@@ -124,7 +130,7 @@ const MeetTheTeam = () => {
                         <div className="flip-card president-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-                                    <img src="/team/1689613174218 - Aditya jha.webp" alt="President"
+                                    <img src="/team/1689613174218 - Aditya jha.webp" alt="Aditya Kumar Jha - President"
                                         className="profile-photo" />
                                     <h3 className="member-name">Aditya Kumar Jha
                                     </h3>

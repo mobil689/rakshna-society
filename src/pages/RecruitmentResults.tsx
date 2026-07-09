@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Trophy, CheckCircle, Star, Sparkles, Code, Shield, Terminal , Rocket } from 'lucide-react';
+import SEOHead from '@/components/SEOHead';
 
 const RecruitmentResults = () => {
     const [showFirecrackers, setShowFirecrackers] = useState(true);
@@ -98,6 +99,11 @@ const RecruitmentResults = () => {
                 />
             )}
             <Header />
+            <SEOHead
+                title="Recruitment Results 2026"
+                description="View the official RAKSHNA Society recruitment results for 2026. Congratulations to all selected members of the Technical and Non-Technical teams."
+                path="/recruitment-results"
+            />
             
             <main className="relative overflow-hidden">
                 {/* Background Decor */}

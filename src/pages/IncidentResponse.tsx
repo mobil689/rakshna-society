@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
+import SEOHead from '@/components/SEOHead';
 
 const IncidentResponse = () => {
   const { isAuthenticated } = useAuth();
@@ -57,6 +58,11 @@ const IncidentResponse = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Cyber Incident Response"
+        description="Follow RAKSHNA's 4-step incident response process to effectively handle cybersecurity incidents. Get emergency contacts, containment procedures, and recovery guidelines."
+        path="/incident-response"
+      />
       <Header />
       
       <main className="py-8">

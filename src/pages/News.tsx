@@ -8,6 +8,7 @@ import { sanityClient } from '@/lib/sanityClient';
 import imageUrlBuilder from '@sanity/image-url';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import SEOHead from '@/components/SEOHead';
 
 const builder = imageUrlBuilder(sanityClient);
 function urlFor(source: any) {
@@ -71,6 +72,11 @@ const News = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Cyber News"
+        description="Latest cybersecurity news, threat intelligence, and updates from the RAKSHNA community at MAIT. Stay informed about the latest cyber threats and security trends."
+        path="/news"
+      />
       <Header />
       <main className="py-8 md:py-12">
         <div className="container mx-auto px-4">
