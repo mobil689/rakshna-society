@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import SEOHead from '@/components/SEOHead';
 
 const builder = imageUrlBuilder(sanityClient);
 function urlFor(source: any) {
@@ -124,6 +125,12 @@ const NewsArticle = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={article.title}
+        description={article.summary || `Read ${article.title} on RAKSHNA News`}
+        path={`/news/${article.slug.current}`}
+        ogType="article"
+      />
       <Header />
       
       <main className="py-10">

@@ -16,6 +16,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { useAuth } from "@/contexts/AuthContext";
 import type { BlogPost as BlogPostType } from "@/types/blog";
 import { PortableText } from '@portabletext/react';
+import SEOHead from '@/components/SEOHead';
 
 export function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -212,6 +213,13 @@ export function BlogPost() {
 
       <Header />
 
+      <SEOHead
+        title={blog.title}
+        description={blog.excerpt || `Read ${blog.title} on the RAKSHNA Blog`}
+        path={`/blog/${blog.slug}`}
+        ogType="article"
+      />
+
       {/* Header bar */}
       <motion.div
         className="container mx-auto px-4 max-w-5xl py-4 flex items-center justify-between text-sm text-gray-500"
@@ -277,7 +285,7 @@ export function BlogPost() {
                 }`}
                 onClick={() => openImage(image)}
               >
-                <img src={image} alt={`Gallery image ${index + 1}`} className="w-full h-full object-cover transition-transform duration-500 md:group-hover:scale-105" />
+                <img src={image} alt={`${blog.title} - image ${index + 1}`} className="w-full h-full object-cover transition-transform duration-500 md:group-hover:scale-105" />
                 <div className="hidden md:flex absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg">
                         <Maximize2 className="w-6 h-6 text-gray-900" />
@@ -551,7 +559,7 @@ export function BlogPost() {
             >
               <img 
                 src={activeImage}
-                alt="Zoomed"
+                alt={`${blog.title} - enlarged view`}
                 className="max-w-[90vw] max-h-[90vh] object-contain rounded-md shadow-2xl"
               />
             </div>

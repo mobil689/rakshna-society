@@ -10,6 +10,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import SEOHead from '@/components/SEOHead';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -168,6 +169,12 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Sign In"
+        description="Sign in to your RAKSHNA account to access incident reports, comment on blogs, and manage your cybersecurity profile."
+        path="/login"
+        noIndex={true}
+      />
       <Header />
       
       <main className="py-8">

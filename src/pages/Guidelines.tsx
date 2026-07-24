@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { FileText, Search, Shield, Lock, AlertTriangle, CheckCircle, ExternalLink, Eye, Send, Loader2, Globe, CreditCard, Smartphone, HardDrive, Usb, Package, Users } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
 
 const WEB3FORMS_ACCESS_KEY = '0ec500b0-f819-4bb2-8ea7-dc217a17807d';
 
@@ -360,6 +361,11 @@ const Guidelines = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Security Guidelines & Resources"
+        description="Comprehensive cybersecurity best practices, downloadable security guides, and expert resources from RAKSHNA. Password security, phishing protection, device safety, and more."
+        path="/guidelines"
+      />
       <Header />
       
       <main className="py-8">

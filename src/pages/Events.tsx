@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -16,9 +16,17 @@ import {
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
+import { sanityClient } from '@/lib/sanityClient';
+import imageUrlBuilder from '@sanity/image-url';
+
+const builder = imageUrlBuilder(sanityClient);
+function urlFor(source: any) {
+  return builder.image(source);
+}
 
 interface Event {
-  id: number;
+  id: number | string;
   title: string;
   date: Date;
   location: string;
@@ -85,24 +93,6 @@ const pastEvents: Event[] = [
     )
   },
   {
-    id: 2,
-    title: 'RAKSHNA Inauguration Ceremony',
-    date: new Date('2025-11-10T11:00:00'),
-    location: 'Main Auditorium, MAIT',
-    type: 'Inauguration',
-    spots: "280",
-    maxSpots: "400",
-    description: 'The official inauguration of the RAKSHNA Cyber Security Society.',
-    posterUrl: 'https://placehold.co/600x400/1f2937/ffffff?text=RAKSHNA+Poster',
-    galleryLink: '/events/gallery/rakshna-inauguration-report',
-    details: (
-        <div className="space-y-4 whitespace-pre-line">
-            <p className="font-bold text-lg">🔵 RAKSHNA – The Cybersecurity Society of MAIT 🔵</p>
-            <p>Event successfully concluded. Please view the gallery and report.</p>
-        </div>
-    )
-  },
-  {
     id: 1,
     title: 'The Working of the society',
     date: new Date('2025-09-17T10:00:00'),
@@ -123,6 +113,44 @@ const pastEvents: Event[] = [
 const Events = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null); 
+  const [sanityEvents, setSanityEvents] = useState<Event[]>([]);
+  
+  useEffect(() => {
+    const fetchSanityEvents = async () => {
+      try {
+        const query = `*[_type == "eventGallery"] | order(date desc) {
+          _id,
+          title,
+          date,
+          location,
+          slug,
+          images
+        }`;
+        const data = await sanityClient.fetch(query);
+        const mappedEvents: Event[] = data.map((item: any) => ({
+          id: item._id,
+          title: item.title,
+          date: new Date(item.date),
+          location: item.location || 'N/A',
+          type: 'Gallery Event',
+          spots: 'N/A',
+          maxSpots: 'N/A',
+          description: 'Event successfully concluded. Please view the gallery and report.',
+          posterUrl: item.images && item.images.length > 0 ? urlFor(item.images[0]).width(600).height(400).url() : undefined,
+          galleryLink: item.slug?.current ? `/events/gallery/${item.slug.current}` : undefined,
+          details: (
+             <div className="space-y-4 whitespace-pre-line">
+                <p>Event successfully concluded. Please view the gallery and report.</p>
+            </div>
+          )
+        }));
+        setSanityEvents(mappedEvents);
+      } catch (error) {
+        console.error("Failed to fetch events from sanity:", error);
+      }
+    };
+    fetchSanityEvents();
+  }, []);
   
   const today = new Date();
   const now = new Date(); 
@@ -135,14 +163,14 @@ const Events = () => {
 
   const eventDays = useMemo(() => {
     const days = new Set<number>();
-    const allEvents = [...ongoingEvents, ...pastEvents];
+    const allEvents = [...ongoingEvents, ...pastEvents, ...sanityEvents];
     for (const event of allEvents) {
       if (event.date.getMonth() === currentMonth && event.date.getFullYear() === currentYear) {
         days.add(event.date.getDate());
       }
     }
     return days;
-  }, [currentMonth, currentYear]);
+  }, [currentMonth, currentYear, sanityEvents]);
 
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -152,6 +180,11 @@ const Events = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Security Events & Webinars"
+        description="Join RAKSHNA's cybersecurity events, workshops, hackathons, and CTF competitions at MAIT. Browse upcoming and past events with photo galleries."
+        path="/events"
+      />
       <Header />
       
       <main className="py-8">
@@ -213,7 +246,7 @@ const Events = () => {
                             <div className="text-sm text-muted-foreground">Participants</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-2xl font-bold text-warning">{pastEvents.length}</div>
+                            <div className="text-2xl font-bold text-warning">{pastEvents.length + sanityEvents.length}</div>
                             <div className="text-sm text-muted-foreground">Past Events</div>
                         </div>
                         <div className="text-center">
@@ -288,7 +321,7 @@ const Events = () => {
                     <CardDescription>Browse summaries and details from our past events.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    {pastEvents.map((event) => (
+                    {[...sanityEvents, ...pastEvents].map((event) => (
                         <div key={event.id} className="flex flex-col md:flex-row items-center justify-between p-4 border rounded-lg gap-4">
                             <div className="flex-grow">
                                 <div className="flex items-center gap-2 mb-1">
@@ -338,7 +371,7 @@ const Events = () => {
                     {selectedEvent.details}
                 </div>
                 <div className="md:col-span-1">
-                    <img src={selectedEvent.posterUrl} alt="Poster" className="w-full rounded-lg shadow-md mb-4" />
+                    <img src={selectedEvent.posterUrl} alt={`${selectedEvent.title} event poster`} className="w-full rounded-lg shadow-md mb-4" />
                     <Card className="bg-muted/50"><CardContent className="p-4 space-y-2">
                         <div className="flex gap-2 text-sm"><Clock className="h-4 w-4"/> {selectedEvent.date.toLocaleTimeString()}</div>
                         <div className="flex gap-2 text-sm"><MapPin className="h-4 w-4"/> {selectedEvent.location}</div>

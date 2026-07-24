@@ -10,6 +10,7 @@ import type { BlogPost } from "@/types/blog";
 import { format } from "date-fns";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 
 const ROTATE_INTERVAL = 5000;
 
@@ -98,6 +99,11 @@ export function BlogList() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Cybersecurity Blog"
+        description="Read the latest cybersecurity articles, tutorials, and insights from RAKSHNA's editorial team at MAIT. Ethical hacking, threat analysis, digital forensics, and more."
+        path="/blog"
+      />
       <Header />
       {/* Editor's Picks */}
       <section className="container mx-auto px-4 max-w-6xl py-12 md:py-16">

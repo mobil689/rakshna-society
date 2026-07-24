@@ -19,7 +19,7 @@ import AuthCallback from "./pages/AuthCallback";
 import Guidelines from "./pages/Guidelines";
 import NotFound from "./pages/NotFound";
 import News from "./pages/News";
-import NewsArticle from "./pages/NewsArticle";
+// import NewsArticle from "./pages/NewsArticle"; // Disabled: now using live news scraper
 import MeetTheTeam from "./pages/MeetTheTeam";
 import RecruitmentResults from "./pages/RecruitmentResults";
 // import TermsModal from "./components/TermsModal";
@@ -57,7 +57,7 @@ const AppContent = () => {
           <Route path="/team" element={<MeetTheTeam />} />
           <Route path="/results" element={<RecruitmentResults />} />
           <Route path="/news" element={<News />} />
-          <Route path="/news/:slug" element={<NewsArticle />} />
+          {/* <Route path="/news/:slug" element={<NewsArticle />} /> */}{/* Disabled: news scraper links externally */}
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

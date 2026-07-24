@@ -22,7 +22,7 @@ const Hero = () => {
                 <div className="max-w-4xl mx-auto">
                     {/* ANIMATION: Added fade-in animation to the heading */}
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-down">
-                        Cyber Security Society of MATES
+                        Cyber Security Society of MAIT
                     </h1>
 
                     {/* ANIMATION: Added fade-in animation to the mission statement */}

@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import Features from '@/components/Features';
 import LinkTray from '@/components/LinkTray';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
 
 const Index = () => {
 
@@ -10,6 +11,11 @@ const Index = () => {
 
     return (
         <div className="min-h-screen bg-background">
+            <SEOHead
+                title="RAKSHNA | The Cybersecurity Society of MAIT"
+                description="Official website of RAKSHNA - The Cybersecurity Society of MAIT. Your central hub for technical infosec blogs, real-time cyber news, cutting-edge training, and a 24/7 incident response helpline."
+                path="/"
+            />
             <Header />
             <Hero />
 

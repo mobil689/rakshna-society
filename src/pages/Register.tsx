@@ -9,6 +9,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import SEOHead from '@/components/SEOHead';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -132,6 +133,12 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Create Account"
+        description="Register for a RAKSHNA account to join the cybersecurity community at MAIT. Comment on blogs, track incident reports, and more."
+        path="/register"
+        noIndex={true}
+      />
       <Header />
 
       <main className="py-8">

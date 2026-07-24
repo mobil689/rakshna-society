@@ -6,6 +6,7 @@ import { GraduationCap, Clock, Users, Star, BookOpen, Video, FileText } from 'lu
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useNavigate } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
 
 const Training = () => {
   const navigate = useNavigate();
@@ -62,6 +63,11 @@ const Training = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Cybersecurity Training"
+        description="Enhance your cybersecurity skills with RAKSHNA's expert-led workshops, CTF competitions, and free learning resources at MAIT. Ethical hacking, digital forensics, and more."
+        path="/training"
+      />
       <Header />
       
       <main className="py-8">

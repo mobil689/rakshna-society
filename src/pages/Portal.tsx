@@ -16,6 +16,7 @@ import { createClient } from '@sanity/client';
 import { sanityClient } from '@/lib/sanityClient';
 import { useAuth } from '@/contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
 
 // Sanity Client for frontend file uploads with token
 const uploadClient = createClient({
@@ -104,6 +105,11 @@ const Portal = () => {
 
     return (
         <div className="min-h-screen bg-background">
+            <SEOHead
+                title="Report Cyber Incident"
+                description="Report a cybersecurity incident to RAKSHNA - The Cybersecurity Society of MAIT. Submit phishing, malware, data breach, or cyberbullying reports with evidence for rapid response."
+                path="/portal"
+            />
             <Header />
             <main className="py-8">
                 <div className="container mx-auto px-4">

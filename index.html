@@ -14,8 +14,11 @@
     
     <meta name="robots" content="index, follow" />
     
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://rakshnamait.com/" />
+    
     <!-- Favicon Link -->
-    <link rel="icon" type="image/png" href="/raksnha.png" />
+    <link rel="icon" type="image/png" href="/rakshna-logo.png" />
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -27,14 +30,16 @@
     <meta property="og:url" content="https://rakshnamait.com" />
     
     <!-- SEO FIX: Use Absolute URL  -->
-    <meta property="og:image" content="https://rakshnamait.com/raksnha.png" />
+    <meta property="og:image" content="https://rakshnamait.com/rakshna-logo.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- 3. TWITTER CARDS -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@RakshnaMAIT" />
     <meta name="twitter:title" content="RAKSHNA | Cybersecurity Society of MAIT" />
     <meta name="twitter:description" content="Official student chapter for cybersecurity awareness and innovation at MAIT. Check out our latest tech blogs, event galleries, and security resources." />
-    <meta name="twitter:image" content="https://rakshnamait.com/raksnha.png" />
+    <meta name="twitter:image" content="https://rakshnamait.com/rakshna-logo.png" />
 
     <!-- 4. STRUCTURED DATA (JSON-LD) -->
     <!-- This tells Google you are a legitimate Organization -->
@@ -44,12 +49,30 @@
       "@type": "Organization",
       "name": "RAKSHNA | Cybersecurity Society of MAIT",
       "url": "https://rakshnamait.com",
-      "logo": "https://rakshnamait.com/raksnha.png",
+      "logo": "https://rakshnamait.com/rakshna-logo.png",
       "description": "Student-driven cybersecurity community at Maharaja Agrasen Institute of Technology. Hub for infosec news, tech blogs, cyber competitions, training, and 24/7 incident response helpline.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "New Delhi",
         "addressCountry": "IN"
+      },
+      "sameAs": [
+        "https://twitter.com/RakshnaMAIT"
+      ]
+    }
+    </script>
+
+    <!-- WebSite Schema for Sitelinks Search Box -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "RAKSHNA - Cybersecurity Society of MAIT",
+      "url": "https://rakshnamait.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://rakshnamait.com/blog?q={search_term_string}",
+        "query-input": "required name=search_term_string"
       }
     }
     </script>
