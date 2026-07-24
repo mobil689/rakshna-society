@@ -43,15 +43,46 @@ const RSS_SOURCES = [
     sourceUrl: 'https://www.securityweek.com',
     category: 'Industry News',
   },
-  {
-    name: 'CISA Advisories',
-    url: 'https://www.cisa.gov/cybersecurity-advisories/all.xml',
-    sourceUrl: 'https://www.cisa.gov',
-    category: 'Gov Advisories',
-  },
 ];
 
-// Simple XML tag text extractor (no dependency needed)
+// ─── Robust HTML/XML stripping ───────────────────────────
+function stripHtml(html: string): string {
+  if (!html) return '';
+
+  let text = html;
+
+  // 1. Remove CDATA wrappers
+  text = text.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/gi, '$1');
+
+  // 2. Decode common HTML entities FIRST (before stripping tags)
+  text = text.replace(/&lt;/g, '<');
+  text = text.replace(/&gt;/g, '>');
+  text = text.replace(/&amp;/g, '&');
+  text = text.replace(/&quot;/g, '"');
+  text = text.replace(/&#39;/g, "'");
+  text = text.replace(/&nbsp;/g, ' ');
+  text = text.replace(/&#\d+;/g, ''); // numeric entities
+
+  // 3. Now strip ALL HTML tags (including any that were entity-encoded)
+  text = text.replace(/<[^>]*>/g, '');
+
+  // 4. Run tag strip again in case entity-decoded tags remain
+  text = text.replace(/<[^>]*>/g, '');
+
+  // 5. Remove any remaining URLs that look like raw links
+  text = text.replace(/https?:\/\/\S+/g, '');
+
+  // 6. Collapse whitespace
+  text = text.replace(/\s+/g, ' ').trim();
+
+  // 7. If the result still looks like garbage (too many special chars), return empty
+  const alphaRatio = (text.match(/[a-zA-Z]/g) || []).length / (text.length || 1);
+  if (text.length > 10 && alphaRatio < 0.3) return '';
+
+  return text;
+}
+
+// Simple XML tag text extractor
 function getTagContent(xml: string, tag: string): string {
   // Try CDATA first
   const cdataRegex = new RegExp(`<${tag}[^>]*>\\s*<!\\[CDATA\\[([\\s\\S]*?)\\]\\]>\\s*</${tag}>`, 'i');
@@ -74,37 +105,23 @@ function extractImage(itemXml: string): string | null {
   const enclosureMatch = itemXml.match(/<enclosure[^>]*url=["']([^"']+)["'][^>]*type=["']image[^"']*["']/i);
   if (enclosureMatch) return enclosureMatch[1];
 
-  // Also try enclosure without type check
+  // enclosure with image extension
   const enclosureAnyMatch = itemXml.match(/<enclosure[^>]*url=["']([^"']+)["']/i);
   if (enclosureAnyMatch && /\.(jpg|jpeg|png|webp|gif)/i.test(enclosureAnyMatch[1])) {
     return enclosureAnyMatch[1];
   }
 
-  // img tag inside description/content
-  const imgMatch = itemXml.match(/<img[^>]*src=["']([^"']+)["']/i);
+  // img tag inside description/content — only if it looks like a real image URL
+  const imgMatch = itemXml.match(/<img[^>]*src=["'](https?:\/\/[^"']+\.(jpg|jpeg|png|webp|gif)[^"']*)["']/i);
   if (imgMatch) return imgMatch[1];
 
   return null;
 }
 
-// Strip HTML tags for clean descriptions
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, '')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
 async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<NewsItem[]> {
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000); // 8s timeout per source
+    const timeout = setTimeout(() => controller.abort(), 8000);
 
     const response = await fetch(source.url, {
       signal: controller.signal,
@@ -122,7 +139,6 @@ async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<New
 
     const xml = await response.text();
 
-    // Parse items (works for both <item> and <entry> based feeds)
     const items: NewsItem[] = [];
     const itemRegex = /<item[\s>]([\s\S]*?)<\/item>/gi;
     const entryRegex = /<entry[\s>]([\s\S]*?)<\/entry>/gi;
@@ -132,7 +148,8 @@ async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<New
       matches = [...xml.matchAll(entryRegex)];
     }
 
-    for (const match of matches.slice(0, 10)) { // Max 10 per source
+    // ✅ Only take 5 articles per source
+    for (const match of matches.slice(0, 5)) {
       const itemXml = match[1];
 
       const title = stripHtml(getTagContent(itemXml, 'title'));
@@ -150,9 +167,15 @@ async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<New
         getTagContent(itemXml, 'summary') ||
         getTagContent(itemXml, 'content')
       );
-      // Truncate to ~200 chars
-      if (description.length > 250) {
-        description = description.substring(0, 247) + '...';
+
+      // Truncate to ~200 chars cleanly
+      if (description.length > 200) {
+        description = description.substring(0, 197).replace(/\s+\S*$/, '') + '...';
+      }
+
+      // Skip articles with empty or very short descriptions after cleaning
+      if (description.length < 15) {
+        description = 'Click to read the full article on ' + source.name;
       }
 
       const pubDateStr = getTagContent(itemXml, 'pubDate') ||
@@ -185,7 +208,6 @@ async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<New
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
 
@@ -194,7 +216,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    // Fetch all sources in parallel
     const results = await Promise.allSettled(
       RSS_SOURCES.map((source) => fetchAndParseRSS(source))
     );
@@ -215,14 +236,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     allItems.sort((a, b) => {
       const dateA = new Date(a.pubDate).getTime();
       const dateB = new Date(b.pubDate).getTime();
-      // Handle invalid dates
       if (isNaN(dateA) && isNaN(dateB)) return 0;
       if (isNaN(dateA)) return 1;
       if (isNaN(dateB)) return -1;
       return dateB - dateA;
     });
 
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=1800');
+    // ✅ Cache for 12 hours (43200s), stale-while-revalidate for 6 hours
+    res.setHeader('Cache-Control', 's-maxage=43200, stale-while-revalidate=21600');
     res.setHeader('Content-Type', 'application/json');
 
     return res.status(200).json({
