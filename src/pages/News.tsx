@@ -274,9 +274,9 @@ const News = () => {
     }
   }
 
-  // When user clicks a source filter
+  // When user clicks a source filter (click active source toggles back to 'All')
   function onSourceClick(source: string) {
-    setSelectedSource(source);
+    setSelectedSource(prev => (prev === source ? 'All' : source));
     setShowCount(ARTICLES_PER_PAGE); // reset pagination
   }
 
