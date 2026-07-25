@@ -95,38 +95,120 @@ function getTagContent(xml: string, tag: string): string {
   return match ? match[1].trim() : '';
 }
 
-// Extract image URL from various RSS formats
+// ─── Enhanced image extraction with multiple strategies ───
 function extractImage(itemXml: string): string | null {
-  // media:content or media:thumbnail
+  // Strategy 1: media:content or media:thumbnail (most reliable)
   const mediaMatch = itemXml.match(/<media:(?:content|thumbnail)[^>]*url=["']([^"']+)["']/i);
-  if (mediaMatch) return mediaMatch[1];
+  if (mediaMatch && isValidImageUrl(mediaMatch[1])) return mediaMatch[1];
 
-  // enclosure with image type
+  // Strategy 2: enclosure with image type
   const enclosureMatch = itemXml.match(/<enclosure[^>]*url=["']([^"']+)["'][^>]*type=["']image[^"']*["']/i);
-  if (enclosureMatch) return enclosureMatch[1];
+  if (enclosureMatch && isValidImageUrl(enclosureMatch[1])) return enclosureMatch[1];
 
-  // enclosure with image extension
-  const enclosureAnyMatch = itemXml.match(/<enclosure[^>]*url=["']([^"']+)["']/i);
-  if (enclosureAnyMatch && /\.(jpg|jpeg|png|webp|gif)/i.test(enclosureAnyMatch[1])) {
-    return enclosureAnyMatch[1];
+  // Strategy 3: enclosure (reverse order attributes — type before url)
+  const enclosureRev = itemXml.match(/<enclosure[^>]*type=["']image[^"']*["'][^>]*url=["']([^"']+)["']/i);
+  if (enclosureRev && isValidImageUrl(enclosureRev[1])) return enclosureRev[1];
+
+  // Strategy 4: enclosure with image extension (no type specified)
+  const enclosureAny = itemXml.match(/<enclosure[^>]*url=["']([^"']+)["']/i);
+  if (enclosureAny && /\.(jpg|jpeg|png|webp|gif|svg)/i.test(enclosureAny[1])) {
+    return enclosureAny[1];
   }
 
-  // img tag inside description/content — only if it looks like a real image URL
-  const imgMatch = itemXml.match(/<img[^>]*src=["'](https?:\/\/[^"']+\.(jpg|jpeg|png|webp|gif)[^"']*)["']/i);
-  if (imgMatch) return imgMatch[1];
+  // Strategy 5: img tag inside content:encoded (common in WordPress feeds)
+  const contentEncoded = getTagContent(itemXml, 'content:encoded');
+  if (contentEncoded) {
+    const imgInContent = contentEncoded.match(/(?:src|SRC)=["'](https?:\/\/[^"']+\.(?:jpg|jpeg|png|webp|gif)[^"']*?)["']/i);
+    if (imgInContent && isValidImageUrl(imgInContent[1])) return imgInContent[1];
+  }
+
+  // Strategy 6: img tag inside description
+  const descHtml = getTagContent(itemXml, 'description');
+  if (descHtml) {
+    // Also decode CDATA and entities before searching
+    const decoded = descHtml.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/gi, '$1')
+      .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    const imgInDesc = decoded.match(/(?:src|SRC)=["'](https?:\/\/[^"']+\.(?:jpg|jpeg|png|webp|gif)[^"']*?)["']/i);
+    if (imgInDesc && isValidImageUrl(imgInDesc[1])) return imgInDesc[1];
+  }
+
+  // Strategy 7: any image URL in the raw item XML
+  const anyImgUrl = itemXml.match(/(https?:\/\/[^\s"'<>]+\.(?:jpg|jpeg|png|webp|gif)(?:\?[^\s"'<>]*)?)/i);
+  if (anyImgUrl && isValidImageUrl(anyImgUrl[1])) return anyImgUrl[1];
 
   return null;
+}
+
+function isValidImageUrl(url: string): boolean {
+  if (!url) return false;
+  try {
+    const u = new URL(url);
+    // Filter out tracking pixels, tiny icons, and ad images
+    if (u.pathname.includes('pixel') || u.pathname.includes('track') || u.pathname.includes('beacon')) return false;
+    if (u.pathname.includes('/1x1') || u.pathname.includes('/1.gif')) return false;
+    // Must be http/https
+    return u.protocol === 'http:' || u.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+// ─── Fetch OG image from article page as last resort ───
+async function fetchOgImage(url: string): Promise<string | null> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4000);
+
+    const resp = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; RakshnaSociety/1.0)',
+        'Accept': 'text/html',
+      },
+      redirect: 'follow',
+    });
+    clearTimeout(timeout);
+
+    if (!resp.ok) return null;
+
+    // Only read first 15KB to find og:image quickly
+    const reader = resp.body?.getReader();
+    if (!reader) return null;
+
+    let html = '';
+    const decoder = new TextDecoder();
+    while (html.length < 15000) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      html += decoder.decode(value, { stream: true });
+    }
+    reader.cancel();
+
+    // og:image
+    const ogMatch = html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i)
+      || html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i);
+    if (ogMatch && isValidImageUrl(ogMatch[1])) return ogMatch[1];
+
+    // twitter:image
+    const twMatch = html.match(/<meta[^>]*(?:name|property)=["']twitter:image["'][^>]*content=["']([^"']+)["']/i)
+      || html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*(?:name|property)=["']twitter:image["']/i);
+    if (twMatch && isValidImageUrl(twMatch[1])) return twMatch[1];
+
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<NewsItem[]> {
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
+    const timeout = setTimeout(() => controller.abort(), 10000);
 
     const response = await fetch(source.url, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'RakshnaSociety-NewsScraper/1.0',
+        'User-Agent': 'Mozilla/5.0 (compatible; RakshnaSociety-NewsAggregator/1.0)',
         'Accept': 'application/rss+xml, application/xml, text/xml, */*',
       },
     });
@@ -148,8 +230,10 @@ async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<New
       matches = [...xml.matchAll(entryRegex)];
     }
 
-    // ✅ Only take 5 articles per source
-    for (const match of matches.slice(0, 5)) {
+    // Take up to 8 articles per source for better coverage
+    const articlesToProcess = matches.slice(0, 8);
+
+    for (const match of articlesToProcess) {
       const itemXml = match[1];
 
       const title = stripHtml(getTagContent(itemXml, 'title'));
@@ -160,6 +244,11 @@ async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<New
       if (!link) {
         const linkMatch = itemXml.match(/<link[^>]*href=["']([^"']+)["']/i);
         if (linkMatch) link = linkMatch[1];
+      }
+      // Some feeds have link as self-closing tag with text content
+      if (!link) {
+        const linkText = itemXml.match(/<link[^>]*>(https?:\/\/[^<]+)<\/link>/i);
+        if (linkText) link = linkText[1].trim();
       }
 
       let description = stripHtml(
@@ -200,6 +289,26 @@ async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<New
       });
     }
 
+    // For items without images, try fetching OG image from their article page
+    // Limit to max 3 OG-fetches per source to stay fast
+    let ogFetchCount = 0;
+    const ogPromises: Promise<void>[] = [];
+
+    for (const item of items) {
+      if (!item.imageUrl && item.link && ogFetchCount < 3) {
+        ogFetchCount++;
+        ogPromises.push(
+          fetchOgImage(item.link).then((ogImg) => {
+            if (ogImg) item.imageUrl = ogImg;
+          })
+        );
+      }
+    }
+
+    if (ogPromises.length > 0) {
+      await Promise.allSettled(ogPromises);
+    }
+
     return items;
   } catch (error: any) {
     console.error(`Error scraping ${source.name}:`, error?.message || error);
@@ -222,11 +331,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const allItems: NewsItem[] = [];
     const sourceStats: Record<string, number> = {};
+    const categoryStats: Record<string, number> = {};
 
     results.forEach((result, index) => {
       if (result.status === 'fulfilled') {
         allItems.push(...result.value);
         sourceStats[RSS_SOURCES[index].name] = result.value.length;
+        // Build category stats
+        result.value.forEach((item) => {
+          categoryStats[item.category] = (categoryStats[item.category] || 0) + 1;
+        });
       } else {
         sourceStats[RSS_SOURCES[index].name] = 0;
       }
@@ -250,6 +364,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       success: true,
       totalArticles: allItems.length,
       sources: sourceStats,
+      categories: categoryStats,
       fetchedAt: new Date().toISOString(),
       articles: allItems,
     });
