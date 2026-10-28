@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
   Calendar, Clock, MapPin, Users, ChevronLeft, ChevronRight,
-  Calendar as CalendarIcon, X, FileText
+  Calendar as CalendarIcon, X, FileText, ExternalLink, Radio, Shield
 } from 'lucide-react';
 import {
   Dialog,
@@ -37,11 +37,99 @@ interface Event {
   posterUrl?: string; 
   details?: React.ReactNode;
   registrationLink?: string;
+  websiteLink?: string;
   galleryLink?: string; // <-- NEW: Link to the gallery page
+  isLive?: boolean;
 }
 
 // --- ONGOING EVENTS ---
-const ongoingEvents: Event[] = [];
+const ongoingEvents: Event[] = [
+  {
+    id: 'corezero-ctf',
+    title: 'COREZERO - CTF',
+    date: new Date('2026-10-28T19:00:00'),
+    location: 'Online',
+    type: 'CTF',
+    spots: 'Unlimited',
+    maxSpots: 'Open',
+    description: 'The flagship Capture The Flag competition organized by Rakshna Society. Test your skills across Web Exploitation, Cryptography, Digital Forensics, Reverse Engineering, and Binary Analysis.',
+    posterUrl: '/corezero-ctf.jpg',
+    websiteLink: 'https://rakshna-ctf-platform-26.vercel.app',
+    isLive: true,
+    details: (
+      <div className="space-y-6">
+        <div className="p-4 border border-red-500/40 rounded-lg bg-red-500/10">
+          <div className="flex items-center gap-2 text-red-500 font-bold mb-2">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+            COMPETITION IS LIVE NOW!
+          </div>
+          <p className="text-sm text-foreground/80 mb-4">
+            The COREZERO CTF portal is officially live. Solve cybersecurity challenges, capture flags, and compete on the live leaderboard.
+          </p>
+          <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white font-semibold gap-2 shadow-lg transition-all">
+            <a href="https://rakshna-ctf-platform-26.vercel.app" target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="h-4 w-4" />
+              Enter CTF Platform
+            </a>
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-4 border rounded-lg bg-muted/30">
+            <h4 className="font-semibold text-base mb-2 flex items-center gap-2">
+              <Radio className="h-4 w-4 text-primary" />
+              Event Structure
+            </h4>
+            <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+              <li>Category: Capture The Flag (CTF)</li>
+              <li>Mode: Online (Jeopardy Style)</li>
+              <li>Dynamic challenge scoring</li>
+              <li>Real-time live scoreboard</li>
+            </ul>
+          </div>
+          <div className="p-4 border rounded-lg bg-muted/30">
+            <h4 className="font-semibold text-base mb-2 flex items-center gap-2">
+              <Shield className="h-4 w-4 text-primary" />
+              Challenge Domains
+            </h4>
+            <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+              <li>Web Exploitation & API Security</li>
+              <li>Cryptography & Cryptanalysis</li>
+              <li>Digital Forensics & Steganography</li>
+              <li>Reverse Engineering & Binary Analysis</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="p-4 border rounded-lg bg-muted/20">
+          <h4 className="font-semibold text-base mb-2 flex items-center gap-2">
+            <Clock className="h-4 w-4 text-primary" />
+            Schedule & Access
+          </h4>
+          <div className="text-sm text-muted-foreground space-y-1">
+            <p><strong>Date:</strong> October 28, 2026</p>
+            <p><strong>Time:</strong> 19:00:00 (7:00 PM IST)</p>
+            <p><strong>Location:</strong> Online (Virtual)</p>
+            <p>
+              <strong>Official Platform:</strong>{' '}
+              <a
+                href="https://rakshna-ctf-platform-26.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline font-medium break-all"
+              >
+                https://rakshna-ctf-platform-26.vercel.app
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+];
 
 
 // --- PAST EVENTS ---
@@ -250,7 +338,9 @@ const Events = () => {
                             <div className="text-sm text-muted-foreground">Past Events</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-2xl font-bold text-destructive">0</div>
+                            <div className="text-2xl font-bold text-destructive">
+                              {ongoingEvents.filter(e => e.location.toLowerCase().includes('online')).length + pastEvents.filter(e => e.location.toLowerCase().includes('online')).length}
+                            </div>
                             <div className="text-sm text-muted-foreground">Virtual</div>
                         </div>
                     </div>
@@ -260,7 +350,18 @@ const Events = () => {
 
           {/* ONGOING EVENTS */}
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-primary mb-6">Ongoing Events</h2>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <h2 className="text-3xl font-bold text-primary">Ongoing Events</h2>
+                {ongoingEvents.some(e => e.isLive) && (
+                  <Badge variant="destructive" className="animate-pulse bg-red-600 hover:bg-red-700 text-white font-semibold flex items-center gap-1.5 px-3 py-1 text-xs">
+                    <span className="w-2 h-2 rounded-full bg-white inline-block"></span>
+                    LIVE NOW
+                  </Badge>
+                )}
+              </div>
+            </div>
+
             {ongoingEvents.length === 0 ? (
                 <div className="text-center p-8 border-2 border-dashed rounded-xl bg-muted/30">
                     <p className="text-muted-foreground">No ongoing events scheduled. Check back soon!</p>
@@ -268,14 +369,36 @@ const Events = () => {
             ) : (
                 <div className="grid gap-6">
                     {ongoingEvents.map((event) => (
-                        <Card key={event.id} className="border-primary/20 shadow-lg">
+                        <Card key={event.id} className="border-primary/20 shadow-lg overflow-hidden border-2 border-red-500/30">
+                            {event.isLive && (
+                              <div className="bg-gradient-to-r from-red-600 via-rose-600 to-red-600 text-white text-xs font-semibold px-4 py-1.5 flex items-center justify-between">
+                                <span className="flex items-center gap-2 font-bold uppercase tracking-wider">
+                                  <span className="w-2 h-2 rounded-full bg-white animate-ping inline-block" />
+                                  Live Competition
+                                </span>
+                                <span className="font-medium">Started at 19:00:00 &bull; Online</span>
+                              </div>
+                            )}
                             <CardContent className="p-6">
                                 <div className="flex flex-col md:flex-row gap-6">
+                                    {event.posterUrl && (
+                                      <div className="md:w-64 h-48 md:h-auto flex-shrink-0 rounded-lg overflow-hidden border shadow-sm">
+                                        <img src={event.posterUrl} alt={event.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                                      </div>
+                                    )}
                                     <div className="flex-grow space-y-4">
-                                        <div className="flex items-center justify-between">
-                                            <Badge className="bg-primary hover:bg-primary/90 text-primary-foreground px-3 py-1 text-sm">
-                                                {event.type}
-                                            </Badge>
+                                        <div className="flex items-center justify-between flex-wrap gap-2">
+                                            <div className="flex items-center gap-2">
+                                              <Badge className="bg-primary hover:bg-primary/90 text-primary-foreground px-3 py-1 text-sm">
+                                                  {event.type}
+                                              </Badge>
+                                              {event.isLive && (
+                                                <Badge className="bg-red-600 hover:bg-red-700 text-white flex items-center gap-1.5 text-xs font-semibold animate-pulse">
+                                                  <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                                  LIVE
+                                                </Badge>
+                                              )}
+                                            </div>
                                             <span className="text-sm text-muted-foreground flex items-center gap-1 bg-muted px-2 py-1 rounded-full">
                                                 <CalendarIcon className="h-4 w-4"/>
                                                 {event.date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
@@ -283,25 +406,39 @@ const Events = () => {
                                         </div>
                                         
                                         <div>
-                                            <h3 className="text-2xl font-bold mb-2">{event.title}</h3>
+                                            <h3 className="text-2xl font-bold mb-2 flex items-center gap-2">
+                                              {event.title}
+                                            </h3>
                                             <p className="text-muted-foreground leading-relaxed">{event.description}</p>
                                         </div>
 
                                         <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                                            <div className="flex items-center gap-2">
+                                                <Clock className="h-4 w-4 text-primary" />
+                                                {event.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                                            </div>
                                             <div className="flex items-center gap-2">
                                                 <MapPin className="h-4 w-4 text-primary" />
                                                 {event.location}
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <Users className="h-4 w-4 text-primary" />
-                                                {event.spots} / {event.maxSpots} Spots
+                                                {event.spots} Spots
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="flex flex-col justify-center gap-3 min-w-[200px]">
-                                        <Button size="lg" onClick={() => setSelectedEvent(event)} className="w-full shadow-md hover:shadow-lg transition-all">
-                                            View Details & Tasks
+                                        {event.websiteLink && (
+                                          <Button size="lg" asChild className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold shadow-md hover:shadow-lg transition-all gap-2">
+                                            <a href={event.websiteLink} target="_blank" rel="noopener noreferrer">
+                                              <ExternalLink className="h-4 w-4" />
+                                              Enter CTF Platform
+                                            </a>
+                                          </Button>
+                                        )}
+                                        <Button size="lg" variant={event.websiteLink ? "outline" : "default"} onClick={() => setSelectedEvent(event)} className="w-full shadow-md hover:shadow-lg transition-all">
+                                            View Details
                                         </Button>
                                     </div>
                                 </div>
@@ -362,7 +499,16 @@ const Events = () => {
           {selectedEvent && (
             <>
               <DialogHeader>
-                <DialogTitle>{selectedEvent.title}</DialogTitle>
+                <div className="flex items-center gap-2 mb-1">
+                  <Badge className="bg-primary text-primary-foreground">{selectedEvent.type}</Badge>
+                  {selectedEvent.isLive && (
+                    <Badge className="bg-red-600 hover:bg-red-700 text-white font-semibold flex items-center gap-1.5 animate-pulse">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                      LIVE NOW
+                    </Badge>
+                  )}
+                </div>
+                <DialogTitle className="text-2xl font-bold">{selectedEvent.title}</DialogTitle>
                 <DialogDescription>{selectedEvent.description}</DialogDescription>
 
               </DialogHeader>
@@ -370,11 +516,24 @@ const Events = () => {
                 <div className="md:col-span-2 prose dark:prose-invert max-w-none">
                     {selectedEvent.details}
                 </div>
-                <div className="md:col-span-1">
-                    <img src={selectedEvent.posterUrl} alt={`${selectedEvent.title} event poster`} className="w-full rounded-lg shadow-md mb-4" />
-                    <Card className="bg-muted/50"><CardContent className="p-4 space-y-2">
-                        <div className="flex gap-2 text-sm"><Clock className="h-4 w-4"/> {selectedEvent.date.toLocaleTimeString()}</div>
-                        <div className="flex gap-2 text-sm"><MapPin className="h-4 w-4"/> {selectedEvent.location}</div>
+                <div className="md:col-span-1 space-y-4">
+                    {selectedEvent.posterUrl && (
+                      <img src={selectedEvent.posterUrl} alt={`${selectedEvent.title} event poster`} className="w-full rounded-lg shadow-md border" />
+                    )}
+                    <Card className="bg-muted/50"><CardContent className="p-4 space-y-3">
+                        <div className="flex items-center gap-2 text-sm"><CalendarIcon className="h-4 w-4 text-primary"/> {selectedEvent.date.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</div>
+                        <div className="flex items-center gap-2 text-sm"><Clock className="h-4 w-4 text-primary"/> {selectedEvent.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</div>
+                        <div className="flex items-center gap-2 text-sm"><MapPin className="h-4 w-4 text-primary"/> {selectedEvent.location}</div>
+                        {selectedEvent.websiteLink && (
+                          <div className="pt-2">
+                            <Button asChild className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold gap-2 shadow">
+                              <a href={selectedEvent.websiteLink} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="h-4 w-4" />
+                                Go to CTF Website
+                              </a>
+                            </Button>
+                          </div>
+                        )}
                     </CardContent></Card>
                 </div>
               </div>

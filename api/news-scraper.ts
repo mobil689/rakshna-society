@@ -82,6 +82,23 @@ function stripHtml(html: string): string {
   return text;
 }
 
+// ─── Deterministic hash over the FULL string ───────────────
+// (Previously we base64-encoded the link and took substring(0, 16),
+// which only captures the first 12 bytes of the URL. Since
+// BleepingComputer/Dark Reading/SecurityWeek links all start with
+// "https://www." (exactly 12 chars), every article from those
+// sources ended up with an identical hash — causing duplicate ids
+// and broken React reconciliation when filtering. Hashing the
+// entire string avoids that.)
+function hashString(input: string): string {
+  let hash = 5381;
+  for (let i = 0; i < input.length; i++) {
+    hash = ((hash << 5) + hash + input.charCodeAt(i)) | 0; // djb2
+  }
+  // Unsigned, base36 for compactness
+  return (hash >>> 0).toString(36);
+}
+
 // Simple XML tag text extractor
 function getTagContent(xml: string, tag: string): string {
   // Try CDATA first
@@ -274,7 +291,7 @@ async function fetchAndParseRSS(source: typeof RSS_SOURCES[number]): Promise<New
 
       const imageUrl = extractImage(itemXml);
 
-      const id = `${source.name.replace(/\s/g, '-').toLowerCase()}-${Buffer.from(link || title).toString('base64').substring(0, 16)}`;
+      const id = `${source.name.replace(/\s/g, '-').toLowerCase()}-${hashString(link || title)}`;
 
       items.push({
         id,

@@ -20,6 +20,24 @@ const Hero = () => {
             {/* ANIMATION: Added 'relative' and 'z-10' to ensure content is on top of the background */}
             <div className="container mx-auto px-4 text-center relative z-10">
                 <div className="max-w-4xl mx-auto">
+                    {/* Live CTF Announcement Badge */}
+                    <div className="mb-6 inline-flex animate-fade-in-down">
+                        <a
+                            href="https://rakshna-ctf-platform-26.vercel.app"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-red-600/30 hover:bg-red-600/40 border border-red-400/50 text-white text-sm font-medium backdrop-blur-sm shadow-lg transition-all duration-300 hover:scale-105"
+                        >
+                            <span className="relative flex h-2.5 w-2.5">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                            </span>
+                            <span className="font-bold text-red-200 uppercase tracking-wider text-xs">LIVE NOW:</span>
+                            <span>COREZERO - CTF Platform is Live! Join Competition</span>
+                            <span className="ml-1 text-red-300 font-bold">&rarr;</span>
+                        </a>
+                    </div>
+
                     {/* ANIMATION: Added fade-in animation to the heading */}
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-down">
                         Cyber Security Society of MAIT
