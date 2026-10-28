@@ -70,7 +70,7 @@ const ongoingEvents: Event[] = [
             The COREZERO CTF portal is officially live. Solve cybersecurity challenges, capture flags, and compete on the live leaderboard.
           </p>
           <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white font-semibold gap-2 shadow-lg transition-all">
-            <a href="https://rakshna-ctf-platform-26.vercel.app" target="_blank" rel="noopener noreferrer">
+            <a href="" target="_blank" rel="noopener noreferrer">
               <ExternalLink className="h-4 w-4" />
               Enter CTF Platform
             </a>
