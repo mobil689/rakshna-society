@@ -64,7 +64,7 @@ const ongoingEvents: Event[] = [
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
             </span>
-            COMPETITION IS LIVE NOW!
+            COMPETITION WILL BE LIVE
           </div>
           <p className="text-sm text-foreground/80 mb-4">
             The COREZERO CTF portal is officially live. Solve cybersecurity challenges, capture flags, and compete on the live leaderboard.
@@ -116,12 +116,12 @@ const ongoingEvents: Event[] = [
             <p>
               <strong>Official Platform:</strong>{' '}
               <a
-                href="https://rakshna-ctf-platform-26.vercel.app"
+                href=""
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary underline font-medium break-all"
               >
-                https://rakshna-ctf-platform-26.vercel.app
+                
               </a>
             </p>
           </div>
