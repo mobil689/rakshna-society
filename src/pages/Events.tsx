@@ -54,7 +54,7 @@ const ongoingEvents: Event[] = [
     maxSpots: 'Open',
     description: 'The flagship Capture The Flag competition organized by Rakshna Society. Test your skills across Web Exploitation, Cryptography, Digital Forensics, Reverse Engineering, and Binary Analysis.',
     posterUrl: '/corezero-ctf.jpg',
-    websiteLink: '',
+    websiteLink: ,
     isLive: true,
     details: (
       <div className="space-y-6">
