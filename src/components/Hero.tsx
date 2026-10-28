@@ -23,7 +23,7 @@ const Hero = () => {
                     {/* Live CTF Announcement Badge */}
                     <div className="mb-6 inline-flex animate-fade-in-down">
                         <a
-                            href="https://rakshna-ctf-platform-26.vercel.app"
+                            href=""
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-red-600/30 hover:bg-red-600/40 border border-red-400/50 text-white text-sm font-medium backdrop-blur-sm shadow-lg transition-all duration-300 hover:scale-105"
